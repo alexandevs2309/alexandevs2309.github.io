@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+const { titulo, descripcion } = Astro.props;
+const p = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  ['/', 'Inicio'],
+  ['/documentacion', 'Documentación'],
+  ['/ejemplos', 'Ejemplos'],
+  ['/acerca', 'Acerca de'],
+];
+const full = titulo === 'Basilisco'
+  ? 'Basilisco — lenguaje de programación con sintaxis en español'
+  : `${titulo} · Basilisco`;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{full}</title>
+  <meta name="description" content={descripcion}>
+  <meta property="og:title" content={full}>
+  <meta property="og:description" content={descripcion}>
+  <meta property="og:locale" content="es">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0a7c52">
+  <link rel="icon" type="image/png" href="/mascota.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script is:inline>
+    (function () {
+      var t = localStorage.getItem('theme')
+        || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#c">Saltar al contenido</a>
+
+  <div class="aviso">
+    BASILISCO es un lenguaje experimental en desarrollo
+    · <a href="https://github.com/alexandevs2309/nexo" target="_blank" rel="noopener">github.com/alexandevs2309/nexo</a>
+  </div>
+
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="/">
+        <img src="/mascota.png" alt="" width="36" height="36">
+        <span>Basilisco</span>
+      </a>
+      <nav aria-label="Principal">
+        {nav.map(([href, label]) => (
+          <a href={href} aria-current={p === href ? 'page' : undefined}>{label}</a>
+        ))}
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema" aria-pressed="false">
+        <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="c"><slot/></main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">
+          <img src="/mascota.png" alt="" width="32" height="32">
+          <span>Basilisco</span>
+        </div>
+        <p>Lenguaje de programación con sintaxis en español. Experimental, en desarrollo.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorar</h4>
+        <a href="/lenguaje">El lenguaje</a>
+        <a href="/documentacion">Documentación</a>
+        <a href="/ejemplos">Ejemplos</a>
+        <a href="/hoja-de-ruta">Hoja de ruta</a>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <a href="/probar">Cómo probar</a>
+        <a href="/comunidad">Comunidad</a>
+        <a href="/acerca">Acerca de</a>
+        <a href="https://github.com/alexandevs2309/nexo" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Hecho en Rust · Sintaxis en español
+    </div>
+  </footer>
+
+  <script is:inline>
+    // Theme toggle
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      if (!toggle) return;
+      var sync = function () {
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        toggle.setAttribute('aria-pressed', String(dark));
+      };
+      sync();
+      toggle.addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        sync();
+      });
+    })();
+
+    // Copy buttons
+    document.querySelectorAll('.anot-copy').forEach(btn => {
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(btn.dataset.code).then(() => {
+          const orig = btn.textContent;
+          btn.textContent = '✓ Copiado';
+          setTimeout(() => (btn.textContent = orig), 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+---
+const { e } = Astro.props;
+const map: Record<string, [string, string]> = {
+  exp:  ['Experimental',  'exp'],
+  dev:  ['En desarrollo', 'exp'],
+  plan: ['Planificado',   'pl'],
+  prop: ['Propuesto',     'pl'],
+};
+const [label, cls] = map[e] ?? ['Desconocido', 'pl'];
+---
+<span class={`tag ${cls}`} title={`Estado: ${label}`}>{label}</span>

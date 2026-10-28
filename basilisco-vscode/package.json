@@ -1,0 +1,37 @@
+{
+  "name": "basilisco",
+  "displayName": "Basilisco",
+  "description": "Resaltado de sintaxis para el lenguaje de programación BASILISCO",
+  "version": "0.1.0",
+  "publisher": "alexandevs2309",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexandevs2309/nexo"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "basilisco",
+        "aliases": ["Basilisco", "basilisco", "BSK"],
+        "extensions": [".bsk", ".nexo"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/basilisco.svg",
+          "dark": "./icons/basilisco.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "basilisco",
+        "scopeName": "source.basilisco",
+        "path": "./syntaxes/basilisco.tmLanguage.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+---
+// Renders a <pre class="plain"><code> block safely, escaping HTML.
+// Avoids Astro treating { } inside pre blocks as expressions.
+const { codigo, clase = '' } = Astro.props;
+const escaped = codigo
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;');
+---
+<pre class={`plain ${clase}`}><code set:html={escaped} /></pre>

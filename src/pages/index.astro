@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import Anotado from '../components/Anotado.astro';
+
+const ejemplo: [string, string][] = [
+  ['funcion doble(n) {',                  'Define una función.'],
+  ['  retornar n * 2',                    'Devuelve el doble.'],
+  ['}',                                   ''],
+  ['sea total = 0',                       'Acumulador.'],
+  ['mientras contador < 3 {',             'Repite 3 veces.'],
+  ['  contador = contador + 1',           ''],
+  ['  total = total + doble(contador)',   'Suma el doble de cada valor.'],
+  ['}',                                   ''],
+  ['mostrar total',                       'Imprime 12.'],
+];
+---
+<Base
+  titulo="Basilisco"
+  descripcion="BASILISCO es un lenguaje de programación con sintaxis en español. Escribe código con sea, si, mientras y funcion."
+>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">Lenguaje de programación en español</div>
+      <h1>Programa en<br><em>español</em></h1>
+      <p class="hero-sub">
+        BASILISCO es un lenguaje con palabras clave en español —
+        <code>sea</code>, <code>si</code>, <code>mientras</code>, <code>funcion</code> —
+        reglas formales y errores que te dicen exactamente qué falló.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="/documentacion">Documentación</a>
+        <a class="btn s" href="/ejemplos">Ver ejemplos</a>
+        <a class="btn ghost" href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">crates.io ↗</a>
+      </div>
+    </div>
+    <div class="hero-img-wrap" aria-hidden="true">
+      <img src="/mascota-espiral.png" alt="" width="320" height="320">
+    </div>
+  </section>
+
+  <!-- Features -->
+  <h2>Qué lo hace diferente</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-card-icon">🇪🇸</div>
+      <h3>Sintaxis en español</h3>
+      <p>Palabras clave, mensajes de error y documentación en español.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">🔍</div>
+      <h3>Errores precisos</h3>
+      <p>Cada error indica archivo, línea, columna y causa. Nada silencioso.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">📐</div>
+      <h3>Reglas formales</h3>
+      <p>El comportamiento es predecible. No hay casos indefinidos.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">🦀</div>
+      <h3>Hecho en Rust</h3>
+      <p>Intérprete en Rust sin dependencias externas.</p>
+    </div>
+  </div>
+
+  <!-- Example -->
+  <h2>Cómo se ve</h2>
+  <Anotado lineas={ejemplo} titulo="ejemplo"/>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <h2>Empieza a programar</h2>
+    <p>Instala BASILISCO con un comando y escribe tu primer programa.</p>
+    <a class="btn" href="/documentacion#instalacion">Instalar BASILISCO →</a>
+  </div>
+
+</Base>

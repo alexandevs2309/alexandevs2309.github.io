@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  titulo="Acerca de Basilisco"
+  descripcion="Qué es BASILISCO, por qué existe y cómo seguir el proyecto."
+>
+
+  <div class="page-head">
+    <div class="hero-eyebrow">Acerca de</div>
+    <h1>Acerca de BASILISCO</h1>
+  </div>
+
+  <div class="two-col" style="margin-bottom:2rem">
+    <p style="font-size:1.1rem;color:var(--mut);max-width:56ch">
+      BASILISCO es un lenguaje de programación con sintaxis en español.
+      Existe para reducir la barrera del idioma para quienes aprenden y programan
+      en español, sin renunciar al rigor.
+    </p>
+    <img src="/mascota.png" alt="" class="img-deco" style="width:180px;height:180px;object-fit:contain">
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card"><h3>Qué es</h3><p>Un lenguaje de programación con sintaxis en español.</p></div>
+    <div class="about-card"><h3>En qué está hecho</h3><p>Intérprete en Rust, sin dependencias externas.</p></div>
+    <div class="about-card"><h3>Repositorio</h3><p><a href="https://github.com/alexandevs2309/nexo" target="_blank" rel="noopener">github.com/alexandevs2309/nexo</a></p></div>
+    <div class="about-card"><h3>crates.io</h3><p><a href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">crates.io/crates/basilisco</a></p></div>
+    <div class="about-card"><h3>Licencia</h3><p>Apache-2.0</p></div>
+    <div class="about-card"><h3>Estado</h3><p>Experimental, en desarrollo activo.</p></div>
+  </div>
+
+  <h2>El nombre</h2>
+  <p>
+    El basilisco es un reptil mítico coronado. «Nexo» fue el nombre de trabajo;
+    BASILISCO es el nombre actual.
+  </p>
+
+  <h2>Filosofía</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-card-icon">🌱</div>
+      <h3>Evidencia antes que promesas</h3>
+      <p>Lo que funciona está probado. Lo que no, no se afirma.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">🎓</div>
+      <h3>Para aprender en español</h3>
+      <p>El objetivo es reducir la barrera del idioma.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">🔍</div>
+      <h3>Honestidad</h3>
+      <p>No se promete lo que no se puede demostrar.</p>
+    </div>
+  </div>
+
+  <h2>Comunidad</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-card-icon">📖</div>
+      <h3>Leer el código</h3>
+      <p>El repositorio es público. El intérprete está en Rust.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">🐛</div>
+      <h3>Reportar problemas</h3>
+      <p>Abre un issue en <a href="https://github.com/alexandevs2309/nexo" target="_blank" rel="noopener">GitHub</a> para reportar errores o proponer ideas.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">💬</div>
+      <h3>Seguir el proyecto</h3>
+      <p>El repositorio es el punto de contacto. Cuando se abran más canales, se anunciarán.</p>
+    </div>
+  </div>
+
+</Base>

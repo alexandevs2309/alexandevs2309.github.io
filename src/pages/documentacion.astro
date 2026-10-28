@@ -1,0 +1,427 @@
+---
+import Base from '../layouts/Base.astro';
+import Estado from '../components/Estado.astro';
+import Codigo from '../components/Codigo.astro';
+
+// ── Install ──
+const installCargo = `cargo install basilisco`;
+const installVerify = `basilisco --version
+basilisco --help`;
+const installSource = `git clone https://github.com/alexandevs2309/nexo.git
+cd nexo
+cargo build --release
+# El binario queda en target/release/basilisco`;
+
+// ── First program ──
+const hola = `mostrar "hola, mundo"`;
+const holaRun = `basilisco run hola.bsk
+# hola, mundo`;
+
+// ── Variables ──
+const varEj = `sea edad = 25
+sea nombre = "Ana"
+sea apellido: texto = "García"   # sea también admite tipo
+var precio: decimal = 9.99
+
+edad = 26`;
+const varError = `sea x = 10
+x = "texto"   # error: el tipo ya es entero`;
+
+// ── Types ──
+const numEj = `sea a = 42            # entero
+sea b = 3.14          # decimal
+sea c = 1e10          # real
+sea d = a + 1         # entero: 43`;
+const logEj = `sea activo = verdadero
+sea vacio = falso
+sea niega = no activo          # falso
+sea ambos = activo y no vacio  # verdadero
+sea alguno = activo o vacio     # verdadero`;
+
+// ── Texto ──
+const textoEj = `sea saludo = "hola"
+sea nombre = "mundo"
+mostrar saludo + ", " + nombre   # hola, mundo
+
+sea escapado = "línea1\\nlínea2"
+mostrar escapado`;
+const convEj = `sea edad = 11
+
+mostrar texto(edad)                          # 11
+mostrar "tengo " + texto(edad) + " años"     # tengo 11 años`;
+
+// ── Operadores ──
+const opEj = `sea suma = 10 + 5       # 15
+sea resta = 10 - 3       # 7
+sea mult = 4 * 6         # 24
+sea div = 10 / 3          # 3 (entero trunca)
+sea mod = 10 % 3          # 1
+
+sea igual = 5 == 5        # verdadero
+sea dist = 5 != 3         # verdadero
+sea menor = 3 < 5         # verdadero
+sea mayor = 3 > 5         # falso`;
+
+// ── Funciones ──
+const fnEj = `funcion saludar(nombre) {
+  retornar "hola, " + nombre
+}
+mostrar saludar("Ana")   # hola, Ana`;
+const fnRec = `funcion factorial(n) {
+  si n <= 1 {
+    retornar 1
+  }
+  retornar n * factorial(n - 1)
+}
+mostrar factorial(5)   # 120`;
+const fnDos = `funcion sumar(a, b) {
+  retornar a + b
+}
+mostrar sumar(3, 4)   # 7`;
+
+// ── Control flow ──
+const siEj = `sea edad = 20
+si edad >= 18 {
+  mostrar "mayor de edad"
+} sino si edad >= 13 {
+  mostrar "adolescente"
+} sino {
+  mostrar "menor"
+}`;
+const mientrasEj = `sea contador = 1
+sea total = 0
+mientras contador <= 5 {
+  total = total + contador
+  contador = contador + 1
+}
+mostrar total   # 15`;
+
+// ── Ámbitos ──
+const ambEj = `sea total = 0
+{
+  sea temporal = 100
+  total = total + temporal
+}
+# temporal no existe aquí`;
+
+// ── Colecciones ──
+const arrEj = `var valores: arreglo<entero, 3> = [10, 20, 30]
+mostrar valores[0]       # 10
+valores[1] = 25
+mostrar valores[1]       # 25`;
+const colEj = `var notas: arreglo<entero, 4> = [8, 7, 9, 6]
+var indice: entero = 0
+var suma: entero = 0
+mientras indice < 4 {
+  suma = suma + notas[indice]
+  indice = indice + 1
+}
+mostrar "promedio: " + texto(suma / 4)`;
+
+// ── Errores ──
+const errEj = `sea valor = 10
+valor / 0`;
+const errOut = `archivo.bsk: error de ejecución [2:1]: división entre cero`;
+
+// ── CLI ──
+const cliCmds = `basilisco run programa.bsk   # ejecuta un programa
+basilisco demo               # demostración integrada
+basilisco --version          # muestra la versión
+basilisco --help             # muestra la ayuda
+
+bsk run programa.bsk         # alias corto`;
+
+// ── Keywords & types ──
+const keywords = ['sea','var','si','sino','mientras','funcion','retornar','mostrar','verdadero','falso','nulo','y','o','no'];
+const types = ['entero','decimal','real','logico','texto','nulo','arreglo','lista'];
+---
+<Base
+  titulo="Documentación"
+  descripcion="Instalación, tutorial, referencia del lenguaje, CLI y preguntas frecuentes de BASILISCO."
+>
+
+  <div class="page-head">
+    <div class="hero-eyebrow">Documentación</div>
+    <h1>Documentación</h1>
+  </div>
+
+  <nav class="toc" aria-label="En esta página">
+    <span class="toc-title">Contenido</span>
+    <a href="#instalacion">Instalación</a>
+    <a href="#primer-programa">Tu primer programa</a>
+    <a href="#variables">Variables</a>
+    <a href="#tipos">Tipos</a>
+    <a href="#operadores">Operadores</a>
+    <a href="#texto">Texto</a>
+    <a href="#conversiones">Conversiones</a>
+    <a href="#funciones">Funciones</a>
+    <a href="#control">Control de flujo</a>
+    <a href="#ambitos">Ámbitos</a>
+    <a href="#colecciones">Colecciones</a>
+    <a href="#errores">Errores</a>
+    <a href="#cli">CLI</a>
+    <a href="#faq">Preguntas frecuentes</a>
+  </nav>
+
+  <!-- ─────────── Instalación ─────────── -->
+  <h2 id="instalacion">Instalación</h2>
+
+  <h3>Con Cargo</h3>
+  <p>
+    BASILISCO está publicado en
+    <a href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">crates.io</a>.
+    La forma más sencilla de instalarlo es con Cargo, el gestor de paquetes de Rust:
+  </p>
+  <Codigo codigo={installCargo}/>
+  <p>Verifica que se instaló correctamente:</p>
+  <Codigo codigo={installVerify}/>
+
+  <h3>Compilar desde el código fuente</h3>
+  <p>Si prefieres compilar manualmente o quieres contribuir:</p>
+  <Codigo codigo={installSource}/>
+
+  <div class="callout">
+    <span class="callout-icon">📦</span>
+    <p>
+      También disponible como biblioteca en Rust: <code>cargo add basilisco</code> para
+      integrar el intérprete en tus propios proyectos.
+      Si quieres que BASILISCO esté en
+      <a href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">Homebrew, apt o winget</a>,
+      abre un issue en el repositorio.
+    </p>
+  </div>
+
+  <!-- ─────────── Primer programa ─────────── -->
+  <h2 id="primer-programa">Tu primer programa</h2>
+  <p>
+    Crea un archivo llamado <code>hola.bsk</code> con esta línea:
+  </p>
+  <Codigo codigo={hola}/>
+  <p>Ejecútalo:</p>
+  <Codigo codigo={holaRun}/>
+  <p>
+    <code>mostrar</code> imprime un valor en la consola. Es la forma más directa
+    de ver resultados. La última expresión de un programa también se imprime
+    automáticamente.
+  </p>
+
+  <!-- ─────────── Variables ─────────── -->
+  <h2 id="variables">Variables</h2>
+
+  <h3>Declarar</h3>
+  <p>
+    <code>sea</code> declara una variable e infiere el tipo a partir del valor inicial.
+    También admite una anotación de tipo opcional:
+    <code>sea nombre: texto = "Ana"</code>.
+  </p>
+  <p>
+    <code>var</code> declara una variable con un tipo <strong>obligatorio</strong>:
+    <code>var precio: decimal = 9.99</code>. A diferencia de <code>sea</code>, la
+    anotación de tipo no se puede omitir.
+  </p>
+  <Codigo codigo={varEj}/>
+
+  <h3>Asignar</h3>
+  <p>
+    <code>nombre = valor</code> actualiza una variable ya declarada. El tipo se fija
+    al declarar: no puedes asignarle un valor de otro tipo.
+  </p>
+  <Codigo codigo={varError}/>
+
+  <!-- ─────────── Tipos ─────────── -->
+  <h2 id="tipos">Tipos</h2>
+  <p>Los tipos disponibles en el lenguaje:</p>
+  <ul class="pill-list">
+    {types.map(t => <li><code class="pill">{t}</code></li>)}
+  </ul>
+
+  <h3 style="margin-top:1.5rem">Números</h3>
+  <div class="fila"><p><strong>entero</strong> — entero de 64 bits. División trunca hacia cero.</p></div>
+  <div class="fila"><p><strong>decimal</strong> — punto fijo para cálculos precisos (28 dígitos, 9 decimales).</p></div>
+  <div class="fila"><p><strong>real</strong> — coma flotante de 64 bits. Admite infinitos y NaN según IEEE.</p></div>
+  <Codigo codigo={numEj}/>
+
+  <h3 style="margin-top:1.5rem">Lógico</h3>
+  <p><strong>logico</strong> admite <code>verdadero</code> y <code>falso</code>. Los operadores <code>y</code>, <code>o</code>, <code>no</code> usan cortocircuito.</p>
+  <Codigo codigo={logEj}/>
+
+  <h3 style="margin-top:1.5rem">Nulo</h3>
+  <p><strong>nulo</strong> representa la ausencia de valor. Es distinto de <code>falso</code>, <code>0</code> y <code>""</code>.</p>
+
+  <!-- ─────────── Operadores ─────────── -->
+  <h2 id="operadores">Operadores</h2>
+
+  <h3>Aritméticos</h3>
+  <Codigo codigo={opEj}/>
+
+  <h3 style="margin-top:1.5rem">Comparación</h3>
+  <p><code>==</code> <code>!=</code> <code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code> — devuelven un valor <code>logico</code>.</p>
+
+  <h3 style="margin-top:1.5rem">Lógicos</h3>
+  <p><code>y</code> <code>o</code> <code>no</code> — solo funcionan con valores <code>logico</code>. Usan cortocircuito.</p>
+
+  <h3 style="margin-top:1.5rem">Precedencia</h3>
+  <p>De mayor a menor prioridad:</p>
+  <div class="about-grid" style="margin:.75rem 0 1.5rem">
+    <div class="about-card"><h3>Mayor</h3><p><code>* / %</code></p></div>
+    <div class="about-card"><h3></h3><p><code>+ -</code></p></div>
+    <div class="about-card"><h3></h3><p><code>== != &lt; &lt;= &gt; &gt;=</code></p></div>
+    <div class="about-card"><h3></h3><p><code>no</code></p></div>
+    <div class="about-card"><h3></h3><p><code>y</code></p></div>
+    <div class="about-card"><h3>Menor</h3><p><code>o</code></p></div>
+  </div>
+  <p>Las comparaciones encadenadas como <code>a &lt; b &lt; c</code> son un error de sintaxis.</p>
+
+  <!-- ─────────── Texto ─────────── -->
+  <h2 id="texto">Texto</h2>
+  <p>
+    Las cadenas van entre comillas dobles y admiten Unicode. Escapes disponibles:
+    <code>\\</code> <code>\"</code> <code>\n</code> <code>\t</code>.
+    Se concatenan con <code>+</code> y se comparan lexicográficamente.
+  </p>
+  <Codigo codigo={textoEj}/>
+  <div class="callout">
+    <span class="callout-icon">⚠️</span>
+    <p>
+      <code>+</code> solo une texto con texto: no convierte un número a texto de
+      forma implícita. Para incluir un número en una cadena, conviértelo con
+      <code>texto(...)</code> (ver <a href="#conversiones">Conversiones</a>).
+      Además, <code>mostrar</code> recibe una sola expresión: no se admiten valores
+      separados por espacios, hay que unirlos con <code>+</code>.
+    </p>
+  </div>
+
+  <!-- ─────────── Conversiones ─────────── -->
+  <h2 id="conversiones">Conversiones</h2>
+  <p>
+    Para convertir un número a texto se usa la función integrada
+    <code>texto(...)</code>. Es necesaria al mezclar números dentro de una cadena
+    con <code>+</code>, porque <code>+</code> no convierte implícitamente.
+  </p>
+  <Codigo codigo={convEj}/>
+  <div class="callout">
+    <span class="callout-icon">💡</span>
+    <p>
+      <code>texto</code> es a la vez un tipo y la función de conversión:
+      <code>var s: texto = ...</code> declara una variable; <code>texto(11)</code>
+      convierte un valor a texto.
+    </p>
+  </div>
+
+  <!-- ─────────── Funciones ─────────── -->
+  <h2 id="funciones">Funciones</h2>
+
+  <h3>Definir y llamar</h3>
+  <p>
+    <code>funcion</code> define una función. Los parámetros van entre paréntesis.
+    <code>retornar</code> devuelve un valor. El tipo de los parámetros se infiere
+    en la primera llamada.
+  </p>
+  <Codigo codigo={fnEj}/>
+
+  <h3 style="margin-top:1.5rem">Múltiples parámetros</h3>
+  <Codigo codigo={fnDos}/>
+
+  <h3 style="margin-top:1.5rem">Recursión</h3>
+  <p>Las funciones pueden llamarse a sí mismas:</p>
+  <Codigo codigo={fnRec}/>
+
+  <h3 style="margin-top:1.5rem">mostrar</h3>
+  <p>
+    <code>mostrar</code> imprime un valor en la consola. Se puede usar dentro o fuera
+    de una función. Recibe una sola expresión: para combinar varios valores,
+    únelos con <code>+</code>.
+  </p>
+
+  <!-- ─────────── Control de flujo ─────────── -->
+  <h2 id="control">Control de flujo</h2>
+
+  <h3>Condicional</h3>
+  <p><code>si</code>, <code>sino si</code> y <code>sino</code> evalúan condiciones lógicas:</p>
+  <Codigo codigo={siEj}/>
+
+  <h3 style="margin-top:1.5rem">Ciclo mientras</h3>
+  <p><code>mientras</code> repite un bloque mientras la condición sea <code>verdadera</code>:</p>
+  <Codigo codigo={mientrasEj}/>
+
+  <!-- ─────────── Ámbitos ─────────── -->
+  <h2 id="ambitos">Ámbitos</h2>
+  <p>
+    Cada bloque <code>{'{ }'}</code> crea su propio ámbito. Las variables declaradas
+    dentro no existen fuera, pero el bloque puede leer y modificar variables del
+    ámbito exterior.
+  </p>
+  <Codigo codigo={ambEj}/>
+
+  <!-- ─────────── Colecciones ─────────── -->
+  <h2 id="colecciones">Colecciones</h2>
+
+  <h3>Arreglos</h3>
+  <p>
+    <code>arreglo&lt;T, N&gt;</code> es una colección de tamaño fijo. Se declara con
+    el tipo de elemento y el tamaño. Se accede y se asigna con índices.
+  </p>
+  <Codigo codigo={arrEj}/>
+
+  <h3 style="margin-top:1.5rem">Recorrer un arreglo</h3>
+  <Codigo codigo={colEj}/>
+
+  <!-- ─────────── Errores ─────────── -->
+  <h2 id="errores">Errores</h2>
+  <p>
+    Cuando algo falla, BASILISCO no devuelve un resultado silencioso. El error
+    indica el archivo, la línea, la columna y la causa:
+  </p>
+  <Codigo codigo={errEj}/>
+  <Codigo codigo={errOut}/>
+  <p>Los desbordamientos, la división por cero y usar un tipo donde no corresponde son errores.</p>
+
+  <!-- ─────────── CLI ─────────── -->
+  <h2 id="cli">CLI</h2>
+  <p>El comando principal es <code>basilisco</code>, con <code>bsk</code> como alias:</p>
+  <Codigo codigo={cliCmds}/>
+
+  <h3 style="margin-top:1.5rem">Extensiones de archivo</h3>
+  <ul>
+    <li><code>.bsk</code> — extensión canónica.</li>
+    <li><code>.nexo</code> — extensión legada, se acepta con un aviso.</li>
+  </ul>
+
+  <h3 style="margin-top:1.5rem">Códigos de salida</h3>
+  <ul>
+    <li><code>0</code> — éxito.</li>
+    <li><code>1</code> — error de lectura, sintaxis o ejecución.</li>
+    <li><code>2</code> — error de uso o extensión no soportada.</li>
+  </ul>
+
+  <!-- ─────────── Palabras clave ─────────── -->
+  <h2>Palabras clave</h2>
+  <ul class="pill-list">
+    {keywords.map(k => <li><code class="pill">{k}</code></li>)}
+  </ul>
+
+  <!-- ─────────── FAQ ─────────── -->
+  <h2 id="faq">Preguntas frecuentes</h2>
+  <div class="fila">
+    <h3>¿Necesito instalar Rust?</h3>
+    <p>No. Si instalas BASILISCO con <code>cargo install basilisco</code>, el binario queda disponible directamente. Solo necesitas Rust si compilas desde el código fuente.</p>
+  </div>
+  <div class="fila">
+    <h3>¿Qué extensión uso?</h3>
+    <p><code>.bsk</code> es la extensión canónica. <code>.nexo</code> también funciona.</p>
+  </div>
+  <div class="fila">
+    <h3>¿Hay IDE o resaltado de sintaxis?</h3>
+    <p>
+      Sí. Hay una extensión para VS Code que reconoce archivos <code>.bsk</code> y <code>.nexo</code>
+      con resaltado de sintaxis, autocierre de llaves e indentación automática.
+      <a href="/basilisco-0.1.0.vsix" download>Descargar .vsix</a> o instala con
+      <code>code --install-extension basilisco-0.1.0.vsix</code>.
+    </p>
+  </div>
+  <div class="fila">
+    <h3>¿Por qué el repositorio se llama «nexo»?</h3>
+    <p>«Nexo» fue el nombre de trabajo. El nombre actual del lenguaje es BASILISCO, pero el repositorio conserva el nombre histórico.</p>
+  </div>
+
+</Base>

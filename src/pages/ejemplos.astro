@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Anotado from '../components/Anotado.astro';
+import Codigo from '../components/Codigo.astro';
+
+// Ejemplo: tabla de multiplicar
+const tabla: [string, string][] = [
+  ['funcion tabla(n) {',                      'Función que genera una tabla de multiplicar.'],
+  ['  sea i = 1',                              'Contador del 1 al 10.'],
+  ['  mientras i <= 10 {',                    'Repite 10 veces.'],
+  ['    mostrar texto(n) + " x " + texto(i) + " = " + texto(n * i)', 'Imprime cada línea. Los números se convierten con texto().'],
+  ['    i = i + 1',                            ''],
+  ['  }',                                     ''],
+  ['}',                                       ''],
+  ['tabla(7)',                                 'Muestra la tabla del 7.'],
+];
+
+// Ejemplo: máximo de un arreglo
+const maximo: [string, string][] = [
+  ['var numeros: arreglo<entero, 5> = [3, 8, 2, 9, 5]', 'Arreglo con 5 valores.'],
+  ['var mayor: entero = numeros[0]',                          'Asume que el primero es el mayor.'],
+  ['var i: entero = 1',                                       'Empieza desde el segundo.'],
+  ['mientras i < 5 {',                                 'Recorre el resto.'],
+  ['  si numeros[i] > mayor {',                        'Si encuentra uno mayor...'],
+  ['    mayor = numeros[i]',                           '...actualiza el máximo.'],
+  ['  }',                                             ''],
+  ['  i = i + 1',                                     ''],
+  ['}',                                               ''],
+  ['mostrar "el mayor es " + texto(mayor)',                   'Imprime 9.'],
+];
+
+// Ejemplo: contador de pares
+const pares: [string, string][] = [
+  ['var datos: arreglo<entero, 6> = [1, 2, 3, 4, 5, 6]', 'Seis números.'],
+  ['var cuenta: entero = 0',                                    'Contador de pares.'],
+  ['var i: entero = 0',                                         ''],
+  ['mientras i < 6 {',                                  'Recorre el arreglo.'],
+  ['  si datos[i] % 2 == 0 {',                         'Si el resto es cero, es par.'],
+  ['    cuenta = cuenta + 1',                          'Suma uno al contador.'],
+  ['  }',                                              ''],
+  ['  i = i + 1',                                       ''],
+  ['}',                                                ''],
+  ['mostrar "hay " + texto(cuenta) + " pares"',               'Imprime: hay 3 pares.'],
+];
+
+// Ejemplo: saludo condicional
+const saludo: [string, string][] = [
+  ['funcion clasificar(hora) {',                       'Recibe la hora del día (0-23).'],
+  ['  si hora < 12 {',                                  'Mañana.'],
+  ['    retornar "buenos días"',                        ''],
+  ['  } sino si hora < 19 {',                          'Tarde.'],
+  ['    retornar "buenas tardes"',                     ''],
+  ['  } sino {',                                        'Noche.'],
+  ['    retornar "buenas noches"',                      ''],
+  ['  }',                                              ''],
+  ['}',                                                ''],
+  ['mostrar clasificar(8)',                            'buenos días'],
+  ['mostrar clasificar(15)',                           'buenas tardes'],
+  ['mostrar clasificar(21)',                           'buenas noches'],
+];
+
+const runEj = `basilisco run tabla.bsk
+# 7 x 1 = 7
+# 7 x 2 = 14
+# ...`;
+---
+<Base
+  titulo="Ejemplos"
+  descripcion="Ejemplos de código BASILISCO explicados línea por línea."
+>
+
+  <div class="page-head">
+    <div class="hero-eyebrow">Ejemplos</div>
+    <h1>Ejemplos</h1>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">✅</span>
+    <p>
+      Copia cualquiera de estos ejemplos en un archivo <code>.bsk</code> y ejecútalo
+      con <code>basilisco run archivo.bsk</code>. Si no tienes BASILISCO instalado,
+      mira la <a href="/documentacion#instalacion">instalación</a>.
+    </p>
+  </div>
+
+  <h2>Tabla de multiplicar</h2>
+  <p>Una función que imprime la tabla de multiplicar de un número.</p>
+  <Anotado lineas={tabla} titulo="tabla"/>
+  <Codigo codigo={runEj}/>
+
+  <h2>Encontrar el máximo</h2>
+  <p>Recorre un arreglo y encuentra el valor más alto.</p>
+  <Anotado lineas={maximo} titulo="maximo"/>
+
+  <h2>Contar pares</h2>
+  <p>Cuenta cuántos números pares hay en un arreglo.</p>
+  <Anotado lineas={pares} titulo="pares"/>
+
+  <h2>Saludo según la hora</h2>
+  <p>Una función con varios <code>sino si</code> que devuelve un saludo según la hora del día.</p>
+  <Anotado lineas={saludo} titulo="saludo"/>
+
+</Base>

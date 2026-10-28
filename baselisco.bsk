@@ -1,0 +1,5 @@
+var nombre: texto = "Michael "
+var apellido: texto = " Del rosario Mejia"
+var edad: texto = "11"
+
+mostrar "hola mi nombre es" + " ," + nombre + apellido + " y tengo " + edad + " de edad"

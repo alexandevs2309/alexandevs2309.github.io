@@ -1,0 +1,27 @@
+---
+const { lineas, titulo = 'basilisco' } = Astro.props;
+const code = lineas.map((l: [string, string]) => l[0]).join('\n');
+---
+<div class="anot" role="region" aria-label="Bloque de código con anotaciones">
+  <div class="anot-header">
+    <div class="anot-dots" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <span class="anot-lang">{titulo}.bsk</span>
+    <button class="anot-copy" type="button" data-code={code} aria-label="Copiar código">
+      Copiar
+    </button>
+  </div>
+  <table>
+    <caption class="skip">Código Basilisco con explicación por línea</caption>
+    <tbody>
+      {lineas.map((l: [string, string], i: number) => (
+        <tr>
+          <td class="n" aria-hidden="true">{i + 1}</td>
+          <td class="c">{l[0]}</td>
+          <td class="t">{l[1]}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
