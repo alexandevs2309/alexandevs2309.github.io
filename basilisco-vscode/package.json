@@ -2,11 +2,16 @@
   "name": "basilisco",
   "displayName": "Basilisco",
   "description": "Resaltado de sintaxis en español para archivos BASILISCO (.bsk)",
-  "version": "0.1.0",
-  "publisher": "basilisco",
+  "version": "0.1.1",
+  "publisher": "alexandevs",
   "license": "Apache-2.0",
   "icon": "icons/basilisco-marketplace.png",
-  "keywords": ["basilisco", "programming language", "Spanish", "syntax highlighting"],
+  "keywords": [
+    "basilisco",
+    "programming language",
+    "Spanish",
+    "syntax highlighting"
+  ],
   "galleryBanner": {
     "color": "#0a7c52",
     "theme": "dark"
@@ -14,13 +19,22 @@
   "engines": {
     "vscode": "^1.60.0"
   },
-  "categories": ["Programming Languages"],
+  "categories": [
+    "Programming Languages"
+  ],
   "contributes": {
     "languages": [
       {
         "id": "basilisco",
-        "aliases": ["Basilisco", "basilisco", "BSK"],
-        "extensions": [".bsk", ".nexo"],
+        "aliases": [
+          "Basilisco",
+          "basilisco",
+          "BSK"
+        ],
+        "extensions": [
+          ".bsk",
+          ".nexo"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/basilisco.svg",

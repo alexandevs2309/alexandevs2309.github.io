@@ -7,7 +7,7 @@ Resaltado de sintaxis para el lenguaje de programación BASILISCO.
 ### Desde un archivo .vsix
 
 ```bash
-code --install-extension basilisco-0.1.0.vsix
+code --install-extension basilisco-0.1.1.vsix
 ```
 
 ### Manualmente
@@ -37,4 +37,4 @@ cd basilisco-vscode
 vsce package
 ```
 
-Esto genera `basilisco-0.1.0.vsix`.
+Esto genera `basilisco-0.1.1.vsix`.
