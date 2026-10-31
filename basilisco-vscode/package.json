@@ -1,13 +1,15 @@
 {
   "name": "basilisco",
   "displayName": "Basilisco",
-  "description": "Resaltado de sintaxis para el lenguaje de programación BASILISCO",
+  "description": "Resaltado de sintaxis en español para archivos BASILISCO (.bsk)",
   "version": "0.1.0",
-  "publisher": "alexandevs2309",
+  "publisher": "basilisco",
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alexandevs2309/nexo"
+  "icon": "icons/basilisco-marketplace.png",
+  "keywords": ["basilisco", "programming language", "Spanish", "syntax highlighting"],
+  "galleryBanner": {
+    "color": "#0a7c52",
+    "theme": "dark"
   },
   "engines": {
     "vscode": "^1.60.0"

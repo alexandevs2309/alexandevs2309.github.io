@@ -6,34 +6,37 @@ const ejemplo: [string, string][] = [
   ['funcion doble(n) {',                  'Define una función.'],
   ['  retornar n * 2',                    'Devuelve el doble.'],
   ['}',                                   ''],
-  ['sea total = 0',                       'Acumulador.'],
-  ['mientras contador < 3 {',             'Repite 3 veces.'],
-  ['  contador = contador + 1',           ''],
-  ['  total = total + doble(contador)',   'Suma el doble de cada valor.'],
+  ['var total: entero = 0',               'Acumulador con tipo explícito.'],
+  ['para cada n en 0..4 {',               'Itera 0, 1, 2 y 3.'],
+  ['  total = total + doble(n)',          'Suma el doble de cada valor.'],
   ['}',                                   ''],
   ['mostrar total',                       'Imprime 12.'],
 ];
 ---
 <Base
   titulo="Basilisco"
-  descripcion="BASILISCO es un lenguaje de programación con sintaxis en español. Escribe código con sea, si, mientras y funcion."
+  descripcion="BASILISCO es un prototipo de lenguaje de programación con sintaxis en español. Escribe código con sea, si, mientras, funcion y para cada."
 >
 
   <!-- Hero -->
   <section class="hero">
     <div>
-      <div class="hero-eyebrow">Lenguaje de programación en español</div>
+      <div class="hero-eyebrow">Prototipo 0.6.0 · lenguaje de programación en español</div>
       <h1>Programa en<br><em>español</em></h1>
       <p class="hero-sub">
-        BASILISCO es un lenguaje con palabras clave en español —
-        <code>sea</code>, <code>si</code>, <code>mientras</code>, <code>funcion</code> —
-        reglas formales y errores que te dicen exactamente qué falló.
+        BASILISCO es un lenguaje de programación con palabras clave en español.
+        Escribe y ejecuta programas con <code>sea</code>, <code>si</code>,
+        <code>funcion</code> y otras instrucciones familiares.
       </p>
       <div class="hero-actions">
         <a class="btn" href="/documentacion">Documentación</a>
         <a class="btn s" href="/ejemplos">Ver ejemplos</a>
-        <a class="btn ghost" href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">crates.io ↗</a>
+        <a class="btn ghost" href="/acerca">Estado del proyecto</a>
       </div>
+      <p class="hero-status">
+        <span class="tag exp">Prototipo</span>
+        El perfil v0.4 define lo garantizado. Otras capacidades del prototipo son experimentales.
+      </p>
     </div>
     <div class="hero-img-wrap" aria-hidden="true">
       <img src="/mascota-espiral.png" alt="" width="320" height="320">
@@ -49,31 +52,37 @@ const ejemplo: [string, string][] = [
       <p>Palabras clave, mensajes de error y documentación en español.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-card-icon">🔍</div>
-      <h3>Errores precisos</h3>
-      <p>Cada error indica archivo, línea, columna y causa. Nada silencioso.</p>
+      <div class="feature-card-icon">🧩</div>
+      <h3>Tipado gradual</h3>
+      <p><code>sea</code> infiere el tipo; <code>var</code> y <code>dato</code> permiten anotarlo. El prototipo también admite funciones como valores, cierres y lambdas.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-card-icon">📐</div>
-      <h3>Reglas formales</h3>
-      <p>El comportamiento es predecible. No hay casos indefinidos.</p>
+      <div class="feature-card-icon">🔍</div>
+      <h3>Errores precisos</h3>
+      <p>Cada error indica archivo, línea, columna y causa. <code>intentar</code>/<code>rescatar</code> permite capturarlos.</p>
     </div>
     <div class="feature-card">
       <div class="feature-card-icon">🦀</div>
-      <h3>Hecho en Rust</h3>
-      <p>Intérprete en Rust sin dependencias externas.</p>
+      <h3>En desarrollo</h3>
+      <p>El intérprete y sus herramientas siguen evolucionando. Las funciones experimentales pueden cambiar entre versiones.</p>
     </div>
   </div>
 
   <!-- Example -->
   <h2>Cómo se ve</h2>
   <Anotado lineas={ejemplo} titulo="ejemplo"/>
+  <p class="example-run"><strong>Para probarlo:</strong> guarda el código como <code>hola.bsk</code> y ejecuta <code>basilisco run hola.bsk</code>. El resultado es <code>12</code>.</p>
+
+  <div class="callout">
+    <span class="callout-icon" aria-hidden="true">ℹ️</span>
+    <p>Empieza con las funciones descritas en el <a href="/documentacion#estado">perfil garantizado v0.4</a>. Las capacidades avanzadas se identifican en la documentación como experimentales.</p>
+  </div>
 
   <!-- CTA -->
   <div class="cta-band">
-    <h2>Empieza a programar</h2>
-    <p>Instala BASILISCO con un comando y escribe tu primer programa.</p>
-    <a class="btn" href="/documentacion#instalacion">Instalar BASILISCO →</a>
+    <h2>Prueba el lenguaje</h2>
+    <p>Explora programas de ejemplo y conoce qué funciones están disponibles en el perfil actual.</p>
+    <a class="btn" href="/ejemplos">Ver ejemplos →</a>
   </div>
 
 </Base>

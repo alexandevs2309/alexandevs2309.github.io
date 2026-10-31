@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 ---
 <Base
   titulo="Acerca de Basilisco"
-  descripcion="Qué es BASILISCO, por qué existe y cómo seguir el proyecto."
+  descripcion="Qué es BASILISCO, en qué estado está el prototipo y cómo seguir el proyecto."
 >
 
   <div class="page-head">
@@ -11,29 +11,36 @@ import Base from '../layouts/Base.astro';
     <h1>Acerca de BASILISCO</h1>
   </div>
 
-  <div class="two-col" style="margin-bottom:2rem">
+  <div class="two-col about-intro" style="margin-bottom:2rem">
     <p style="font-size:1.1rem;color:var(--mut);max-width:56ch">
       BASILISCO es un lenguaje de programación con sintaxis en español.
       Existe para reducir la barrera del idioma para quienes aprenden y programan
-      en español, sin renunciar al rigor.
+      en español, sin renunciar al rigor. El perfil aprobado v0.4 define el subconjunto
+      garantizado; el resto de funciones se presenta como experimental mientras el
+      prototipo evoluciona.
     </p>
     <img src="/mascota.png" alt="" class="img-deco" style="width:180px;height:180px;object-fit:contain">
   </div>
 
+  <h2>El proyecto en breve</h2>
   <div class="about-grid">
-    <div class="about-card"><h3>Qué es</h3><p>Un lenguaje de programación con sintaxis en español.</p></div>
-    <div class="about-card"><h3>En qué está hecho</h3><p>Intérprete en Rust, sin dependencias externas.</p></div>
-    <div class="about-card"><h3>Repositorio</h3><p><a href="https://github.com/alexandevs2309/nexo" target="_blank" rel="noopener">github.com/alexandevs2309/nexo</a></p></div>
-    <div class="about-card"><h3>crates.io</h3><p><a href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">crates.io/crates/basilisco</a></p></div>
-    <div class="about-card"><h3>Licencia</h3><p>Apache-2.0</p></div>
-    <div class="about-card"><h3>Estado</h3><p>Experimental, en desarrollo activo.</p></div>
+    <div class="about-card"><h3>Implementación</h3><p>Intérprete escrito en Rust. La versión declarada en el manifiesto es <code>0.6.0</code>.</p></div>
+    <div class="about-card"><h3>Licencia del código</h3><p>Apache-2.0 para el código del repositorio; la licencia no concede derechos sobre la marca BASILISCO.</p></div>
+    <div class="about-card"><h3>Disponibilidad</h3><p>El código fuente del intérprete no está disponible para descarga pública actualmente.</p></div>
   </div>
 
+  <div class="about-actions" aria-label="Próximos pasos">
+    <a class="btn" href="/documentacion#instalacion">Ver disponibilidad</a>
+    <a class="btn s" href="/documentacion#estado">Consultar alcance</a>
+    <a class="btn ghost" href="/ejemplos">Probar ejemplos</a>
+  </div>
+
+  <h2>Alcance actual</h2>
+  <p>El perfil aprobado v0.4 documenta el subconjunto garantizado. El prototipo añade capacidades experimentales que pueden cambiar; la documentación mantiene el detalle actualizado y sus límites.</p>
+  <p><a class="text-link" href="/documentacion#estado">Ver el estado, las extensiones y lo que queda fuera de alcance →</a></p>
+
   <h2>El nombre</h2>
-  <p>
-    El basilisco es un reptil mítico coronado. «Nexo» fue el nombre de trabajo;
-    BASILISCO es el nombre actual.
-  </p>
+  <p>BASILISCO toma su nombre del reptil mítico coronado y es el nombre del lenguaje y del proyecto.</p>
 
   <h2>Filosofía</h2>
   <div class="feature-grid">
@@ -59,17 +66,17 @@ import Base from '../layouts/Base.astro';
     <div class="feature-card">
       <div class="feature-card-icon">📖</div>
       <h3>Leer el código</h3>
-      <p>El repositorio es público. El intérprete está en Rust.</p>
+      <p>La documentación pública describe el perfil garantizado y las capacidades experimentales conocidas.</p>
     </div>
     <div class="feature-card">
       <div class="feature-card-icon">🐛</div>
-      <h3>Reportar problemas</h3>
-      <p>Abre un issue en <a href="https://github.com/alexandevs2309/nexo" target="_blank" rel="noopener">GitHub</a> para reportar errores o proponer ideas.</p>
+      <h3>Canales públicos</h3>
+      <p>Por ahora no hay un canal público de soporte o reporte de problemas anunciado.</p>
     </div>
     <div class="feature-card">
       <div class="feature-card-icon">💬</div>
       <h3>Seguir el proyecto</h3>
-      <p>El repositorio es el punto de contacto. Cuando se abran más canales, se anunciarán.</p>
+      <p>Los canales de seguimiento se anunciarán cuando estén disponibles.</p>
     </div>
   </div>
 

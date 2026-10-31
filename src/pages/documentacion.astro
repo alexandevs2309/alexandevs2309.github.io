@@ -1,16 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
-import Estado from '../components/Estado.astro';
 import Codigo from '../components/Codigo.astro';
 
 // ── Install ──
-const installCargo = `cargo install basilisco`;
-const installVerify = `basilisco --version
-basilisco --help`;
-const installSource = `git clone https://github.com/alexandevs2309/nexo.git
-cd nexo
+const installClone = `cd ruta/de/la/copia/prototipo
 cargo build --release
 # El binario queda en target/release/basilisco`;
+const installPath = `cd ruta/de/la/copia/prototipo
+cargo install --path .
+# Instala basilisco y el alias bsk en ~/.cargo/bin`;
+const installVerify = `basilisco --version
+bsk --version
+basilisco --help`;
 
 // ── First program ──
 const hola = `mostrar "hola, mundo"`;
@@ -18,25 +19,32 @@ const holaRun = `basilisco run hola.bsk
 # hola, mundo`;
 
 // ── Variables ──
-const varEj = `sea edad = 25
-sea nombre = "Ana"
-sea apellido: texto = "García"   # sea también admite tipo
-var precio: decimal = 9.99
+const varEj = `sea edad = 25               # tipo inferido: entero
+sea nombre = "Ana"          # tipo inferido: texto
+var precio: decimal = 9.99  # mutable, tipo obligatorio
+dato pi: real = 3.1416e0    # inmutable, tipo obligatorio
+const maximo: entero = 10   # inmutable (reservado)
 
 edad = 26`;
-const varError = `sea x = 10
-x = "texto"   # error: el tipo ya es entero`;
+const varError = `var x: entero = 10
+x = "texto"   # error: se esperaba entero y se obtuvo texto`;
+const varError2 = `dato x: entero = 10
+x = 11        # error: variable inmutable (dato/const)`;
 
 // ── Types ──
-const numEj = `sea a = 42            # entero
-sea b = 3.14          # decimal
-sea c = 1e10          # real
-sea d = a + 1         # entero: 43`;
+const numEj = `sea a = 42        # entero
+sea b = 3.14      # decimal (escala 9)
+sea c = 1e10      # real
+sea d = a + 1     # entero: 43
+sea e = a + b     # decimal: 45.14 (entero → decimal)`;
 const logEj = `sea activo = verdadero
 sea vacio = falso
 sea niega = no activo          # falso
 sea ambos = activo y no vacio  # verdadero
-sea alguno = activo o vacio     # verdadero`;
+sea alguno = activo o vacio    # verdadero`;
+const nuloEj = `sea ausencia = nulo
+mostrar ausencia            # nulo
+mostrar ausencia == nulo    # verdadero`;
 
 // ── Texto ──
 const textoEj = `sea saludo = "hola"
@@ -45,28 +53,31 @@ mostrar saludo + ", " + nombre   # hola, mundo
 
 sea escapado = "línea1\\nlínea2"
 mostrar escapado`;
-const convEj = `sea edad = 11
-
-mostrar texto(edad)                          # 11
-mostrar "tengo " + texto(edad) + " años"     # tengo 11 años`;
+const convNota = `mostrar 11               # imprime 11
+mostrar 11 + 1           # imprime 12
+mostrar "tengo " + 11    # error: + solo concatena texto con texto`;
 
 // ── Operadores ──
 const opEj = `sea suma = 10 + 5       # 15
 sea resta = 10 - 3       # 7
 sea mult = 4 * 6         # 24
-sea div = 10 / 3          # 3 (entero trunca)
-sea mod = 10 % 3          # 1
+sea div = 10 / 3         # 3 (entero trunca)
+sea mod = 10 % 3         # 1
 
-sea igual = 5 == 5        # verdadero
-sea dist = 5 != 3         # verdadero
-sea menor = 3 < 5         # verdadero
-sea mayor = 3 > 5         # falso`;
+sea igual = 5 == 5       # verdadero
+sea dist = 5 != 3        # verdadero
+sea menor = 3 < 5        # verdadero
+sea mayor = 3 > 5        # falso`;
 
 // ── Funciones ──
 const fnEj = `funcion saludar(nombre) {
   retornar "hola, " + nombre
 }
 mostrar saludar("Ana")   # hola, Ana`;
+const fnTipada = `funcion dividir(a: entero, b: entero) -> entero {
+  retornar a / b
+}
+mostrar dividir(10, 2)   # 5`;
 const fnRec = `funcion factorial(n) {
   si n <= 1 {
     retornar 1
@@ -78,6 +89,20 @@ const fnDos = `funcion sumar(a, b) {
   retornar a + b
 }
 mostrar sumar(3, 4)   # 7`;
+const fnMixta = `funcion f(a: entero, b) {
+  retornar a
+}
+# error: la firma mezcla parámetros con y sin tipo`;
+const fnPrimeraClase = `funcion aplicar(operacion, valor) {
+  retornar operacion(valor)
+}
+
+funcion doble(n) { retornar n * 2 }
+mostrar aplicar(doble, 21)   # 42`;
+const ffiEj = `sea lib = cargar_ffi("./libejemplo.so")
+sea total = llamar_ffi(lib, "sumar", [20, 22], "entero")
+mostrar total   # 42
+descargar_ffi(lib)`;
 
 // ── Control flow ──
 const siEj = `sea edad = 20
@@ -96,6 +121,26 @@ mientras contador <= 5 {
 }
 mostrar total   # 15`;
 
+// ── Iteración ──
+const paraCada = `var numeros: lista<entero> = [10, 20, 30]
+para cada n en numeros {
+  mostrar n
+}
+# 10, 20, 30`;
+const rangos = `para cada i en 0..5 {
+  mostrar i        # 0, 1, 2, 3, 4
+}
+para cada i en 1..=3 {
+  mostrar i        # 1, 2, 3
+}`;
+const romperContinuar = `var total: entero = 0
+para cada n en 0..10 {
+  si n == 2 { continuar }
+  si n == 5 { romper }
+  total = total + n
+}
+mostrar total   # 8`;
+
 // ── Ámbitos ──
 const ambEj = `sea total = 0
 {
@@ -109,30 +154,53 @@ const arrEj = `var valores: arreglo<entero, 3> = [10, 20, 30]
 mostrar valores[0]       # 10
 valores[1] = 25
 mostrar valores[1]       # 25`;
-const colEj = `var notas: arreglo<entero, 4> = [8, 7, 9, 6]
-var indice: entero = 0
-var suma: entero = 0
-mientras indice < 4 {
-  suma = suma + notas[indice]
-  indice = indice + 1
-}
-mostrar "promedio: " + texto(suma / 4)`;
+const listaEj = `var notas: lista<entero> = [8, 7, 9, 6]
+notas[0] = 10
+mostrar notas[0]         # 10
+para cada nota en notas {
+  mostrar nota
+}`;
+const colErr = `var a: arreglo<entero, 3> = [1, 2, 3]
+mostrar a[3]
+# error: índice 3 fuera de rango (tamaño 3)`;
 
 // ── Errores ──
 const errEj = `sea valor = 10
 valor / 0`;
 const errOut = `archivo.bsk: error de ejecución [2:1]: división entre cero`;
+const tryEj = `intentar {
+  var x: entero = 10 / 0
+  mostrar x
+} rescatar e {
+  mostrar "error: " + e
+}
+# error: división entre cero`;
+const trySinVar = `intentar {
+  mostrar "intento"
+} rescatar {
+  mostrar "algo falló"
+}`;
+
+// ── Salida ──
+const ioEj = `mostrar "con salto de línea"
+mostrar_sin_salto "sin salto"
+mostrar " ← misma línea"`;
 
 // ── CLI ──
-const cliCmds = `basilisco run programa.bsk   # ejecuta un programa
+const cliCmds = `basilisco nuevo               # crea hola.bsk
+basilisco nuevo proyecto app  # crea un proyecto
+basilisco run programa.bsk   # ejecuta un archivo
+basilisco analizar app.bsk   # analiza sin ejecutar
+basilisco formatear app.bsk  # normaliza el formato
+basilisco inicializar        # prepara el proyecto actual
+basilisco probar             # ejecuta pruebas del proyecto
+basilisco instalar           # resuelve dependencias locales
+basilisco paquetes           # lista paquetes locales
 basilisco demo               # demostración integrada
-basilisco --version          # muestra la versión
-basilisco --help             # muestra la ayuda
-
-bsk run programa.bsk         # alias corto`;
+bsk run programa.nexo        # alias y extensión legada`;
 
 // ── Keywords & types ──
-const keywords = ['sea','var','si','sino','mientras','funcion','retornar','mostrar','verdadero','falso','nulo','y','o','no'];
+const keywords = ['sea','var','dato','const','si','sino','mientras','funcion','retornar','mostrar','mostrar_sin_salto','verdadero','falso','nulo','y','o','no','para','cada','en','romper','continuar','intentar','rescatar'];
 const types = ['entero','decimal','real','logico','texto','nulo','arreglo','lista'];
 ---
 <Base
@@ -140,54 +208,125 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   descripcion="Instalación, tutorial, referencia del lenguaje, CLI y preguntas frecuentes de BASILISCO."
 >
 
-  <div class="page-head">
+  <div class="reading-progress" role="progressbar" aria-label="Progreso de lectura" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+
+  <div class="page-head docs-page-head">
     <div class="hero-eyebrow">Documentación</div>
     <h1>Documentación</h1>
+    <p class="docs-lead">Aprende el lenguaje paso a paso y consulta la referencia del prototipo. Empieza ejecutando tu primer programa o busca directamente un tema.</p>
+    <div class="docs-actions">
+      <a class="btn" href="#primer-programa">Empezar ahora <span aria-hidden="true">↓</span></a>
+      <a class="btn s" href="/ejemplos">Ver ejemplos</a>
+      <a class="docs-source" href="/acerca">Acerca del proyecto</a>
+    </div>
   </div>
 
-  <nav class="toc" aria-label="En esta página">
-    <span class="toc-title">Contenido</span>
-    <a href="#instalacion">Instalación</a>
-    <a href="#primer-programa">Tu primer programa</a>
-    <a href="#variables">Variables</a>
-    <a href="#tipos">Tipos</a>
-    <a href="#operadores">Operadores</a>
-    <a href="#texto">Texto</a>
-    <a href="#conversiones">Conversiones</a>
-    <a href="#funciones">Funciones</a>
-    <a href="#control">Control de flujo</a>
-    <a href="#ambitos">Ámbitos</a>
-    <a href="#colecciones">Colecciones</a>
-    <a href="#errores">Errores</a>
-    <a href="#cli">CLI</a>
-    <a href="#faq">Preguntas frecuentes</a>
-  </nav>
+  <div class="docs-layout">
+    <aside class="docs-sidebar" aria-label="Navegación de documentación">
+      <details class="docs-nav-panel" open>
+        <summary><span>En esta página</span><span class="docs-nav-current">Estado y alcance</span></summary>
+        <nav class="toc" aria-label="Contenido de la documentación">
+          <label class="toc-search-label" for="docs-search">Buscar en esta guía</label>
+          <div class="toc-search-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+            <input id="docs-search" type="search" placeholder="Ej. funciones, errores…" autocomplete="off" aria-describedby="docs-search-help docs-search-status">
+            <kbd id="docs-search-help">/</kbd>
+          </div>
+          <p class="toc-search-status" id="docs-search-status" aria-live="polite"></p>
+          <div class="toc-group">
+            <span class="toc-group-title">Para empezar</span>
+            <a href="#estado">Estado y alcance</a>
+            <a href="#instalacion">Instalación</a>
+            <a href="#primer-programa">Tu primer programa</a>
+          </div>
+          <div class="toc-group">
+            <span class="toc-group-title">Lenguaje</span>
+            <a href="#variables">Variables</a>
+            <a href="#tipos">Tipos</a>
+            <a href="#operadores">Operadores</a>
+            <a href="#texto">Texto</a>
+            <a href="#funciones">Funciones</a>
+            <a href="#control">Control de flujo</a>
+            <a href="#iteracion">Iteración</a>
+            <a href="#ambitos">Ámbitos</a>
+            <a href="#colecciones">Colecciones</a>
+            <a href="#errores">Errores</a>
+            <a href="#salida">Entrada y salida</a>
+          </div>
+          <div class="toc-group">
+            <span class="toc-group-title">Herramientas y referencia</span>
+            <a href="#proyectos">Proyectos y módulos</a>
+            <a href="#paquetes">Paquetes</a>
+            <a href="#ffi">Interoperabilidad C</a>
+            <a href="#cli">CLI</a>
+            <a href="#palabras-clave">Palabras clave</a>
+            <a href="#faq">Preguntas frecuentes</a>
+          </div>
+          <p class="toc-no-results" hidden>No encontramos temas con esa búsqueda.</p>
+        </nav>
+      </details>
+      <a class="docs-sidebar-examples" href="/ejemplos"><span aria-hidden="true">▣</span><span><strong>Aprende con ejemplos</strong><small>11 ejercicios guiados</small></span><span aria-hidden="true">→</span></a>
+    </aside>
+
+    <article class="docs-content">
+
+  <!-- ─────────── Estado y alcance ─────────── -->
+  <h2 id="estado">Estado y alcance</h2>
+
+  <div class="callout">
+    <span class="callout-icon">🚧</span>
+    <p>
+      BASILISCO es un <strong>prototipo funcional</strong>. El perfil de conformidad
+      <strong>v0.4</strong> es un perfil aprobado y acotado; no declara estable el lenguaje completo.
+      El prototipo declara <code>0.6.0</code> en su manifiesto. Esta documentación distingue el perfil
+      garantizado de las capacidades adicionales del prototipo.
+    </p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>Garantizado en v0.4</h3>
+      <p>Expresiones, variables y ámbitos, funciones declaradas con tipos opcionales, <code>si</code>/<code>mientras</code>, texto, <code>nulo</code>, arreglos y listas básicas, errores con ubicación y CLI.</p>
+    </div>
+    <div class="about-card">
+      <h3>Extensiones del prototipo</h3>
+      <p><code>para cada</code>, rangos, <code>romper</code>/<code>continuar</code>, <code>intentar</code>/<code>rescatar</code>, <code>const</code>, funciones como valores, cierres, lambdas, registro remoto de paquetes y puente FFI/ABI C. Están fuera del perfil v0.4.</p>
+    </div>
+    <div class="about-card">
+      <h3>Fuera de alcance</h3>
+      <p>El registro remoto y FFI son prototipales. Siguen fuera del alcance una biblioteca estándar extensa, IDE o depurador, canales de concurrencia, callbacks FFI, structs C, argumentos variádicos y backend nativo/WASM.</p>
+    </div>
+  </div>
 
   <!-- ─────────── Instalación ─────────── -->
   <h2 id="instalacion">Instalación</h2>
 
-  <h3>Con Cargo</h3>
+  <div class="callout">
+    <span class="callout-icon">ℹ️</span>
+    <p>
+      El código fuente no está disponible para descarga pública actualmente. Si tienes una
+      copia autorizada, puedes compilarla con una toolchain de Rust reciente (el paquete usa
+      edition 2024). Sin esa copia, estos comandos no se pueden ejecutar desde esta web.
+    </p>
+  </div>
+
+  <h3>Compilar una copia local</h3>
+  <Codigo codigo={installClone}/>
   <p>
-    BASILISCO está publicado en
-    <a href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">crates.io</a>.
-    La forma más sencilla de instalarlo es con Cargo, el gestor de paquetes de Rust:
+    El binario <code>basilisco</code> y su alias <code>bsk</code> quedan en
+    <code>target/release/</code>.
   </p>
-  <Codigo codigo={installCargo}/>
+
+  <h3 style="margin-top:1.5rem">Instalar en el sistema</h3>
+  <Codigo codigo={installPath}/>
   <p>Verifica que se instaló correctamente:</p>
   <Codigo codigo={installVerify}/>
-
-  <h3>Compilar desde el código fuente</h3>
-  <p>Si prefieres compilar manualmente o quieres contribuir:</p>
-  <Codigo codigo={installSource}/>
 
   <div class="callout">
     <span class="callout-icon">📦</span>
     <p>
-      También disponible como biblioteca en Rust: <code>cargo add basilisco</code> para
-      integrar el intérprete en tus propios proyectos.
-      Si quieres que BASILISCO esté en
-      <a href="https://crates.io/crates/basilisco" target="_blank" rel="noopener">Homebrew, apt o winget</a>,
-      abre un issue en el repositorio.
+      Los instaladores para Homebrew, apt o winget no están disponibles aquí. La extensión
+      de VS Code incluida en esta web solo añade resaltado de sintaxis; no instala el intérprete.
     </p>
   </div>
 
@@ -201,8 +340,8 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <Codigo codigo={holaRun}/>
   <p>
     <code>mostrar</code> imprime un valor en la consola. Es la forma más directa
-    de ver resultados. La última expresión de un programa también se imprime
-    automáticamente.
+    de ver resultados. Si el programa termina con una expresión de nivel superior,
+    su valor también se imprime al final.
   </p>
 
   <!-- ─────────── Variables ─────────── -->
@@ -210,23 +349,26 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
 
   <h3>Declarar</h3>
   <p>
-    <code>sea</code> declara una variable e infiere el tipo a partir del valor inicial.
-    También admite una anotación de tipo opcional:
-    <code>sea nombre: texto = "Ana"</code>.
+    <code>sea</code> declara una variable <strong>mutable</strong> e infiere el tipo a
+    partir del valor inicial. No admite anotación de tipo.
   </p>
   <p>
-    <code>var</code> declara una variable con un tipo <strong>obligatorio</strong>:
-    <code>var precio: decimal = 9.99</code>. A diferencia de <code>sea</code>, la
-    anotación de tipo no se puede omitir.
+    <code>var</code> declara una variable mutable con un tipo <strong>obligatorio</strong>:
+    <code>var precio: decimal = 9.99</code>. <code>dato</code> declara una variable
+    <strong>inmutable</strong>, también con tipo obligatorio. <code>const</code> es una
+    forma reservada de declaración inmutable que el prototipo acepta; no forma parte del
+    perfil v0.4.
   </p>
   <Codigo codigo={varEj}/>
 
-  <h3>Asignar</h3>
+  <h3 style="margin-top:1.5rem">Asignar</h3>
   <p>
     <code>nombre = valor</code> actualiza una variable ya declarada. El tipo se fija
-    al declarar: no puedes asignarle un valor de otro tipo.
+    al declarar: no puedes asignarle un valor de otro tipo, ni reasignar una variable
+    <code>dato</code> o <code>const</code>.
   </p>
   <Codigo codigo={varError}/>
+  <Codigo codigo={varError2}/>
 
   <!-- ─────────── Tipos ─────────── -->
   <h2 id="tipos">Tipos</h2>
@@ -246,7 +388,15 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <Codigo codigo={logEj}/>
 
   <h3 style="margin-top:1.5rem">Nulo</h3>
-  <p><strong>nulo</strong> representa la ausencia de valor. Es distinto de <code>falso</code>, <code>0</code> y <code>""</code>.</p>
+  <p><strong>nulo</strong> representa la ausencia de valor. Es distinto de <code>falso</code>, <code>0</code> y <code>""</code>. Solo <code>nulo == nulo</code> y <code>nulo != nulo</code> son comparaciones válidas.</p>
+  <Codigo codigo={nuloEj}/>
+
+  <h3 style="margin-top:1.5rem">Conversiones implícitas</h3>
+  <p>
+    Las únicas conversiones automáticas son <code>entero → decimal</code> y
+    <code>entero → real</code>. No hay conversión implícita entre <code>decimal</code>
+    y <code>real</code>, ni de un número a <code>texto</code>.
+  </p>
 
   <!-- ─────────── Operadores ─────────── -->
   <h2 id="operadores">Operadores</h2>
@@ -284,29 +434,13 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
     <span class="callout-icon">⚠️</span>
     <p>
       <code>+</code> solo une texto con texto: no convierte un número a texto de
-      forma implícita. Para incluir un número en una cadena, conviértelo con
-      <code>texto(...)</code> (ver <a href="#conversiones">Conversiones</a>).
+      forma implícita. Todavía no hay una función de conversión como <code>texto(...)</code>,
+      así que para mostrar números se usa <code>mostrar</code> directamente.
       Además, <code>mostrar</code> recibe una sola expresión: no se admiten valores
-      separados por espacios, hay que unirlos con <code>+</code>.
+      separados por espacios.
     </p>
   </div>
-
-  <!-- ─────────── Conversiones ─────────── -->
-  <h2 id="conversiones">Conversiones</h2>
-  <p>
-    Para convertir un número a texto se usa la función integrada
-    <code>texto(...)</code>. Es necesaria al mezclar números dentro de una cadena
-    con <code>+</code>, porque <code>+</code> no convierte implícitamente.
-  </p>
-  <Codigo codigo={convEj}/>
-  <div class="callout">
-    <span class="callout-icon">💡</span>
-    <p>
-      <code>texto</code> es a la vez un tipo y la función de conversión:
-      <code>var s: texto = ...</code> declara una variable; <code>texto(11)</code>
-      convierte un valor a texto.
-    </p>
-  </div>
+  <Codigo codigo={convNota}/>
 
   <!-- ─────────── Funciones ─────────── -->
   <h2 id="funciones">Funciones</h2>
@@ -314,23 +448,84 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <h3>Definir y llamar</h3>
   <p>
     <code>funcion</code> define una función. Los parámetros van entre paréntesis.
-    <code>retornar</code> devuelve un valor. El tipo de los parámetros se infiere
-    en la primera llamada.
+    <code>retornar</code> devuelve un valor. Sin anotaciones, el tipo de los parámetros
+    se infiere en la primera llamada.
   </p>
   <Codigo codigo={fnEj}/>
 
   <h3 style="margin-top:1.5rem">Múltiples parámetros</h3>
   <Codigo codigo={fnDos}/>
 
+  <h3 style="margin-top:1.5rem">Parámetros y retorno tipados</h3>
+  <p>
+    Puedes anotar los parámetros y el tipo de retorno con <code>-> tipo</code>. Una
+    firma debe anotar <strong>todos</strong> los parámetros o ninguno; no se pueden
+    mezclar.
+  </p>
+  <Codigo codigo={fnTipada}/>
+  <Codigo codigo={fnMixta}/>
+  <p>
+    Una función que solo produce efectos puede anotarse como <code>-&gt; nulo</code>.
+    Si una función sin <code>retornar</code> se usa como expresión, se produce
+    <code>RetornoAusente</code>.
+  </p>
+
   <h3 style="margin-top:1.5rem">Recursión</h3>
   <p>Las funciones pueden llamarse a sí mismas:</p>
   <Codigo codigo={fnRec}/>
 
-  <h3 style="margin-top:1.5rem">mostrar</h3>
+  <h3 style="margin-top:1.5rem">Funciones como valores</h3>
   <p>
-    <code>mostrar</code> imprime un valor en la consola. Se puede usar dentro o fuera
-    de una función. Recibe una sola expresión: para combinar varios valores,
-    únelos con <code>+</code>.
+    En el prototipo actual, las funciones pueden pasarse como argumentos y llamarse
+    desde otras funciones. También hay cierres y lambdas. Estas capacidades avanzadas
+    no pertenecen al perfil de conformidad v0.4.
+  </p>
+  <Codigo codigo={fnPrimeraClase}/>
+  <p>
+    El prototipo también admite funciones anidadas con alcance propio, llamadas a
+    funciones declaradas más adelante y recursión mutua. El análisis y la ejecución
+    aplican reglas coherentes a esas declaraciones y a lambdas; la cobertura del
+    análisis semántico todavía es parcial.
+  </p>
+
+  <h2 id="proyectos">Proyectos y módulos</h2>
+  <p>
+    La CLI permite crear un proyecto con <code>basilisco nuevo proyecto nombre</code>.
+    El prototipo puede cargar módulos locales e imports y ejecutar el archivo de entrada
+    desde el manifiesto <code>basilisco.toml</code>. El manifiesto actual solo admite
+    <code>nombre</code>, <code>version</code> y <code>entrada</code> como cadenas; no es
+    un parser TOML completo. Consulta el repositorio antes de depender de otras opciones.
+    El cargador de módulos y el análisis semántico también son capacidades en evolución;
+    <code>analizar</code> no garantiza que todas las reglas del lenguaje estén cubiertas.
+  </p>
+
+  <h2 id="paquetes">Paquetes locales</h2>
+  <p>
+    El gestor resuelve dependencias desde rutas configuradas del proyecto y carpetas
+    locales como <code>paquetes/</code> o <code>vendor/</code>, y genera
+    <code>basilisco.lock</code>. Usa <code>basilisco instalar</code> para resolver las
+    dependencias locales del proyecto.
+  </p>
+
+  <h3>Distribución de paquetes experimental</h3>
+  <p>
+    El prototipo incluye capacidades experimentales relacionadas con paquetes remotos.
+    No hay un servicio público de registro anunciado ni se recomienda depender de estas
+    funciones para distribuir software.
+  </p>
+
+  <h2 id="ffi">Interoperabilidad con C (FFI)</h2>
+  <p>
+    El prototipo añade <code>cargar_ffi</code>, <code>llamar_ffi</code> y
+    <code>descargar_ffi</code> para cargar bibliotecas compartidas y llamar funciones
+    mediante el ABI C. Admite valores escalares y texto con tipos que deben coincidir con
+    la firma C; el ejemplo supone una biblioteca compatible disponible en esa ruta.
+  </p>
+  <Codigo codigo={ffiEj}/>
+  <p>
+    Es una extensión experimental, fuera del perfil v0.4. Aún no admite callbacks hacia
+    Basilisco, estructuras C ni funciones variádicas. Las funciones C deben respetar el
+    contrato de tipos y propiedad de memoria descrito en el repositorio.
   </p>
 
   <!-- ─────────── Control de flujo ─────────── -->
@@ -343,6 +538,47 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <h3 style="margin-top:1.5rem">Ciclo mientras</h3>
   <p><code>mientras</code> repite un bloque mientras la condición sea <code>verdadera</code>:</p>
   <Codigo codigo={mientrasEj}/>
+  <div class="callout">
+    <span class="callout-icon">🛡️</span>
+    <p>
+      Como protección del prototipo, cada ejecución de <code>mientras</code> está limitada
+      a 100 000 iteraciones. Superar el límite produce <code>LimiteIteraciones</code>.
+      Es una restricción de implementación, no una regla del lenguaje.
+    </p>
+  </div>
+
+  <!-- ─────────── Iteración ─────────── -->
+  <h2 id="iteracion">Iteración</h2>
+  <div class="callout">
+    <span class="callout-icon">🧪</span>
+    <p>
+      <code>para cada</code>, los rangos y <code>romper</code>/<code>continuar</code>
+      están implementados en el prototipo, pero son <strong>extensiones experimentales</strong>
+      fuera del perfil v0.4.
+    </p>
+  </div>
+
+  <h3>para cada</h3>
+  <p>
+    Recorre un <code>arreglo</code>, una <code>lista</code> o un rango. La variable de
+    iteración es inmutable y vive solo dentro del bloque.
+  </p>
+  <Codigo codigo={paraCada}/>
+
+  <h3 style="margin-top:1.5rem">Rangos</h3>
+  <p>
+    <code>inicio..fin</code> excluye el final; <code>inicio..=fin</code> lo incluye.
+    Los rangos solo son válidos como expresión de <code>para cada</code>.
+  </p>
+  <Codigo codigo={rangos}/>
+
+  <h3 style="margin-top:1.5rem">romper y continuar</h3>
+  <p>
+    Funcionan dentro de <code>para cada</code> y <code>mientras</code>.
+    <code>romper</code> termina el ciclo más cercano; <code>continuar</code> salta a la
+    siguiente iteración.
+  </p>
+  <Codigo codigo={romperContinuar}/>
 
   <!-- ─────────── Ámbitos ─────────── -->
   <h2 id="ambitos">Ámbitos</h2>
@@ -363,8 +599,15 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   </p>
   <Codigo codigo={arrEj}/>
 
-  <h3 style="margin-top:1.5rem">Recorrer un arreglo</h3>
-  <Codigo codigo={colEj}/>
+  <h3 style="margin-top:1.5rem">Listas</h3>
+  <p>
+    <code>lista&lt;T&gt;</code> es una colección de tamaño variable. Admite
+    inicializador vacío y asignación por índice. Por ahora no hay operaciones para
+    agregar o quitar elementos.
+  </p>
+  <Codigo codigo={listaEj}/>
+  <p>Los índices negativos, no enteros o fuera de rango son errores:</p>
+  <Codigo codigo={colErr}/>
 
   <!-- ─────────── Errores ─────────── -->
   <h2 id="errores">Errores</h2>
@@ -376,6 +619,35 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <Codigo codigo={errOut}/>
   <p>Los desbordamientos, la división por cero y usar un tipo donde no corresponde son errores.</p>
 
+  <h3 style="margin-top:1.5rem">Capturar errores</h3>
+  <div class="callout">
+    <span class="callout-icon">🧪</span>
+    <p>
+      <code>intentar</code>/<code>rescatar</code> está implementado, pero es una
+      extensión experimental fuera del perfil v0.4.
+    </p>
+  </div>
+  <p>
+    El bloque <code>intentar</code> captura errores de ejecución. La variable de
+    <code>rescatar</code> es de tipo <code>texto</code> y contiene el mensaje del error.
+  </p>
+  <Codigo codigo={tryEj}/>
+  <p>La variable de error es opcional:</p>
+  <Codigo codigo={trySinVar}/>
+
+  <!-- ─────────── Entrada y salida ─────────── -->
+  <h2 id="salida">Entrada y salida</h2>
+  <p>
+    <code>mostrar</code> imprime un valor con salto de línea. <code>mostrar_sin_salto</code>
+    hace lo mismo sin el salto final, útil para prompts.
+  </p>
+  <Codigo codigo={ioEj}/>
+  <p>
+    El perfil v0.4 garantiza la salida de texto. El prototipo añade E/S básica y
+    operaciones de texto; la entrada estándar y una biblioteca estándar extensa no
+    forman parte del contrato de conformidad.
+  </p>
+
   <!-- ─────────── CLI ─────────── -->
   <h2 id="cli">CLI</h2>
   <p>El comando principal es <code>basilisco</code>, con <code>bsk</code> como alias:</p>
@@ -385,6 +657,7 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <ul>
     <li><code>.bsk</code> — extensión canónica.</li>
     <li><code>.nexo</code> — extensión legada, se acepta con un aviso.</li>
+    <li><code>.nx</code> — no está soportada.</li>
   </ul>
 
   <h3 style="margin-top:1.5rem">Códigos de salida</h3>
@@ -395,7 +668,7 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   </ul>
 
   <!-- ─────────── Palabras clave ─────────── -->
-  <h2>Palabras clave</h2>
+  <h2 id="palabras-clave">Palabras clave</h2>
   <ul class="pill-list">
     {keywords.map(k => <li><code class="pill">{k}</code></li>)}
   </ul>
@@ -403,12 +676,24 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <!-- ─────────── FAQ ─────────── -->
   <h2 id="faq">Preguntas frecuentes</h2>
   <div class="fila">
+    <h3>¿Qué versión tiene?</h3>
+    <p>El manifiesto actual declara <code>0.6.0</code>. El perfil aprobado v0.4 describe un subconjunto y no declara estable el lenguaje completo. La versión del manifiesto y el estado de publicación en crates.io son datos distintos.</p>
+  </div>
+  <div class="fila">
     <h3>¿Necesito instalar Rust?</h3>
-    <p>No. Si instalas BASILISCO con <code>cargo install basilisco</code>, el binario queda disponible directamente. Solo necesitas Rust si compilas desde el código fuente.</p>
+    <p>Sí, por ahora. Para compilar el prototipo necesitas una toolchain de Rust reciente. Cuando exista una distribución publicada, no hará falta.</p>
   </div>
   <div class="fila">
     <h3>¿Qué extensión uso?</h3>
-    <p><code>.bsk</code> es la extensión canónica. <code>.nexo</code> también funciona.</p>
+    <p><code>.bsk</code> es la extensión canónica. <code>.nexo</code> se acepta como legado y <code>.nx</code> se rechaza.</p>
+  </div>
+  <div class="fila">
+    <h3>¿Cuál es la diferencia entre sea, var, dato y const?</h3>
+    <p><code>sea</code> infiere el tipo y es mutable. <code>var</code> exige tipo y es mutable. <code>dato</code> exige tipo y es inmutable. <code>const</code> es una extensión del prototipo fuera del perfil v0.4.</p>
+  </div>
+  <div class="fila">
+    <h3>¿Puedo convertir un número a texto?</h3>
+    <p>Todavía no. No hay una función de conversión implementada y <code>+</code> solo concatena texto con texto. Para mostrar números se usa <code>mostrar</code> directamente. Es una limitación actual del prototipo.</p>
   </div>
   <div class="fila">
     <h3>¿Hay IDE o resaltado de sintaxis?</h3>
@@ -420,8 +705,141 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
     </p>
   </div>
   <div class="fila">
-    <h3>¿Por qué el repositorio se llama «nexo»?</h3>
-    <p>«Nexo» fue el nombre de trabajo. El nombre actual del lenguaje es BASILISCO, pero el repositorio conserva el nombre histórico.</p>
+    <h3>¿Dónde puedo obtener el intérprete?</h3>
+    <p>El código fuente no está disponible para descarga pública actualmente. La extensión de VS Code incluida aquí solo ofrece resaltado de sintaxis; no contiene el intérprete.</p>
   </div>
+
+  <nav class="docs-pagination" aria-label="Navegación entre secciones">
+    <a id="docs-previous" class="docs-page-link docs-page-previous" href="#estado" hidden></a>
+    <a id="docs-next" class="docs-page-link docs-page-next" href="#instalacion"><span>Siguiente</span><strong>Instalación</strong><span>→</span></a>
+  </nav>
+
+    </article>
+  </div>
+
+  <script>
+    const toc = document.querySelector('.toc');
+    if (toc) {
+      const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+      const sections = links
+        .map((link) => document.getElementById(link.hash.slice(1)))
+        .filter((section) => section !== null);
+      const search = document.getElementById('docs-search');
+      const searchStatus = document.getElementById('docs-search-status');
+      const noResults = toc.querySelector('.toc-no-results');
+      const navCurrent = document.querySelector('.docs-nav-current');
+      const progress = document.querySelector('.reading-progress');
+      const previousLink = document.getElementById('docs-previous');
+      const nextLink = document.getElementById('docs-next');
+      const groups = Array.from(toc.querySelectorAll('.toc-group'));
+      const searchable = links.map((link) => {
+        const heading = document.getElementById(link.hash.slice(1));
+        let content = heading?.textContent || '';
+        let node = heading;
+        while ((node = node?.nextElementSibling) && !node.matches('h2[id]')) content += ` ${node.textContent}`;
+        const normalize = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es');
+        return { link, text: normalize(`${link.textContent} ${content}`) };
+      });
+      let activeId = '';
+      let scheduled = false;
+
+      const renderPagination = (index) => {
+        const setLink = (link, target, prefix, suffix) => {
+          if (!link) return;
+          if (!target) { link.hidden = true; return; }
+          link.hidden = false;
+          link.href = `#${target.id}`;
+          const label = document.createElement('span');
+          label.textContent = prefix;
+          const title = document.createElement('strong');
+          title.textContent = target.textContent;
+          link.replaceChildren(label, title);
+          if (suffix) {
+            const direction = document.createElement('span');
+            direction.textContent = suffix;
+            link.append(direction);
+          }
+        };
+        setLink(previousLink, links[index - 1], '← Anterior', '');
+        setLink(nextLink, links[index + 1], 'Siguiente', '→');
+      };
+
+      const filterTopics = () => {
+        const query = search.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLocaleLowerCase('es');
+        let matches = 0;
+        for (const { link, text } of searchable) {
+          const show = !query || text.includes(query);
+          link.hidden = !show;
+          if (show) matches++;
+        }
+        for (const group of groups) {
+          group.hidden = !group.querySelector('a:not([hidden])');
+        }
+        noResults.hidden = matches > 0;
+        searchStatus.textContent = query ? `${matches} ${matches === 1 ? 'tema encontrado' : 'temas encontrados'}` : '';
+      };
+
+      search?.addEventListener('input', filterTopics);
+      document.addEventListener('keydown', (event) => {
+        const target = event.target;
+        const isTyping = target instanceof HTMLElement && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName));
+        if (event.key === '/' && !isTyping) {
+          event.preventDefault();
+          search?.focus();
+        } else if (event.key === 'Escape' && target === search) {
+          search.value = '';
+          filterTopics();
+          search.blur();
+        }
+      });
+
+      const updateActiveSection = () => {
+        const marker = 150;
+        let current = sections[0];
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= marker) current = section;
+          else break;
+        }
+        if (!current || current.id === activeId) return;
+
+        activeId = current.id;
+        const activeIndex = sections.indexOf(current);
+        const currentLink = links[activeIndex];
+        if (navCurrent && currentLink) navCurrent.textContent = currentLink.textContent;
+        renderPagination(activeIndex);
+        for (const link of links) {
+          const isActive = link.hash === `#${activeId}`;
+          link.classList.toggle('is-active', isActive);
+          if (isActive) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        }
+
+        const activeLink = links.find((link) => link.hash === `#${activeId}`);
+        activeLink?.scrollIntoView({ block: 'nearest' });
+      };
+
+      const scheduleUpdate = () => {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(() => {
+          updateActiveSection();
+          const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+          const percent = scrollable > 0 ? Math.round((window.scrollY / scrollable) * 100) : 100;
+          if (progress) {
+            progress.style.setProperty('--reading-progress', `${percent}%`);
+            progress.setAttribute('aria-valuenow', String(percent));
+          }
+          scheduled = false;
+        });
+      };
+
+      window.addEventListener('scroll', scheduleUpdate, { passive: true });
+      window.addEventListener('resize', scheduleUpdate);
+      window.addEventListener('hashchange', scheduleUpdate);
+      window.addEventListener('load', scheduleUpdate, { once: true });
+      renderPagination(0);
+      updateActiveSection();
+    }
+  </script>
 
 </Base>

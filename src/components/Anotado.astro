@@ -13,7 +13,14 @@ const code = lineas.map((l: [string, string]) => l[0]).join('\n');
     </button>
   </div>
   <table>
-    <caption class="skip">Código Basilisco con explicación por línea</caption>
+    <caption class="sr-only">Código Basilisco con explicación por línea</caption>
+    <thead>
+      <tr>
+        <th class="sr-only" scope="col">Línea</th>
+        <th class="sr-only" scope="col">Código</th>
+        <th class="sr-only" scope="col">Explicación</th>
+      </tr>
+    </thead>
     <tbody>
       {lineas.map((l: [string, string], i: number) => (
         <tr>

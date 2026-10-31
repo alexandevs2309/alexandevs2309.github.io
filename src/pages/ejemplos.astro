@@ -1,46 +1,40 @@
 ---
 import Base from '../layouts/Base.astro';
 import Anotado from '../components/Anotado.astro';
-import Codigo from '../components/Codigo.astro';
 
 // Ejemplo: tabla de multiplicar
 const tabla: [string, string][] = [
-  ['funcion tabla(n) {',                      'Función que genera una tabla de multiplicar.'],
-  ['  sea i = 1',                              'Contador del 1 al 10.'],
-  ['  mientras i <= 10 {',                    'Repite 10 veces.'],
-  ['    mostrar texto(n) + " x " + texto(i) + " = " + texto(n * i)', 'Imprime cada línea. Los números se convierten con texto().'],
-  ['    i = i + 1',                            ''],
-  ['  }',                                     ''],
-  ['}',                                       ''],
-  ['tabla(7)',                                 'Muestra la tabla del 7.'],
+  ['funcion producto(n, i) {',           'Devuelve n × i.'],
+  ['  retornar n * i',                   ''],
+  ['}',                                  ''],
+  ['sea n = 7',                          'Número de la tabla.'],
+  ['para cada i en 1..=10 {',            'Itera del 1 al 10.'],
+  ['  mostrar producto(n, i)',           'Imprime cada producto.'],
+  ['}',                                  ''],
 ];
 
 // Ejemplo: máximo de un arreglo
 const maximo: [string, string][] = [
   ['var numeros: arreglo<entero, 5> = [3, 8, 2, 9, 5]', 'Arreglo con 5 valores.'],
-  ['var mayor: entero = numeros[0]',                          'Asume que el primero es el mayor.'],
-  ['var i: entero = 1',                                       'Empieza desde el segundo.'],
-  ['mientras i < 5 {',                                 'Recorre el resto.'],
-  ['  si numeros[i] > mayor {',                        'Si encuentra uno mayor...'],
-  ['    mayor = numeros[i]',                           '...actualiza el máximo.'],
-  ['  }',                                             ''],
-  ['  i = i + 1',                                     ''],
-  ['}',                                               ''],
-  ['mostrar "el mayor es " + texto(mayor)',                   'Imprime 9.'],
+  ['var mayor: entero = numeros[0]',                    'Asume que el primero es el mayor.'],
+  ['para cada n en numeros {',                          'Recorre el arreglo.'],
+  ['  si n > mayor {',                                  'Si encuentra uno mayor...'],
+  ['    mayor = n',                                     '...actualiza el máximo.'],
+  ['  }',                                               ''],
+  ['}',                                                 ''],
+  ['mostrar mayor',                                     'Imprime 9.'],
 ];
 
 // Ejemplo: contador de pares
 const pares: [string, string][] = [
   ['var datos: arreglo<entero, 6> = [1, 2, 3, 4, 5, 6]', 'Seis números.'],
-  ['var cuenta: entero = 0',                                    'Contador de pares.'],
-  ['var i: entero = 0',                                         ''],
-  ['mientras i < 6 {',                                  'Recorre el arreglo.'],
-  ['  si datos[i] % 2 == 0 {',                         'Si el resto es cero, es par.'],
-  ['    cuenta = cuenta + 1',                          'Suma uno al contador.'],
-  ['  }',                                              ''],
-  ['  i = i + 1',                                       ''],
-  ['}',                                                ''],
-  ['mostrar "hay " + texto(cuenta) + " pares"',               'Imprime: hay 3 pares.'],
+  ['var cuenta: entero = 0',                              'Contador de pares.'],
+  ['para cada n en datos {',                              'Recorre el arreglo.'],
+  ['  si n % 2 == 0 {',                                   'Si el resto es cero, es par.'],
+  ['    cuenta = cuenta + 1',                            'Suma uno al contador.'],
+  ['  }',                                                ''],
+  ['}',                                                  ''],
+  ['mostrar cuenta',                                     'Imprime 3.'],
 ];
 
 // Ejemplo: saludo condicional
@@ -59,10 +53,80 @@ const saludo: [string, string][] = [
   ['mostrar clasificar(21)',                           'buenas noches'],
 ];
 
-const runEj = `basilisco run tabla.bsk
-# 7 x 1 = 7
-# 7 x 2 = 14
-# ...`;
+// Ejemplo: capturar un error
+const seguro: [string, string][] = [
+  ['intentar {',                          'Intenta ejecutar el bloque.'],
+  ['  var x: entero = 10 / 0',            'División entre cero.'],
+  ['  mostrar x',                         'No llega a ejecutarse.'],
+  ['} rescatar e {',                      'Captura el error.'],
+  ['  mostrar "error: " + e',             'Imprime el mensaje.'],
+  ['}',                                   ''],
+];
+
+// Ejemplo: rangos, romper y continuar
+const rango: [string, string][] = [
+  ['var total: entero = 0',               'Acumulador.'],
+  ['para cada n en 0..10 {',              'Itera del 0 al 9.'],
+  ['  si n == 2 { continuar }',           'Salta el 2.'],
+  ['  si n == 5 { romper }',              'Termina en el 5.'],
+  ['  total = total + n',                 'Suma 0, 1, 3 y 4.'],
+  ['}',                                   ''],
+  ['mostrar total',                       'Imprime 8.'],
+];
+
+const precio: [string, string][] = [
+  ['sea precio = 125',                    'Precio por unidad.'],
+  ['sea cantidad = 3',                    'Unidades compradas.'],
+  ['sea subtotal = precio * cantidad',     'Multiplica precio por cantidad.'],
+  ['sea envio = 40',                      'Costo de envío.'],
+  ['sea total = subtotal + envio',         'Suma el costo final.'],
+  ['mostrar total',                       'Imprime 415.'],
+];
+
+const descuento: [string, string][] = [
+  ['sea compra = 850',                    'Monto de la compra.'],
+  ['sea descuento = 0',                   'Empieza sin descuento.'],
+  ['si compra >= 500 {',                  'Comprueba el mínimo.'],
+  ['  descuento = 10',                    'Aplica 10 por ciento.'],
+  ['}',                                   ''],
+  ['sea ahorro = compra * descuento / 100', 'Calcula el ahorro.'],
+  ['mostrar compra - ahorro',              'Imprime 765.'],
+];
+
+const ahorro: [string, string][] = [
+  ['var ahorrado: entero = 0',             'Saldo inicial.'],
+  ['sea deposito = 25',                    'Ahorro por semana.'],
+  ['sea semanas = 0',                      'Cuenta los depósitos.'],
+  ['mientras ahorrado < 100 {',            'Continúa hasta la meta.'],
+  ['  ahorrado = ahorrado + deposito',     'Suma un depósito.'],
+  ['  semanas = semanas + 1',              'Cuenta una semana.'],
+  ['}',                                   ''],
+  ['mostrar semanas',                     'Imprime 4.'],
+];
+
+const gastos: [string, string][] = [
+  ['var gastos: lista<entero> = [120, 85, 60, 45]', 'Gastos registrados.'],
+  ['var total: entero = 0',                         'Acumulador.'],
+  ['para cada gasto en gastos {',                   'Recorre la lista.'],
+  ['  total = total + gasto',                       'Suma cada gasto.'],
+  ['}',                                             ''],
+  ['mostrar total',                                 'Imprime 310.'],
+  ['si total > 300 {',                              'Compara con el límite.'],
+  ['  mostrar "Revisa tus gastos"',                'Avisa si se supera.'],
+  ['}',                                             ''],
+];
+
+const archivos: [string, string][] = [
+  ['sea archivo = abrir("reporte.txt", "escribir")', 'Crea o abre el reporte.'],
+  ['escribir_linea(archivo, "Resumen semanal")',      'Escribe una línea.'],
+  ['escribir_linea(archivo, "Gastos: 310")',          'Añade los datos.'],
+  ['cerrar(archivo)',                                  'Cierra antes de leer.'],
+  ['sea lectura = abrir("reporte.txt", "leer")',     'Abre el reporte.'],
+  ['sea titulo = leer_linea(lectura)',                  'Lee la primera línea.'],
+  ['cerrar(lectura)',                                  'Libera el archivo.'],
+  ['mostrar titulo',                                   'Imprime "Resumen semanal".'],
+];
+
 ---
 <Base
   titulo="Ejemplos"
@@ -75,29 +139,112 @@ const runEj = `basilisco run tabla.bsk
   </div>
 
   <div class="callout">
-    <span class="callout-icon">✅</span>
-    <p>
-      Copia cualquiera de estos ejemplos en un archivo <code>.bsk</code> y ejecútalo
-      con <code>basilisco run archivo.bsk</code>. Si no tienes BASILISCO instalado,
-      mira la <a href="/documentacion#instalacion">instalación</a>.
-    </p>
+    <span class="callout-icon" aria-hidden="true">🧭</span>
+    <p>Recorre los ejemplos de arriba abajo: empiezan con cálculos sencillos y terminan leyendo y escribiendo archivos. Copia cada bloque a un archivo con el nombre indicado y ejecútalo con <code>basilisco run archivo.bsk</code>. <a href="/documentacion#instalacion">Instalar BASILISCO</a>.</p>
   </div>
 
-  <h2>Tabla de multiplicar</h2>
-  <p>Una función que imprime la tabla de multiplicar de un número.</p>
-  <Anotado lineas={tabla} titulo="tabla"/>
-  <Codigo codigo={runEj}/>
+  <nav class="example-index" aria-label="Índice de ejemplos">
+    <span>Recorrido</span>
+    <a href="#nivel-basico">Básicos</a>
+    <a href="#nivel-practico">Problemas prácticos</a>
+    <a href="#nivel-avanzado">Extensiones</a>
+  </nav>
 
-  <h2>Encontrar el máximo</h2>
-  <p>Recorre un arreglo y encuentra el valor más alto.</p>
-  <Anotado lineas={maximo} titulo="maximo"/>
+  <section class="example-level" id="nivel-basico" aria-labelledby="titulo-basico">
+    <h2 id="titulo-basico">1. Lo esencial</h2>
+    <p>Variables, operaciones, decisiones, ciclos y funciones del perfil garantizado v0.4.</p>
 
-  <h2>Contar pares</h2>
-  <p>Cuenta cuántos números pares hay en un arreglo.</p>
-  <Anotado lineas={pares} titulo="pares"/>
+    <article class="example-step" id="precio">
+      <h3>Calcular el total de una compra</h3>
+      <p>Combina precios y costos para obtener el total a pagar.</p>
+      <Anotado lineas={precio} titulo="compra"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>compra.bsk</code> y ejecuta <code>basilisco run compra.bsk</code>. Resultado: <code>415</code>.</p>
+    </article>
 
-  <h2>Saludo según la hora</h2>
-  <p>Una función con varios <code>sino si</code> que devuelve un saludo según la hora del día.</p>
-  <Anotado lineas={saludo} titulo="saludo"/>
+    <article class="example-step" id="descuento">
+      <h3>Aplicar un descuento según el monto</h3>
+      <p>Usa una condición para calcular el precio final cuando se alcanza un mínimo.</p>
+      <Anotado lineas={descuento} titulo="descuento"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>descuento.bsk</code> y ejecuta <code>basilisco run descuento.bsk</code>. Resultado: <code>765</code>.</p>
+    </article>
+
+    <article class="example-step" id="ahorro">
+      <h3>Contar cuánto toma alcanzar una meta</h3>
+      <p>Un ciclo <code>mientras</code> simula depósitos semanales hasta llegar a 100.</p>
+      <Anotado lineas={ahorro} titulo="ahorro"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>ahorro.bsk</code> y ejecuta <code>basilisco run ahorro.bsk</code>. Resultado: <code>4</code> semanas.</p>
+    </article>
+
+    <article class="example-step" id="saludo">
+      <h3>Reutilizar una función</h3>
+      <p>Una función recibe la hora y devuelve el saludo adecuado para varios momentos del día.</p>
+      <Anotado lineas={saludo} titulo="saludo"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>saludo.bsk</code> y ejecútalo con <code>basilisco run saludo.bsk</code>. Imprime tres saludos.</p>
+    </article>
+  </section>
+
+  <section class="example-level" id="nivel-practico" aria-labelledby="titulo-practico">
+    <h2 id="titulo-practico">2. Resolver problemas con datos</h2>
+    <p>Funciones y colecciones permiten resumir información y automatizar tareas pequeñas. Los ejemplos de esta sección que usan <code>para cada</code> muestran una extensión experimental del prototipo.</p>
+
+    <article class="example-step" id="tabla">
+      <h3>Generar una tabla de multiplicar</h3>
+      <p>Combina una función con iteración para generar resultados sin escribir cada operación.</p>
+      <Anotado lineas={tabla} titulo="tabla"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>tabla.bsk</code> y ejecuta <code>basilisco run tabla.bsk</code>. Imprime la tabla del 7.</p>
+    </article>
+
+    <article class="example-step" id="maximo">
+      <h3>Encontrar el valor máximo</h3>
+      <p>Recorre mediciones y conserva el valor más alto encontrado.</p>
+      <Anotado lineas={maximo} titulo="maximo"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>maximo.bsk</code> y ejecuta <code>basilisco run maximo.bsk</code>. Resultado: <code>9</code>.</p>
+    </article>
+
+    <article class="example-step" id="pares">
+      <h3>Contar elementos que cumplen una condición</h3>
+      <p>Filtra una colección con el operador resto para contar números pares.</p>
+      <Anotado lineas={pares} titulo="pares"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>pares.bsk</code> y ejecuta <code>basilisco run pares.bsk</code>. Resultado: <code>3</code>.</p>
+    </article>
+
+    <article class="example-step" id="gastos">
+      <h3>Resumir gastos y avisar si se supera un límite</h3>
+      <p>Acumula los valores de una lista y compara el total con un presupuesto.</p>
+      <Anotado lineas={gastos} titulo="gastos"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>gastos.bsk</code> y ejecuta <code>basilisco run gastos.bsk</code>. Resultado: <code>310</code> y un aviso. <code>para cada</code> es una extensión experimental.</p>
+    </article>
+  </section>
+
+  <section class="example-level" id="nivel-avanzado" aria-labelledby="titulo-avanzado">
+    <h2 id="titulo-avanzado">3. Extender el prototipo</h2>
+    <p>Estas funciones muestran cómo el prototipo puede ir más allá del perfil v0.4. Son experimentales.</p>
+
+    <article class="example-step" id="rango">
+      <h3>Controlar una iteración</h3>
+      <p>Salta un valor con <code>continuar</code> y termina el recorrido con <code>romper</code>.</p>
+      <Anotado lineas={rango} titulo="rango"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>rango.bsk</code> y ejecuta <code>basilisco run rango.bsk</code>. Resultado: <code>8</code>.</p>
+    </article>
+
+    <article class="example-step" id="seguro">
+      <h3>Recuperarse de un error</h3>
+      <p>Captura una división entre cero para mostrar el error en vez de interrumpir el flujo.</p>
+      <Anotado lineas={seguro} titulo="seguro"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>seguro.bsk</code> y ejecútalo con <code>basilisco run seguro.bsk</code>. <code>intentar</code>/<code>rescatar</code> es experimental.</p>
+    </article>
+
+    <article class="example-step" id="archivos">
+      <h3>Crear y leer un reporte de texto</h3>
+      <p>Escribe un archivo, ciérralo y vuelve a abrirlo para leer la primera línea.</p>
+      <Anotado lineas={archivos} titulo="reporte"/>
+      <p class="example-run"><strong>Guárdalo como</strong> <code>reporte.bsk</code> y ejecuta <code>basilisco run reporte.bsk</code>. Crea <code>reporte.txt</code> en la carpeta actual. La entrada y salida de archivos es una extensión del prototipo.</p>
+    </article>
+  </section>
+
+  <div class="callout">
+    <span class="callout-icon" aria-hidden="true">📘</span>
+    <p>Los ejemplos de <code>para cada</code>, rangos, <code>romper</code>/<code>continuar</code>, captura de errores y archivos usan extensiones experimentales. Consulta el <a href="/documentacion#estado">estado y alcance</a> antes de depender de ellas.</p>
+  </div>
 
 </Base>

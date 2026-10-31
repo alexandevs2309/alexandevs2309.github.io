@@ -61,7 +61,7 @@
         },
         {
           "name": "keyword.control.loop.basilisco",
-          "match": "\\b(mientras|para|cada|romper|continuar)\\b"
+          "match": "\\b(mientras|para|cada|en|romper|continuar)\\b"
         },
         {
           "name": "keyword.control.error.basilisco",
@@ -69,11 +69,11 @@
         },
         {
           "name": "keyword.declaration.basilisco",
-          "match": "\\b(sea|var)\\b"
+          "match": "\\b(sea|var|dato|const)\\b"
         },
         {
           "name": "keyword.other.function.basilisco",
-          "match": "\\b(funcion|retornar|mostrar)\\b"
+          "match": "\\b(funcion|retornar|mostrar|mostrar_sin_salto)\\b"
         },
         {
           "name": "keyword.operator.logical.basilisco",
@@ -111,6 +111,14 @@
     },
     "operators": {
       "patterns": [
+        {
+          "name": "keyword.operator.range.basilisco",
+          "match": "\\.\\.=?"
+        },
+        {
+          "name": "keyword.operator.arrow.basilisco",
+          "match": "->"
+        },
         {
           "name": "keyword.operator.arithmetic.basilisco",
           "match": "[+\\-*/%]"
