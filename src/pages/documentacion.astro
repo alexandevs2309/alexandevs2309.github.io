@@ -37,6 +37,10 @@ sea b = 3.14      # decimal (escala 9)
 sea c = 1e10      # real
 sea d = a + 1     # entero: 43
 sea e = a + b     # decimal: 45.14 (entero → decimal)`;
+const numGuiaEj = `# cantidades exactas: decimal (punto fijo)
+sea precio = 9.99
+mostrar precio * 3          # 29.97
+mostrar 0.1 + 0.2           # 0.3   (sin error de redondeo)`;
 const logEj = `sea activo = verdadero
 sea vacio = falso
 sea niega = no activo          # falso
@@ -103,6 +107,21 @@ const ffiEj = `sea lib = cargar_ffi("./libejemplo.so")
 sea total = llamar_ffi(lib, "sumar", [20, 22], "entero")
 mostrar total   # 42
 descargar_ffi(lib)`;
+
+// ── Módulos ──
+const modLib = `# lib.bsk
+publico funcion doble(n) {
+  retornar n * 2
+}
+publico sea PI = 3.14`;
+const modMain = `# main.bsk
+usar "lib.bsk" como lib
+mostrar lib.doble(5)      # 10
+mostrar lib.PI            # 3.14`;
+const modMainNombres = `# main.bsk (importando nombres sueltos)
+usar "lib.bsk" { doble, PI }
+mostrar doble(5)          # 10
+mostrar PI                # 3.14`;
 
 // ── Control flow ──
 const siEj = `sea edad = 20
@@ -186,6 +205,23 @@ const ioEj = `mostrar "con salto de línea"
 mostrar_sin_salto "sin salto"
 mostrar " ← misma línea"`;
 
+// ── Funciones integradas ──
+const stdlibTexto = `sea s = "basilisco"
+mostrar longitud(s)          # 9
+mostrar mayusculas(s)        # BASILISCO
+mostrar contiene(s, "sil")   # verdadero
+mostrar subcadena(s, 0, 4)   # basi`;
+const stdlibConv = `sea n = 42
+mostrar texto(n)             # 42
+mostrar "tengo " + texto(n) + " años"   # tengo 42 años
+sea edad = a_entero("30")
+mostrar edad + 1             # 31`;
+const stdlibCol = `var nums: lista<entero> = [3, 1, 2]
+nums = agregar(nums, 4)
+mostrar contiene(nums, 1)    # verdadero
+nums = eliminar(nums, 0)
+mostrar contiene(nums, 3)    # falso`;
+
 // ── CLI ──
 const cliCmds = `basilisco nuevo               # crea hola.bsk
 basilisco nuevo proyecto app  # crea un proyecto
@@ -251,7 +287,9 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
             <a href="#ambitos">Ámbitos</a>
             <a href="#colecciones">Colecciones</a>
             <a href="#errores">Errores</a>
+            <a href="#errores-comunes">Errores comunes</a>
             <a href="#salida">Entrada y salida</a>
+            <a href="#biblioteca">Funciones integradas</a>
           </div>
           <div class="toc-group">
             <span class="toc-group-title">Herramientas y referencia</span>
@@ -290,7 +328,7 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
     </div>
     <div class="about-card">
       <h3>Extensiones del prototipo</h3>
-      <p><code>para cada</code>, rangos, <code>romper</code>/<code>continuar</code>, <code>intentar</code>/<code>rescatar</code>, <code>const</code>, funciones como valores, cierres, lambdas, registro remoto de paquetes y puente FFI/ABI C. Están fuera del perfil v0.4.</p>
+      <p><code>para cada</code>, rangos, <code>romper</code>/<code>continuar</code>, <code>intentar</code>/<code>rescatar</code>, <code>const</code>, funciones como valores, cierres, lambdas, la biblioteca estándar de funciones integradas, concurrencia básica, registro remoto de paquetes y puente FFI/ABI C. Están fuera del perfil v0.4.</p>
     </div>
     <div class="about-card">
       <h3>Fuera de alcance</h3>
@@ -370,6 +408,15 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <Codigo codigo={varError}/>
   <Codigo codigo={varError2}/>
 
+  <h3 style="margin-top:1.5rem">Cuándo usar cada una</h3>
+  <ul>
+    <li><code>sea</code> — la opción por defecto para lo que vas a modificar; el tipo se infiere, no se anota.</li>
+    <li><code>var</code> — cuando quieres <strong>anotar el tipo</strong> explícitamente (claridad o documentación) y seguir modificándolo.</li>
+    <li><code>dato</code> — cuando el valor <strong>no debe cambiar</strong>; protege contra reasignaciones accidentales. Requiere tipo.</li>
+    <li><code>const</code> — como <code>dato</code>, pero para una constante. Es una extensión del prototipo fuera del perfil v0.4.</li>
+  </ul>
+  <p>Regla práctica: empieza con <code>sea</code> y usa <code>dato</code> en cuanto sepas que una variable no debería reasignarse.</p>
+
   <!-- ─────────── Tipos ─────────── -->
   <h2 id="tipos">Tipos</h2>
   <p>Los tipos disponibles en el lenguaje:</p>
@@ -382,6 +429,15 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <div class="fila"><p><strong>decimal</strong> — punto fijo para cálculos precisos (28 dígitos, 9 decimales).</p></div>
   <div class="fila"><p><strong>real</strong> — coma flotante de 64 bits. Admite infinitos y NaN según IEEE.</p></div>
   <Codigo codigo={numEj}/>
+
+  <h3 style="margin-top:1.5rem">Cuándo usar cada uno</h3>
+  <ul>
+    <li><code>entero</code> — conteos, índices y todo lo que no tenga decimales. La división trunca hacia cero.</li>
+    <li><code>decimal</code> — dinero, porcentajes y todo lo que deba ser <strong>exacto</strong>. Es punto fijo, así que <code>0.1 + 0.2</code> da exactamente <code>0.3</code>.</li>
+    <li><code>real</code> — notación científica y rangos muy grandes. Usa coma flotante IEEE 754, así que acumula el error típico (0.1 + 0.2 no da exactamente 0.3) y admite infinitos y <code>NaN</code>. No lo uses para dinero.</li>
+  </ul>
+  <p>Los literales sin exponente son <code>decimal</code> (<code>3.14</code>); los que llevan exponente son <code>real</code> (<code>1e10</code>). Un <code>entero</code> se promueve a <code>decimal</code> o <code>real</code> al operar, pero <code>decimal</code> y <code>real</code> no se convierten entre sí.</p>
+  <Codigo codigo={numGuiaEj}/>
 
   <h3 style="margin-top:1.5rem">Lógico</h3>
   <p><strong>logico</strong> admite <code>verdadero</code> y <code>falso</code>. Los operadores <code>y</code>, <code>o</code>, <code>no</code> usan cortocircuito.</p>
@@ -434,8 +490,8 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
     <span class="callout-icon">⚠️</span>
     <p>
       <code>+</code> solo une texto con texto: no convierte un número a texto de
-      forma implícita. Todavía no hay una función de conversión como <code>texto(...)</code>,
-      así que para mostrar números se usa <code>mostrar</code> directamente.
+      forma implícita. Para incluir un número en una cadena, conviértelo con
+      <code>texto(...)</code> (ver <a href="#biblioteca">Funciones integradas</a>).
       Además, <code>mostrar</code> recibe una sola expresión: no se admiten valores
       separados por espacios.
     </p>
@@ -490,14 +546,29 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
 
   <h2 id="proyectos">Proyectos y módulos</h2>
   <p>
-    La CLI permite crear un proyecto con <code>basilisco nuevo proyecto nombre</code>.
-    El prototipo puede cargar módulos locales e imports y ejecutar el archivo de entrada
-    desde el manifiesto <code>basilisco.toml</code>. El manifiesto actual solo admite
-    <code>nombre</code>, <code>version</code> y <code>entrada</code> como cadenas; no es
-    un parser TOML completo. Consulta el repositorio antes de depender de otras opciones.
-    El cargador de módulos y el análisis semántico también son capacidades en evolución;
-    <code>analizar</code> no garantiza que todas las reglas del lenguaje estén cubiertas.
+    Puedes partir el código en varios archivos y traer lo que necesites con
+    <code>usar</code>. Marca con <code>publico</code> las funciones y variables que
+    quieras exponer; sin <code>publico</code> son privadas del módulo. Los proyectos se
+    crean con <code>basilisco nuevo proyecto nombre</code> y usan un manifiesto
+    <code>basilisco.toml</code> (campos <code>nombre</code>, <code>version</code> y
+    <code>entrada</code>); <code>basilisco run</code> sin archivo ejecuta la entrada del proyecto.
   </p>
+  <div class="callout">
+    <span class="callout-icon">🧪</span>
+    <p>
+      Los módulos y el cargador son capacidades en evolución y el manifiesto no es un
+      parser TOML completo. Es una extensión experimental fuera del perfil v0.4.
+    </p>
+  </div>
+
+  <h3>Un módulo y su uso</h3>
+  <p>Archivo <code>lib.bsk</code> (exporta con <code>publico</code>):</p>
+  <Codigo codigo={modLib}/>
+  <p>Archivo <code>main.bsk</code> (lo usa por alias, con punto):</p>
+  <Codigo codigo={modMain}/>
+  <p>O importando nombres sueltos:</p>
+  <Codigo codigo={modMainNombres}/>
+  <p>Ejecuta con <code>basilisco run main.bsk</code> (salida <code>10</code> y <code>3.14</code>). Acceder a algo no marcado con <code>publico</code> es un error («no es público»); los nombres que importes deben coincidir con un símbolo público del módulo.</p>
 
   <h2 id="paquetes">Paquetes locales</h2>
   <p>
@@ -602,8 +673,9 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <h3 style="margin-top:1.5rem">Listas</h3>
   <p>
     <code>lista&lt;T&gt;</code> es una colección de tamaño variable. Admite
-    inicializador vacío y asignación por índice. Por ahora no hay operaciones para
-    agregar o quitar elementos.
+    inicializador vacío y asignación por índice. Para añadir o quitar elementos se
+    usan las funciones integradas <code>agregar</code> y <code>eliminar</code> (ver
+    <a href="#biblioteca">Funciones integradas</a>).
   </p>
   <Codigo codigo={listaEj}/>
   <p>Los índices negativos, no enteros o fuera de rango son errores:</p>
@@ -635,6 +707,19 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   <p>La variable de error es opcional:</p>
   <Codigo codigo={trySinVar}/>
 
+  <!-- ─────────── Errores comunes ─────────── -->
+  <h2 id="errores-comunes">Errores comunes</h2>
+  <p>Filos que suelen tropezar a quien empieza. Todos están comprobados en el prototipo:</p>
+  <ul>
+    <li><strong>Sumar un número a texto con <code>+</code></strong> — <code>"tengo " + 11</code> es un error. <code>+</code> solo concatena texto; convierte con <code>texto(11)</code>.</li>
+    <li><strong>Reasignar una variable inmutable</strong> — <code>dato</code> y <code>const</code> no se pueden reasignar.</li>
+    <li><strong>Cambiar el tipo de una variable</strong> — el tipo se fija al declarar: <code>sea x = 10</code> y luego <code>x = "hola"</code> es un error.</li>
+    <li><strong>Bucle infinito</strong> — <code>mientras</code> tiene un tope de 100 000 iteraciones; al superarlo lanza <code>LimiteIteraciones</code>. Es una protección de implementación, no una regla del lenguaje.</li>
+    <li><strong>Índice fuera de rango</strong> — <code>arreglo[3]</code> en un arreglo de tamaño 3 es un error; los índices van de <code>0</code> a <code>tamaño - 1</code>.</li>
+    <li><strong>Comparaciones encadenadas</strong> — <code>a &lt; b &lt; c</code> es un error de sintaxis; usa <code>a &lt; b y b &lt; c</code>.</li>
+    <li><strong>Usar algo privado de un módulo</strong> — un símbolo sin <code>publico</code> no se puede importar («no es público»).</li>
+  </ul>
+
   <!-- ─────────── Entrada y salida ─────────── -->
   <h2 id="salida">Entrada y salida</h2>
   <p>
@@ -643,10 +728,66 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   </p>
   <Codigo codigo={ioEj}/>
   <p>
-    El perfil v0.4 garantiza la salida de texto. El prototipo añade E/S básica y
-    operaciones de texto; la entrada estándar y una biblioteca estándar extensa no
-    forman parte del contrato de conformidad.
+    El perfil v0.4 garantiza la salida de texto. El prototipo añade una biblioteca
+    estándar pequeña con operaciones de texto, conversiones y E/S de archivos; estas
+    funciones son extensiones experimentales (ver <a href="#biblioteca">Funciones integradas</a>).
   </p>
+
+  <!-- ─────────── Funciones integradas ─────────── -->
+  <h2 id="biblioteca">Funciones integradas</h2>
+  <div class="callout">
+    <span class="callout-icon">🧪</span>
+    <p>
+      Estas funciones están implementadas en el prototipo como una biblioteca estándar
+      pequeña. Son <strong>extensiones experimentales</strong> y no pertenecen al perfil
+      de conformidad v0.4.
+    </p>
+  </div>
+
+  <h3>Texto</h3>
+  <ul>
+    <li><code>longitud(t)</code> — número de caracteres (no bytes).</li>
+    <li><code>contiene(t, sub)</code> — <code>logico</code>; ¿<code>t</code> contiene <code>sub</code>?</li>
+    <li><code>empieza_con(t, sub)</code> / <code>termina_con(t, sub)</code> — <code>logico</code>.</li>
+    <li><code>es_vacio(t)</code> — <code>logico</code>; ¿la cadena está vacía?</li>
+    <li><code>mayusculas(t)</code> / <code>minusculas(t)</code> — texto en mayúsculas o minúsculas.</li>
+    <li><code>recortar(t)</code> — quita los espacios de los extremos.</li>
+    <li><code>reemplazar(t, buscar, nuevo)</code> — sustituye todas las apariciones.</li>
+    <li><code>subcadena(t, inicio, fin)</code> — subcadena por índices de carácter (excluye <code>fin</code>).</li>
+    <li><code>dividir(t, sep)</code> — parte el texto en una <code>lista&lt;texto&gt;</code>.</li>
+    <li><code>unir(lista, sep)</code> — une una <code>lista&lt;texto&gt;</code> con el separador.</li>
+    <li><code>invertir(t)</code> — invierte los caracteres.</li>
+  </ul>
+  <Codigo codigo={stdlibTexto}/>
+
+  <h3 style="margin-top:1.5rem">Conversiones</h3>
+  <ul>
+    <li><code>texto(valor)</code> — convierte cualquier valor a <code>texto</code>. Necesaria para meter un número en una cadena con <code>+</code>.</li>
+    <li><code>a_entero(t)</code> / <code>a_decimal(t)</code> / <code>a_real(t)</code> — analizan un <code>texto</code> y devuelven el número, o fallan si no se puede.</li>
+  </ul>
+  <Codigo codigo={stdlibConv}/>
+
+  <h3 style="margin-top:1.5rem">Colecciones</h3>
+  <ul>
+    <li><code>agregar(coleccion, valor)</code> — devuelve una copia con el valor añadido (sirve para <code>arreglo</code> y <code>lista</code>).</li>
+    <li><code>eliminar(coleccion, indice)</code> — devuelve una copia sin el elemento en ese índice.</li>
+    <li><code>contiene(coleccion, valor)</code> — <code>logico</code>; ¿la colección contiene el valor?</li>
+    <li><code>invertir(coleccion)</code> / <code>ordenar(coleccion)</code> — invierten u ordenan una colección.</li>
+  </ul>
+  <Codigo codigo={stdlibCol}/>
+
+  <h3 style="margin-top:1.5rem">Otras funciones experimentales</h3>
+  <p>El prototipo también incluye, fuera del perfil v0.4:</p>
+  <ul>
+    <li><strong>Archivos</strong>: <code>abrir(ruta, modo)</code> (modos <code>leer</code>, <code>escribir</code>, <code>agregar</code>), <code>leer_linea</code>, <code>leer_todo</code>, <code>escribir</code>, <code>escribir_linea</code>, <code>cerrar</code>, <code>fin_de_archivo</code>, <code>existe_archivo</code>, <code>leer_archivo</code>, <code>escribir_archivo</code>.</li>
+    <li><strong>Entrada estándar</strong>: <code>leer</code>, <code>leer_entero</code>, <code>leer_decimal</code>, <code>leer_real</code>.</li>
+    <li><strong>Matemática</strong>: <code>abs</code>, <code>max</code>, <code>min</code>, <code>raiz</code>, <code>potencia</code>.</li>
+    <li><strong>Fecha y hora</strong>: <code>datetime_ahora</code>, <code>datetime_parsear</code>, <code>datetime_formatear</code>, <code>datetime_sumar_dias</code>, <code>datetime_diferencia</code>.</li>
+    <li><strong>Entorno</strong>: <code>env_obtener</code>, <code>env_existe</code>, <code>env_establecer</code>.</li>
+    <li><strong>Orden superior</strong>: <code>map</code>, <code>filtrar</code>, <code>reducir</code> (requieren pasar funciones como valores).</li>
+    <li><strong>Concurrencia</strong>: <code>iniciar_tarea</code> y <code>esperar_tarea</code> (lanzar y esperar tareas; sin canales ni cancelación).</li>
+  </ul>
+  <p>Consulta el repositorio para las firmas exactas de estas funciones experimentales.</p>
 
   <!-- ─────────── CLI ─────────── -->
   <h2 id="cli">CLI</h2>
@@ -693,7 +834,7 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
   </div>
   <div class="fila">
     <h3>¿Puedo convertir un número a texto?</h3>
-    <p>Todavía no. No hay una función de conversión implementada y <code>+</code> solo concatena texto con texto. Para mostrar números se usa <code>mostrar</code> directamente. Es una limitación actual del prototipo.</p>
+    <p>Sí, con la función integrada <code>texto(...)</code>: <code>texto(42)</code> devuelve <code>"42"</code>. Es necesaria para incluir un número en una cadena, porque <code>+</code> solo concatena texto con texto. Mira <a href="#biblioteca">Funciones integradas</a>.</p>
   </div>
   <div class="fila">
     <h3>¿Hay IDE o resaltado de sintaxis?</h3>
