@@ -1,0 +1,270 @@
+---
+import Base from '../layouts/Base.astro';
+import Codigo from '../components/Codigo.astro';
+
+// ── Lección 1 ──
+const l1 = `mostrar "Hola, BASILISCO"`;
+const l1Run = `basilisco run hola.bsk
+# Hola, BASILISCO`;
+
+// ── Lección 2 ──
+const l2 = `sea nombre = "Ana"          # texto (inferido)
+sea edad = 25               # entero (inferido)
+var precio: decimal = 9.99  # anotado explícitamente
+mostrar nombre
+mostrar edad
+mostrar precio`;
+
+// ── Lección 3 ──
+const l3 = `sea suma = 10 + 5        # 15
+sea resto = 10 % 3       # 1
+sea esMayor = edad > 18  # verdadero
+sea ambos = esMayor y edad < 65   # verdadero
+mostrar suma
+mostrar esMayor`;
+
+// ── Lección 4 ──
+const l4 = `mostrar "Hola, " + nombre          # Hola, Ana
+mostrar "Tengo " + texto(edad) + " años"   # Tengo 25 años
+mostrar mayusculas(nombre)        # ANA
+mostrar longitud(nombre)          # 3`;
+
+// ── Lección 5 ──
+const l5 = `funcion saludar(persona) {
+  retornar "Hola, " + persona
+}
+mostrar saludar("Ana")   # Hola, Ana`;
+
+// ── Lección 6 ──
+const l6 = `si edad >= 18 {
+  mostrar "mayor de edad"
+} sino {
+  mostrar "menor de edad"
+}
+
+para cada i en 1..=3 {
+  mostrar "vuelta " + texto(i)
+}
+# vuelta 1
+# vuelta 2
+# vuelta 3`;
+
+// ── Lección 7 ──
+const l7 = `var notas: lista<entero> = [8, 7]
+notas = agregar(notas, 9)
+mostrar contiene(notas, 9)   # verdadero
+
+para cada n en notas {
+  mostrar n
+}
+# 8, 7, 9`;
+
+// ── Lección 8 ──
+const l8 = `intentar {
+  mostrar 10 / 0
+} rescatar e {
+  mostrar "error: " + e
+}
+# error: división entre cero`;
+
+// ── Programa final ──
+const finalProg = `funcion promedio(notas) {
+  sea suma = 0
+  sea cuenta = 0
+  para cada n en notas {
+    suma = suma + n
+    cuenta = cuenta + 1
+  }
+  retornar suma / cuenta
+}
+
+var notas: lista<entero> = [8, 6, 10, 8]
+
+intentar {
+  sea prom = promedio(notas)
+  si prom >= 6 {
+    mostrar "Aprobado con " + texto(prom)
+  } sino {
+    mostrar "Reprobado con " + texto(prom)
+  }
+} rescatar e {
+  mostrar "No se pudo calcular: " + e
+}`;
+const finalRun = `basilisco run promedio.bsk
+# Aprobado con 8`;
+---
+<Base
+  titulo="Aprende BASILISCO"
+  descripcion="Tutorial paso a paso para aprender BASILISCO construyendo un programa real desde cero."
+>
+
+  <div class="page-head">
+    <div class="hero-eyebrow">Tutorial</div>
+    <h1>Aprende BASILISCO</h1>
+    <p class="hero-sub">
+      BASILISCO es un lenguaje nuevo: no hay tutoriales de terceros ni respuestas
+      en foros todavía, así que esta guía es tu punto de partida. Vamos a construir
+      un programa real —uno que calcula el promedio de unas notas y dice si aprobaste—
+      aprendiendo cada idea justó cuando la necesites.
+    </p>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">🚧</span>
+    <p>
+      Necesitas el intérprete <code>basilisco</code> instalado y saber crear un archivo
+      de texto con extensión <code>.bsk</code>. Si no lo tienes, mira la
+      <a href="/documentacion#instalacion">instalación</a>. Cada bloque de código es un
+      programa completo que puedes copiar y ejecutar.
+    </p>
+  </div>
+
+  <!-- ─────────── Lección 1 ─────────── -->
+  <h2 id="l1">1. Hola, BASILISCO</h2>
+  <p>
+    Todo programa BASILISCO es una secuencia de sentencias. La más útil al empezar es
+    <code>mostrar</code>, que imprime un valor en la consola. Crea un archivo
+    <code>hola.bsk</code> con una sola línea y ejecútalo.
+  </p>
+  <Codigo codigo={l1}/>
+  <Codigo codigo={l1Run}/>
+  <p>
+    <strong>Qué aprendiste:</strong> un programa se ejecuta con <code>basilisco run</code>;
+    <code>mostrar</code> recibe una sola expresión (aquí, un texto entre comillas) y la
+    imprime con salto de línea.
+  </p>
+
+  <!-- ─────────── Lección 2 ─────────── -->
+  <h2 id="l2">2. Guardar valores: variables</h2>
+  <p>
+    Una variable es un nombre que guarda un valor. <code>sea</code> declara una variable
+    mutable e <em>infiere</em> el tipo a partir del valor: <code>25</code> es
+    <code>entero</code>, <code>"Ana"</code> es <code>texto</code>. Si quieres ser
+    explícito, <code>var</code> exige anotar el tipo. El tipo se fija al declarar: ya no
+    cambia, así que el lenguaje te avisa si más tarde intentas mezclar cosas distintas.
+  </p>
+  <Codigo codigo={l2}/>
+  <p>
+    <strong>Qué aprendiste:</strong> <code>sea</code> infiere el tipo; <code>var</code> lo
+    exige. Existen <code>entero</code>, <code>decimal</code>, <code>real</code>,
+    <code>texto</code>, <code>logico</code> y <code>nulo</code>.
+  </p>
+
+  <!-- ─────────── Lección 3 ─────────── -->
+  <h2 id="l3">3. Calcular: operadores</h2>
+  <p>
+    Los operadores aritméticos (<code>+ - * / %</code>) funcionan como esperas, salvo que
+    la división de enteros <em>trunca</em> (10 / 3 da 3, no 3.33). Las comparaciones
+    (<code>== != &lt; &lt;= &gt; &gt;=</code>) devuelven un <code>logico</code>
+    (<code>verdadero</code> o <code>falso</code>), y <code>y</code> / <code>o</code> /
+    <code>no</code> combinan lógicas con cortocircuito.
+  </p>
+  <Codigo codigo={l3}/>
+  <p>
+    <strong>Qué aprendiste:</strong> los enteros truncan al dividir; las comparaciones dan
+    <code>logico</code>; <code>y</code>/<code>o</code>/<code>no</code> son los operadores
+    lógicos.
+  </p>
+
+  <!-- ─────────── Lección 4 ─────────── -->
+  <h2 id="l4">4. Juntar texto (y por qué <code>texto()</code>)</h2>
+  <p>
+    El operador <code>+</code> <strong>solo concatena texto con texto</strong>: no
+    convierte un número automáticamente. Por eso, para meter un número en una frase
+    usas la función integrada <code>texto(...)</code>, que lo convierte. La biblioteca
+    estándar también trae helpers de texto como <code>mayusculas</code> o
+    <code>longitud</code>.
+  </p>
+  <Codigo codigo={l4}/>
+  <p>
+    <strong>Qué aprendiste:</strong> <code>+</code> no convierte números; usa
+    <code>texto(n)</code>. Existen funciones de texto listas (ver
+    <a href="/documentacion#biblioteca">Funciones integradas</a>).
+  </p>
+
+  <!-- ─────────── Lección 5 ─────────── -->
+  <h2 id="l5">5. Reutilizar: funciones</h2>
+  <p>
+    Una función agrupa pasos bajo un nombre. Se define con <code>funcion</code>, recibe
+    parámetros entre paréntesis y devuelve un valor con <code>retornar</code>. Sin
+    anotaciones, el tipo de los parámetros se infiere en la primera llamada. Las
+    funciones te permiten no repetir lógica y construir sobre lo anterior.
+  </p>
+  <Codigo codigo={l5}/>
+  <p>
+    <strong>Qué aprendiste:</strong> <code>funcion</code> define; <code>retornar</code>
+    devuelve. Puedes anotar parámetros y retorno con <code>-&gt; tipo</code>.
+  </p>
+
+  <!-- ─────────── Lección 6 ─────────── -->
+  <h2 id="l6">6. Decidir y repetir: control de flujo</h2>
+  <p>
+    <code>si</code> / <code>sino</code> ejecutan un bloque u otro según una condición
+    lógica. Para repetir, <code>mientras</code> repite mientras la condición sea cierta, y
+    <code>para cada</code> recorre una colección o un rango. Los rangos <code>a..b</code>
+    excluyen el final y <code>a..=b</code> lo incluyen.
+  </p>
+  <Codigo codigo={l6}/>
+  <p>
+    <strong>Qué aprendiste:</strong> <code>si</code>/<code>sino</code> deciden;
+    <code>mientras</code> y <code>para cada</code> repiten; <code>..</code> y <code>..=</code>
+    definen rangos.
+  </p>
+
+  <!-- ─────────── Lección 7 ─────────── -->
+  <h2 id="l7">7. Manejar varios valores: colecciones</h2>
+  <p>
+    Un <code>arreglo&lt;T, N&gt;</code> tiene tamaño fijo; una <code>lista&lt;T&gt;</code>
+    puede crecer. Para añadir o quitar elementos usas las funciones integradas
+    <code>agregar</code> y <code>eliminar</code> (devuelven una copia), y
+    <code>contiene</code> te dice si un valor está dentro.
+  </p>
+  <Codigo codigo={l7}/>
+  <p>
+    <strong>Qué aprendiste:</strong> <code>lista</code> es variable; <code>agregar</code> y
+    <code>eliminar</code> devuelven copias; <code>para cada</code> recorre la colección.
+  </p>
+
+  <!-- ─────────── Lección 8 ─────────── -->
+  <h2 id="l8">8. Cuando algo falla: intentar / rescatar</h2>
+  <p>
+    BASILISCO no falla en silencio: un error detiene el programa y te dice archivo, línea
+    y causa. Con <code>intentar</code> / <code>rescatar</code> puedes atrapar un error y
+    reaccionar en vez de caer. La variable de <code>rescatar</code> es un
+    <code>texto</code> con el mensaje del error.
+  </p>
+  <Codigo codigo={l8}/>
+  <p>
+    <strong>Qué aprendiste:</strong> los errores llevan ubicación; <code>intentar</code> /
+    <code>rescatar</code> los capturan para que el programa no se detenga.
+  </p>
+
+  <!-- ─────────── Programa final ─────────── -->
+  <h2 id="final">Todo junto: el programa de promedios</h2>
+  <p>
+    Combinando lo anterior: una función <code>promedio</code> que recorre las notas con
+    <code>para cada</code>, una decisión <code>si</code> / <code>sino</code> para aprobar
+    o reprobar, <code>texto()</code> para imprimir el número y <code>intentar</code> /
+    <code>rescatar</code> por si la lista estuviera vacía (y la división cayera en cero).
+    Guarda esto en <code>promedio.bsk</code> y ejecútalo.
+  </p>
+  <Codigo codigo={finalProg}/>
+  <Codigo codigo={finalRun}/>
+
+  <h2 id="ejercicios">Ejercicios para practicar</h2>
+  <p>Por orden de dificultad. Inténtalos solo y vuelve a la lección correspondiente si te atascas.</p>
+  <ol>
+    <li>Cambia el saludo de la lección 4 para imprimir el nombre en mayúsculas con <code>mayusculas</code>.</li>
+    <li>Usa <code>a_entero("100")</code>, súmale <code>1</code> y muéstralo (debería dar <code>101</code>).</li>
+    <li>Cuenta cuántas notas del programa final son pares (pista: <code>n % 2 == 0</code>).</li>
+    <li>Añade una función que devuelva la nota más alta, recorriendo con <code>para cada</code>.</li>
+    <li>Modifica el <code>rescatar</code> del programa final para que, si la lista está vacía, muestre <code>"sin notas"</code> en vez de caer.</li>
+  </ol>
+
+  <div class="cta-band">
+    <h2>Ya sabes lo básico</h2>
+    <p>La referencia completa —cada tipo, operador, función y comando— está en la documentación.</p>
+    <a class="btn" href="/documentacion">Ir a la documentación →</a>
+  </div>
+
+</Base>

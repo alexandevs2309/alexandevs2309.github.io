@@ -41,6 +41,18 @@ const numGuiaEj = `# cantidades exactas: decimal (punto fijo)
 sea precio = 9.99
 mostrar precio * 3          # 29.97
 mostrar 0.1 + 0.2           # 0.3   (sin error de redondeo)`;
+const tiposLimitesEj = `# desbordamiento: error, no se envuelve
+sea max = 9223372036854775807   # limite del entero de 64 bits
+mostrar max + 1                 # error: desbordamiento
+
+# division de enteros trunca hacia cero
+mostrar 7 / 2      # 3
+mostrar -7 / 2     # -3   (trunca, no redondea)
+
+# decimal y real no se convierten entre si
+sea d = 1.5        # decimal
+sea r = 1.5e0      # real
+mostrar d + r      # error: tipos incompatibles`;
 const logEj = `sea activo = verdadero
 sea vacio = falso
 sea niega = no activo          # falso
@@ -72,6 +84,13 @@ sea igual = 5 == 5       # verdadero
 sea dist = 5 != 3        # verdadero
 sea menor = 3 < 5        # verdadero
 sea mayor = 3 > 5        # falso`;
+const opDetallesEj = `# cortocircuito: 'y' no evalua la derecha si la izquierda es falsa
+sea x = falso y (10 / 0 == 0)    # falso (no divide; no hay error)
+mostrar x
+
+# el signo de % sigue al dividendo
+mostrar -7 % 3    # -1
+mostrar 7 % -3    # 1`;
 
 // ── Funciones ──
 const fnEj = `funcion saludar(nombre) {
@@ -419,6 +438,7 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
 
   <!-- ─────────── Tipos ─────────── -->
   <h2 id="tipos">Tipos</h2>
+  <p>BASILISCO tiene tipado estático: el tipo de cada variable se decide al declarar y ya no cambia. Eso atrapa errores antes de ejecutar y hace que el comportamiento sea predecible.</p>
   <p>Los tipos disponibles en el lenguaje:</p>
   <ul class="pill-list">
     {types.map(t => <li><code class="pill">{t}</code></li>)}
@@ -454,8 +474,18 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
     y <code>real</code>, ni de un número a <code>texto</code>.
   </p>
 
+  <h3 style="margin-top:1.5rem">Casos límite y trampas</h3>
+  <ul>
+    <li><strong>Desbordamiento</strong> — los enteros son de 64 bits con signo; superar el máximo es un error, no se envuelve.</li>
+    <li><strong>División de enteros</strong> — trunca hacia cero, así que <code>7 / 2</code> da <code>3</code> y <code>-7 / 2</code> da <code>-3</code>.</li>
+    <li><strong>Exactitud</strong> — <code>decimal</code> es punto fijo y no acumula error; <code>real</code> sí (es IEEE 754).</li>
+    <li><strong>Mezclar decimal y real</strong> — no hay conversión entre ellos; <code>1.5 + 1.5e0</code> es un error. Convierte explícitamente.</li>
+  </ul>
+  <Codigo codigo={tiposLimitesEj}/>
+
   <!-- ─────────── Operadores ─────────── -->
   <h2 id="operadores">Operadores</h2>
+  <p>Los operadores combinan valores. Los aritméticos trabajan con números, los de comparación devuelven <code>logico</code> y los lógicos combinan <code>logico</code>s. Todos los desbordamientos son errores, no se envuelven.</p>
 
   <h3>Aritméticos</h3>
   <Codigo codigo={opEj}/>
@@ -477,6 +507,14 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
     <div class="about-card"><h3>Menor</h3><p><code>o</code></p></div>
   </div>
   <p>Las comparaciones encadenadas como <code>a &lt; b &lt; c</code> son un error de sintaxis.</p>
+
+  <h3 style="margin-top:1.5rem">Detalles que conviene saber</h3>
+  <ul>
+    <li><strong>Cortocircuito</strong> — <code>y</code> no evalúa la derecha si la izquierda es <code>falso</code>; <code>o</code> no la evalúa si es <code>verdadero</code>. Útil para evitar errores.</li>
+    <li><strong>Signo del resto</strong> — <code>%</code> sigue el signo del dividendo: <code>-7 % 3</code> da <code>-1</code>.</li>
+    <li><strong>Encadenar comparaciones</strong> — <code>a &lt; b &lt; c</code> es un error de sintaxis; escribe <code>a &lt; b y b &lt; c</code>.</li>
+  </ul>
+  <Codigo codigo={opDetallesEj}/>
 
   <!-- ─────────── Texto ─────────── -->
   <h2 id="texto">Texto</h2>
@@ -746,33 +784,34 @@ const types = ['entero','decimal','real','logico','texto','nulo','arreglo','list
 
   <h3>Texto</h3>
   <ul>
-    <li><code>longitud(t)</code> — número de caracteres (no bytes).</li>
-    <li><code>contiene(t, sub)</code> — <code>logico</code>; ¿<code>t</code> contiene <code>sub</code>?</li>
-    <li><code>empieza_con(t, sub)</code> / <code>termina_con(t, sub)</code> — <code>logico</code>.</li>
-    <li><code>es_vacio(t)</code> — <code>logico</code>; ¿la cadena está vacía?</li>
-    <li><code>mayusculas(t)</code> / <code>minusculas(t)</code> — texto en mayúsculas o minúsculas.</li>
-    <li><code>recortar(t)</code> — quita los espacios de los extremos.</li>
-    <li><code>reemplazar(t, buscar, nuevo)</code> — sustituye todas las apariciones.</li>
-    <li><code>subcadena(t, inicio, fin)</code> — subcadena por índices de carácter (excluye <code>fin</code>).</li>
-    <li><code>dividir(t, sep)</code> — parte el texto en una <code>lista&lt;texto&gt;</code>.</li>
-    <li><code>unir(lista, sep)</code> — une una <code>lista&lt;texto&gt;</code> con el separador.</li>
-    <li><code>invertir(t)</code> — invierte los caracteres.</li>
+    <li><code>longitud(t) -&gt; entero</code> — caracteres (no bytes); <code>longitud("hola")</code> da <code>4</code>.</li>
+    <li><code>contiene(t, sub) -&gt; logico</code> — ¿incluye la subcadena?; <code>contiene("hola", "ol")</code> da <code>verdadero</code>.</li>
+    <li><code>empieza_con(t, sub) -&gt; logico</code> / <code>termina_con(t, sub) -&gt; logico</code> — prefijo o sufijo.</li>
+    <li><code>es_vacio(t) -&gt; logico</code> — ¿la cadena tiene longitud cero?</li>
+    <li><code>mayusculas(t) -&gt; texto</code> / <code>minusculas(t) -&gt; texto</code> — cambia a mayúsculas o minúsculas.</li>
+    <li><code>recortar(t) -&gt; texto</code> — quita espacios de los extremos; <code>recortar("  x  ")</code> da <code>"x"</code>.</li>
+    <li><code>reemplazar(t, buscar, nuevo) -&gt; texto</code> — sustituye todas las apariciones.</li>
+    <li><code>subcadena(t, inicio, fin) -&gt; texto</code> — por índices de carácter, excluye <code>fin</code>; <code>subcadena("hola", 0, 2)</code> da <code>"ho"</code>.</li>
+    <li><code>dividir(t, sep) -&gt; lista&lt;texto&gt;</code> — parte el texto; el separador no puede estar vacío.</li>
+    <li><code>unir(lista&lt;texto&gt;, sep) -&gt; texto</code> — une la lista con el separador.</li>
+    <li><code>invertir(t) -&gt; texto</code> — invierte los caracteres; <code>invertir("abc")</code> da <code>"cba"</code>.</li>
   </ul>
   <Codigo codigo={stdlibTexto}/>
 
   <h3 style="margin-top:1.5rem">Conversiones</h3>
   <ul>
-    <li><code>texto(valor)</code> — convierte cualquier valor a <code>texto</code>. Necesaria para meter un número en una cadena con <code>+</code>.</li>
-    <li><code>a_entero(t)</code> / <code>a_decimal(t)</code> / <code>a_real(t)</code> — analizan un <code>texto</code> y devuelven el número, o fallan si no se puede.</li>
+    <li><code>texto(valor) -&gt; texto</code> — convierte cualquier valor a texto; <code>texto(42)</code> da <code>"42"</code>. Necesaria para meter un número en una cadena con <code>+</code>.</li>
+    <li><code>a_entero(t) -&gt; entero</code> — analiza un texto y devuelve el entero, o falla si no es válido.</li>
+    <li><code>a_decimal(t) -&gt; decimal</code> / <code>a_real(t) -&gt; real</code> — análogos para punto fijo y coma flotante.</li>
   </ul>
   <Codigo codigo={stdlibConv}/>
 
   <h3 style="margin-top:1.5rem">Colecciones</h3>
   <ul>
-    <li><code>agregar(coleccion, valor)</code> — devuelve una copia con el valor añadido (sirve para <code>arreglo</code> y <code>lista</code>).</li>
-    <li><code>eliminar(coleccion, indice)</code> — devuelve una copia sin el elemento en ese índice.</li>
-    <li><code>contiene(coleccion, valor)</code> — <code>logico</code>; ¿la colección contiene el valor?</li>
-    <li><code>invertir(coleccion)</code> / <code>ordenar(coleccion)</code> — invierten u ordenan una colección.</li>
+    <li><code>agregar(coleccion, valor) -&gt; coleccion</code> — devuelve una copia con el valor añadido (sirve para <code>arreglo</code> y <code>lista</code>); reasigna el resultado.</li>
+    <li><code>eliminar(coleccion, indice) -&gt; coleccion</code> — devuelve una copia sin el elemento en ese índice.</li>
+    <li><code>contiene(coleccion, valor) -&gt; logico</code> — ¿la colección contiene el valor?; también sirve para texto (subcadena).</li>
+    <li><code>invertir(coleccion) -&gt; coleccion</code> / <code>ordenar(coleccion) -&gt; coleccion</code> — invierten u ordenan una colección.</li>
   </ul>
   <Codigo codigo={stdlibCol}/>
 
