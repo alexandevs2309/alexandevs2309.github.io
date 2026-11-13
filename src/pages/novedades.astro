@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Novedades" descripcion="Novedades y cambios de BASILISCO basados en información verificable, con estado claro cuando no existe fuente pública integrada.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Novedades</div>
+    <h1>Cambios, versiones y comunicación del proyecto</h1>
+    <p class="docs-lead">Espacio preparado para publicar releases y cambios con trazabilidad. Actualmente no hay un feed de changelog integrado en este sitio, por lo que se muestra solo estado conocido.</p>
+  </div>
+
+  <div class="callout"><span class="callout-icon">ℹ️</span><p><strong>Fuente de datos:</strong> no integrada. No se generan entradas ficticias ni fechas no verificables.</p></div>
+
+  <section class="section-head"><h2>Estado conocido</h2></section>
+  <div class="grid-2">
+    <div class="panel">
+      <div class="mono-label">Prototipo</div>
+      <h3>Versión declarada 0.6.0 <span class="tag exp">Manifiesto</span></h3>
+      <p>La documentación del sitio identifica el prototipo actual como 0.6.0. El detalle de cambios por release debe provenir de una fuente oficial (tags/releases/changelog) cuando esté disponible.</p>
+    </div>
+    <div class="panel">
+      <div class="mono-label">Conformidad</div>
+      <h3>Perfil v0.4 aprobado <span class="tag ok">Acotado</span></h3>
+      <p>Subconjunto garantizado documentado que define el alcance estable de referencia frente a extensiones experimentales del prototipo.</p>
+    </div>
+  </div>
+
+  <section class="section-head"><h2>Cuando haya fuente verificable</h2><p>Estructura recomendada para entradas futuras.</p></section>
+  <div class="grid-3">
+    <div class="panel"><h3>Versión y fecha</h3><p>Identificador semántico, fecha de publicación y enlace a la fuente oficial.</p></div>
+    <div class="panel"><h3>Tipo de cambio</h3><p>Mejoras, correcciones, cambios experimentales y notas de compatibilidad.</p></div>
+    <div class="panel"><h3>Impacto técnico</h3><p>Áreas afectadas: lenguaje, CLI, stdlib, tooling, documentación.</p></div>
+  </div>
+
+  <div class="panel" style="margin-top:1rem;">
+    <h3>Integración sugerida en Astro</h3>
+    <p>Usar Content Collections para entradas de novedades/changelog cuando exista una fuente estructurada y verificable, manteniendo generación estática y bajo costo de JS.</p>
+    <p style="margin-top:.6rem;"><a class="text-link" href="/roadmap">Ver roadmap conocido →</a></p>
+  </div>
+</Base>

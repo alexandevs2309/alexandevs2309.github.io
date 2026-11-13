@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Estado" descripcion="Estado público del proyecto BASILISCO: versión, perfil de referencia, madurez por áreas y limitaciones conocidas.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Estado del proyecto</div>
+    <h1>Estado técnico y alcance público</h1>
+    <p class="docs-lead">Resumen del estado conocido de BASILISCO según la documentación disponible en este sitio. La información se presenta sin inferencias no verificadas.</p>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><strong>0.6.0</strong><span>Prototipo declarado</span></div>
+    <div class="kpi"><strong>v0.4</strong><span>Perfil de referencia acotado</span></div>
+    <div class="kpi"><strong>Mixto</strong><span>Garantizado + experimental</span></div>
+    <div class="kpi"><strong>Público</strong><span>Basado en evidencia disponible</span></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <h3>Garantías del perfil v0.4 <span class="tag ok">Aprobado</span></h3>
+      <ul class="list-clean">
+        <li>Expresiones, variables y ámbitos.</li>
+        <li>Funciones declaradas con tipos opcionales según reglas.</li>
+        <li><code>si/sino</code>, <code>mientras</code>, texto, <code>nulo</code>.</li>
+        <li>Arreglos y listas básicas.</li>
+        <li>Errores con ubicación y CLI documentada.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Extensiones experimentales <span class="tag exp">Prototipo</span></h3>
+      <ul class="list-clean">
+        <li><code>para cada</code>, rangos, <code>romper/continuar</code>, <code>intentar/rescatar</code>, <code>const</code>.</li>
+        <li>Funciones como valores, cierres, lambdas.</li>
+        <li>Biblioteca estándar ampliada, concurrencia básica.</li>
+        <li>Módulos/paquetes en evolución, FFI C, distribución remota prototipal.</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="section-head"><h2>Disponibilidad y limitaciones</h2></section>
+  <div class="grid-3">
+    <div class="panel"><h3>Intérprete</h3><p>El sitio indica que el código fuente del intérprete no está disponible públicamente actualmente. No se anuncian instaladores oficiales aquí.</p><p><span class="tag pl">No disponible públicamente</span></p></div>
+    <div class="panel"><h3>Herramientas</h3><p>CLI documentada; extensión VS Code (.vsix) disponible para descarga en esta web (solo soporte de edición).</p><p><span class="tag ok">Parcial</span></p></div>
+    <div class="panel"><h3>Playground web</h3><p>Sin runtime ejecutable integrado detectado. No se ofrece ejecución simulada.</p><p><span class="tag pl">Pendiente</span></p></div>
+  </div>
+
+  <div class="callout"><span class="callout-icon">◆</span><p>Para métricas de pruebas, cortes de release, paridad entre motores o detalles internos de arquitectura, se requiere una fuente pública oficial verificable no disponible en este repositorio/sitio.</p></div>
+  <p><a class="text-link" href="/roadmap">Ver hoja de ruta →</a> · <a class="text-link" href="/docs">Ir a documentación →</a></p>
+</Base>

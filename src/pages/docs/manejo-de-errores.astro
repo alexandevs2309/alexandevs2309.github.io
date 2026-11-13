@@ -1,0 +1,26 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Manejo de errores" descripcion="Diagnósticos, errores comunes y captura experimental en BASILISCO." seccion="Lenguaje" actual="/docs/manejo-de-errores">
+  <p slot="lead">BASILISCO reporta fallos con contexto y ofrece captura de errores en tiempo de ejecución como extensión experimental.</p>
+
+  <h2>Diagnósticos <span class="tag ok">Documentado</span></h2>
+  <p>Los errores indican archivo, línea, columna y causa (p. ej. división entre cero, desbordamiento, tipos incompatibles, índices fuera de rango).</p>
+  <Codigo codigo={`archivo.bsk: error de ejecución [2:1]: división entre cero`} titulo="diagnostico" />
+
+  <h2>Captura con intentar/rescatar <span class="tag exp">Experimental</span></h2>
+  <Codigo codigo={`intentar {
+  var x: entero = 10 / 0
+} rescatar e {
+  mostrar "error: " + e
+}`} titulo="try-catch" />
+
+  <h2>Errores comunes</h2>
+  <ul>
+    <li>Concatenar texto y número con <code>+</code> sin <code>texto(...)</code>.</li>
+    <li>Reasignar <code>dato</code>/<code>const</code> o cambiar el tipo de una variable.</li>
+    <li>Índices fuera de rango y comparaciones encadenadas inválidas.</li>
+    <li>Superar el límite de iteraciones de <code>mientras</code> (protección del prototipo).</li>
+  </ul>
+</DocsShell>

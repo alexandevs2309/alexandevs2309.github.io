@@ -1,0 +1,28 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Colecciones y módulos" descripcion="Arreglos, listas, módulos y organización de proyectos en BASILISCO." seccion="Lenguaje" actual="/docs/colecciones-y-modulos">
+  <p slot="lead">Estructuras de datos y mecanismos de organización de código, con partes garantizadas y partes en evolución.</p>
+
+  <h2>Colecciones <span class="tag ok">Base</span></h2>
+  <Codigo codigo={`var valores: arreglo<entero, 3> = [10, 20, 30]
+mostrar valores[0]
+
+var notas: lista<entero> = [8, 7, 9]
+notas[0] = 10`} titulo="colecciones" />
+  <p>Los accesos fuera de rango son errores. Operaciones como <code>agregar</code>, <code>eliminar</code> o <code>contiene</code> se documentan como funciones integradas (extensiones experimentales en su conjunto de biblioteca).</p>
+
+  <h2>Módulos y proyectos <span class="tag exp">Experimental</span></h2>
+  <Codigo codigo={`# lib.bsk
+publico funcion doble(n) { retornar n * 2 }
+
+# main.bsk
+usar "lib.bsk" como lib
+mostrar lib.doble(5)`} titulo="modulos" />
+  <ul>
+    <li><code>usar</code> para importar y <code>publico</code> para exportar símbolos.</li>
+    <li>Proyectos con manifiesto <code>basilisco.toml</code> (campos básicos) y resolución local de dependencias en evolución.</li>
+    <li>Paquetes locales/<code>basilisco.lock</code> y distribución remota prototipal: fuera de garantías estables.</li>
+  </ul>
+</DocsShell>

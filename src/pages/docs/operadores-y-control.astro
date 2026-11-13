@@ -1,0 +1,27 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Operadores y control de flujo" descripcion="Operadores, condicionales y ciclos en BASILISCO con alcance garantizado y experimental." seccion="Lenguaje" actual="/docs/operadores-y-control">
+  <p slot="lead">Expresiones, precedencia, condiciones y estructuras de repetición disponibles en el prototipo.</p>
+
+  <h2>Operadores</h2>
+  <ul>
+    <li><strong>Aritméticos:</strong> <code>+ - * / %</code> (división entera trunca hacia cero).</li>
+    <li><strong>Comparación:</strong> <code>== != &lt; &lt;= &gt; &gt;=</code> devuelven <code>logico</code>.</li>
+    <li><strong>Lógicos:</strong> <code>y</code>, <code>o</code>, <code>no</code> con cortocircuito.</li>
+  </ul>
+
+  <h2>Condicionales <span class="tag ok">v0.4</span></h2>
+  <Codigo codigo={`si edad >= 18 {
+  mostrar "mayor de edad"
+} sino {
+  mostrar "menor de edad"
+}`} titulo="si-sino" />
+
+  <h2>Ciclos</h2>
+  <div class="grid-2">
+    <div class="panel"><h3><code>mientras</code> <span class="tag ok">v0.4</span></h3><p>Repite mientras la condición sea verdadera. El prototipo impone un límite de iteraciones como protección de implementación.</p></div>
+    <div class="panel"><h3><code>para cada</code> y rangos <span class="tag exp">Experimental</span></h3><p>Iteración sobre colecciones y rangos (<code>..</code>, <code>..=</code>), con <code>romper</code>/<code>continuar</code> fuera del perfil v0.4.</p></div>
+  </div>
+</DocsShell>

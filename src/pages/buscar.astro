@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+const paginas = [
+  { href: '/docs', titulo: 'Documentación', desc: 'Hub de guías, lenguaje, arquitectura y referencia.', tags: 'docs guia referencia' },
+  { href: '/docs/introduccion', titulo: 'Introducción', desc: 'Qué es BASILISCO y cómo leer la documentación.', tags: 'introduccion alcance' },
+  { href: '/docs/instalacion', titulo: 'Instalación', desc: 'Disponibilidad y requisitos.', tags: 'instalar build cargo' },
+  { href: '/docs/primer-programa', titulo: 'Primer programa', desc: 'Hola mundo y ejecución básica.', tags: 'hola mostrar run .bsk' },
+  { href: '/docs/variables-y-tipos', titulo: 'Variables y tipos', desc: 'sea var dato tipos primitivos.', tags: 'variables tipos entero texto decimal' },
+  { href: '/docs/funciones', titulo: 'Funciones', desc: 'Definición, retorno y recursión.', tags: 'funcion retornar parametros' },
+  { href: '/docs/cli-y-herramientas', titulo: 'CLI y herramientas', desc: 'Comandos de basilisco/bsk.', tags: 'cli run analizar formatear' },
+  { href: '/docs/faq', titulo: 'Preguntas frecuentes', desc: 'Dudas comunes.', tags: 'faq preguntas version' },
+  { href: '/lenguaje', titulo: 'Lenguaje', desc: 'Filosofía y capacidades del lenguaje.', tags: 'sintaxis filosofia' },
+  { href: '/arquitectura', titulo: 'Arquitectura', desc: 'Pipeline y componentes conocidos.', tags: 'pipeline runtime tipos' },
+  { href: '/ejemplos', titulo: 'Ejemplos', desc: 'Programas anotados por niveles.', tags: 'ejemplos codigo' },
+  { href: '/estado', titulo: 'Estado', desc: 'Madurez y disponibilidad pública.', tags: 'estado prototipo perfil' },
+  { href: '/ecosistema', titulo: 'Ecosistema', desc: 'CLI, extensión, paquetes, FFI.', tags: 'ecosistema vscode ffi paquetes' },
+  { href: '/roadmap', titulo: 'Roadmap', desc: 'Evolución conocida del proyecto.', tags: 'roadmap hoja de ruta' },
+  { href: '/playground', titulo: 'Playground', desc: 'Entorno de prueba (integración pendiente).', tags: 'playground probar' },
+];
+---
+<Base titulo="Buscar" descripcion="Busca páginas y capítulos de la documentación y el sitio de BASILISCO.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Buscar</div>
+    <h1>Buscar en el sitio</h1>
+    <p class="docs-lead">Búsqueda rápida del lado del cliente sobre páginas y capítulos principales. Sin indexación externa ni servicios de terceros.</p>
+  </div>
+
+  <div class="panel" style="max-width:52rem;">
+    <label for="q" class="mono-label">Consulta</label>
+    <div class="toc-search-wrap" style="margin-top:.5rem;">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+      <input id="q" type="search" placeholder="Ej. funciones, CLI, tipos, instalación…" autocomplete="off" />
+    </div>
+    <p id="status" class="toc-search-status" aria-live="polite"></p>
+    <div id="results" class="grid-2" style="margin-top:.5rem;">
+      {paginas.map((p) => (
+        <a class="link-card result" href={p.href} data-text={`${p.titulo} ${p.desc} ${p.tags}`.toLowerCase()}>
+          <h3>{p.titulo}</h3>
+          <p>{p.desc}</p>
+          <div class="meta">{p.href}</div>
+        </a>
+      ))}
+    </div>
+    <p id="empty" class="toc-no-results" hidden>No se encontraron resultados.</p>
+  </div>
+
+  <script>
+    const q = document.getElementById('q');
+    const status = document.getElementById('status');
+    const empty = document.getElementById('empty');
+    const items = Array.from(document.querySelectorAll('.result'));
+    const norm = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const run = () => {
+      const term = norm(q.value.trim());
+      let n = 0;
+      for (const el of items) {
+        const ok = !term || norm(el.dataset.text || '').includes(term);
+        el.hidden = !ok;
+        if (ok) n++;
+      }
+      empty.hidden = n > 0;
+      status.textContent = term ? `${n} resultado${n === 1 ? '' : 's'}` : '';
+    };
+    q?.addEventListener('input', run);
+  </script>
+</Base>

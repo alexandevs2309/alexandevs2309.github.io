@@ -1,0 +1,31 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Instalación" descripcion="Disponibilidad e instalación de BASILISCO según la información pública actual." seccion="Primeros pasos" actual="/docs/instalacion">
+  <p slot="lead">Estado de disponibilidad del intérprete y pasos aplicables solo cuando se dispone de una copia autorizada del código fuente.</p>
+
+  <div class="callout"><span class="callout-icon">ℹ️</span><p><strong>Por confirmar / no disponible públicamente:</strong> el código fuente del intérprete no está disponible para descarga pública actualmente según este sitio. No se publican instaladores oficiales (Homebrew, apt, winget) aquí.</p></div>
+
+  <h2>Si tienes una copia autorizada del código fuente</h2>
+  <p>Compilación con una toolchain de Rust reciente (el proyecto usa edición moderna de Rust):</p>
+  <Codigo codigo={`cd ruta/de/la/copia
+cargo build --release
+# binario: target/release/basilisco`} titulo="compilar" />
+
+  <h3>Instalar en el sistema</h3>
+  <Codigo codigo={`cd ruta/de/la/copia
+cargo install --path .
+basilisco --version
+bsk --version`} titulo="instalar" />
+
+  <h2>Extensión de editor</h2>
+  <p>La extensión VS Code disponible en este sitio proporciona resaltado de sintaxis y soporte básico de edición para <code>.bsk</code>/<code>.nexo</code>. <strong>No instala el intérprete</strong>.</p>
+  <p><a class="text-link" href="/basilisco-0.1.1.vsix" download>Descargar extensión .vsix →</a></p>
+
+  <h2>Verificación</h2>
+  <ul>
+    <li><span class="tag pl">Intérprete público</span> — disponibilidad no confirmada.</li>
+    <li><span class="tag ok">Recursos web</span> — documentación, ejemplos y extensión de editor disponibles en este sitio.</li>
+  </ul>
+</DocsShell>

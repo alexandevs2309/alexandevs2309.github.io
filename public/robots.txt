@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+# Sitemap: configurar URL absoluta cuando se defina el dominio/site en Astro

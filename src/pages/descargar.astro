@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Instalación y descargas" descripcion="Centro de instalación y descargas de BASILISCO: estado de distribución, canales previstos y recursos disponibles.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Recursos</div>
+    <h1>Instalación y descargas</h1>
+    <p class="docs-lead">Centro preparado para la distribución oficial de BASILISCO. Mientras no exista una publicación confirmada, esta página documenta el estado real y evita instrucciones o enlaces inventados.</p>
+  </div>
+
+  <div class="panel" style="border-left:3px solid var(--accent);">
+    <div class="mono-label">Estado de distribución</div>
+    <h2 style="margin-top:.4rem;">Sin distribución pública confirmada</h2>
+    <p>Según la información disponible en este sitio, no se anuncian binarios descargables, instaladores oficiales ni registros de paquetes públicos para el intérprete. Esta página se actualizará cuando existan artefactos y pasos verificables.</p>
+    <p><span class="tag pl">Por confirmar</span></p>
+  </div>
+
+  <section class="section-head"><h2>Canales previstos</h2><p>Se completarán únicamente con información oficial.</p></section>
+  <div class="about-grid">
+    <div class="about-card"><h3>Binarios precompilados</h3><p>Paquetes por plataforma/arquitectura con notas de versión y requisitos.</p><p><span class="tag pl">Por confirmar</span></p></div>
+    <div class="about-card"><h3>Gestores de paquetes</h3><p>Publicación en registros oficiales con comandos de instalación verificados.</p><p><span class="tag pl">Por confirmar</span></p></div>
+    <div class="about-card"><h3>Desde código fuente</h3><p>Instrucciones de compilación, toolchain y pasos reproducibles cuando la fuente esté disponible.</p><p><span class="tag pl">Por confirmar</span></p></div>
+    <div class="about-card"><h3>Verificación e integridad</h3><p>Checksums, firmas y origen oficial de descarga cuando se publiquen.</p><p><span class="tag pl">Por confirmar</span></p></div>
+  </div>
+
+  <section class="section-head"><h2>Recursos disponibles ahora</h2></section>
+  <div class="grid-3">
+    <a class="link-card" href="/docs/instalacion"><h3>Guía de instalación (estado)</h3><p>Información actual y pasos aplicables solo con copia autorizada del código.</p><div class="meta">Abrir →</div></a>
+    <a class="link-card" href="/docs/primer-programa"><h3>Primer programa</h3><p>Ejemplo mínimo para entender el flujo de ejecución esperado.</p><div class="meta">Ver guía →</div></a>
+    <a class="link-card" href="/basilisco-0.1.1.vsix" download><h3>Extensión VS Code</h3><p>Resaltado de sintaxis y soporte básico de edición (.vsix). No instala el intérprete.</p><div class="meta">Descargar →</div></a>
+  </div>
+
+  <div class="callout"><span class="callout-icon">◆</span><p>Consulta también <a href="/cli">CLI y herramientas</a>, <a href="/estado">Estado público</a> y <a href="/novedades">Novedades</a> para seguimiento del proyecto.</p></div>
+</Base>

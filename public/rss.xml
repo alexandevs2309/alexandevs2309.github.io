@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>BASILISCO — Novedades</title>
+    <link>/novedades</link>
+    <description>Novedades públicas de BASILISCO. Sin entradas verificables integradas actualmente.</description>
+    <language>es</language>
+  </channel>
+</rss>

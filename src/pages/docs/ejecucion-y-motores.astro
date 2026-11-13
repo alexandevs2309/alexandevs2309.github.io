@@ -1,0 +1,23 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+---
+<DocsShell titulo="Ejecución y motores" descripcion="Modelo de ejecución conocido de BASILISCO y estado de evidencia sobre motores/backends." seccion="Arquitectura" actual="/docs/ejecucion-y-motores">
+  <p slot="lead">Cómo se ejecuta BASILISCO según la información pública disponible, y qué partes de la arquitectura interna no están confirmadas.</p>
+
+  <h2>Ejecución documentada</h2>
+  <p>Los programas <code>.bsk</code> se ejecutan mediante la CLI del intérprete (<code>basilisco run</code>), produciendo salida o diagnósticos con ubicación. El comportamiento incluye reglas de tipos, errores en tiempo de ejecución y límites propios del prototipo.</p>
+  <p><span class="tag ok">Runtime/CLI documentado</span></p>
+
+  <h2>Pipeline interno</h2>
+  <div class="grid-2">
+    <div class="panel"><h3>Documentado / parcial</h3><p>Sistema de tipos y validaciones del lenguaje; análisis semántico mencionado con cobertura parcial en áreas avanzadas.</p></div>
+    <div class="panel"><h3>No confirmado públicamente</h3><p>Detalles específicos de lexer, parser, AST, HIR/MIR/IR y estrategia interna (tree-walk/VM) no descritos en este sitio.</p></div>
+  </div>
+
+  <h2>Backends</h2>
+  <ul>
+    <li><strong>Nativo / WebAssembly:</strong> no confirmados como disponibles en esta web; considerados fuera de alcance actual cuando no hay evidencia.</li>
+    <li><strong>Paridad entre motores:</strong> no se afirma sin fuente verificable.</li>
+  </ul>
+  <div class="callout"><span class="callout-icon">🔎</span><p>Para una descripción interna precisa se requiere documentación técnica oficial del core o código fuente público verificable.</p></div>
+</DocsShell>

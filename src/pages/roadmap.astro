@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Roadmap" descripcion="Roadmap de BASILISCO: estado actual por áreas, con separación entre implementado, experimental, pendiente y no confirmado públicamente.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Roadmap</div>
+    <h1>Estado de evolución del lenguaje</h1>
+    <p class="docs-lead">Mapa de madurez basado en la información pública disponible en este sitio. No se asignan fechas ni se declaran hitos completados sin evidencia verificable.</p>
+  </div>
+
+  <div class="kpi-row" aria-label="Resumen de estados">
+    <div class="kpi"><strong>v0.4</strong><span>Perfil aprobado y acotado</span></div>
+    <div class="kpi"><strong>0.6.0</strong><span>Prototipo declarado</span></div>
+    <div class="kpi"><strong>Mixto</strong><span>Base garantizada + extensiones</span></div>
+    <div class="kpi"><strong>Público</strong><span>Evidencia limitada a lo documentado</span></div>
+  </div>
+
+  <section class="section-head"><h2>Tablero por estado</h2><p>Clasificación de capacidades y áreas del proyecto.</p></section>
+  <div class="grid-2">
+    <div class="panel">
+      <div class="mono-label">Implementado / garantizado</div>
+      <h3>Perfil v0.4</h3>
+      <ul class="list-clean">
+        <li><strong>Core:</strong> expresiones, variables y ámbitos.</li>
+        <li><strong>Funciones:</strong> declaradas con tipos opcionales según reglas.</li>
+        <li><strong>Control:</strong> <code>si/sino</code>, <code>mientras</code>.</li>
+        <li><strong>Datos:</strong> texto, <code>nulo</code>, arreglos y listas básicas.</li>
+        <li><strong>Calidad:</strong> errores con ubicación y CLI documentada.</li>
+      </ul>
+      <p><span class="tag ok">Garantizado</span></p>
+    </div>
+    <div class="panel">
+      <div class="mono-label">Experimental / en evolución</div>
+      <h3>Extensiones del prototipo</h3>
+      <ul class="list-clean">
+        <li><strong>Lenguaje:</strong> <code>para cada</code>, rangos, <code>romper</code>/<code>continuar</code>, <code>intentar/rescatar</code>, <code>const</code>.</li>
+        <li><strong>Funciones avanzadas:</strong> valores de función, cierres, lambdas.</li>
+        <li><strong>Plataforma:</strong> biblioteca estándar ampliada, concurrencia básica, módulos/manifiesto en evolución.</li>
+        <li><strong>Integración:</strong> paquetes locales, distribución remota prototipal, FFI/ABI C.</li>
+      </ul>
+      <p><span class="tag exp">Experimental</span></p>
+    </div>
+    <div class="panel">
+      <div class="mono-label">Pendiente / no detallado</div>
+      <h3>Sin hoja de ruta pública detallada</h3>
+      <ul class="list-clean">
+        <li><strong>Prioridades futuras:</strong> no publicadas en este sitio con fechas o hitos verificables.</li>
+        <li><strong>Canales oficiales:</strong> seguimiento dependiente de anuncios/fuentes del proyecto.</li>
+        <li><strong>Arquitectura interna:</strong> detalles de frontend/IR/backends no documentados públicamente.</li>
+      </ul>
+      <p><span class="tag pl">Pendiente</span></p>
+    </div>
+    <div class="panel">
+      <div class="mono-label">Fuera de alcance actual</div>
+      <h3>No declarado como disponible</h3>
+      <ul class="list-clean">
+        <li>Biblioteca estándar extensa completa.</li>
+        <li>IDE o depurador integrado.</li>
+        <li>Canales de concurrencia, callbacks/structs/varargs FFI.</li>
+        <li>Backends nativo/WASM confirmados.</li>
+      </ul>
+      <p><span class="tag pl">Fuera de alcance</span></p>
+    </div>
+  </div>
+
+  <section class="section-head"><h2>Línea de evolución conocida</h2></section>
+  <div class="timeline" aria-label="Línea de evolución">
+    <div class="tl-item active"><div class="tl-dot">v0.4</div><div class="tl-body"><h3>Perfil de conformidad <span class="tag ok">Aprobado</span></h3><p>Subconjunto acotado que define garantías base documentadas del lenguaje.</p></div></div>
+    <div class="tl-item active"><div class="tl-dot">0.6.0</div><div class="tl-body"><h3>Prototipo actual <span class="tag exp">En evolución</span></h3><p>Versión declarada con capacidades experimentales fuera del perfil y mejoras continuas.</p></div></div>
+    <div class="tl-item"><div class="tl-dot">→</div><div class="tl-body"><h3>Siguientes hitos <span class="tag pl">No publicados</span></h3><p>Requieren fuente oficial verificable (repositorio, releases o roadmap público del core).</p></div></div>
+  </div>
+
+  <div class="callout"><span class="callout-icon">📌</span><p>Este roadmap evita promesas no verificadas. Para precisión adicional, debe alimentarse de fuentes oficiales del proyecto.</p></div>
+</Base>

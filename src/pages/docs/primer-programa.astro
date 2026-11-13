@@ -1,0 +1,24 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Primer programa" descripcion="Crea y ejecuta tu primer programa en BASILISCO." seccion="Primeros pasos" actual="/docs/primer-programa">
+  <p slot="lead">Un ejemplo mínimo para entender el flujo básico: archivo <code>.bsk</code>, salida con <code>mostrar</code> y ejecución con la CLI.</p>
+
+  <h2>Hola, BASILISCO</h2>
+  <p>Crea un archivo llamado <code>hola.bsk</code>:</p>
+  <Codigo codigo={`mostrar "hola, mundo"`} titulo="hola.bsk" />
+  <p>Ejecútalo (requiere intérprete disponible):</p>
+  <Codigo codigo={`basilisco run hola.bsk
+# salida esperada:
+# hola, mundo`} titulo="terminal" />
+
+  <h2>Qué observar</h2>
+  <ul>
+    <li><code>.bsk</code> es la extensión canónica (<code>.nexo</code> se acepta como legado; <code>.nx</code> no está soportada).</li>
+    <li><code>mostrar</code> imprime un valor con salto de línea.</li>
+    <li>Los errores, cuando ocurren, reportan archivo, línea, columna y causa.</li>
+  </ul>
+
+  <div class="callout"><span class="callout-icon">◆</span><p>Para un recorrido guiado paso a paso, consulta el <a href="/aprender">tutorial Aprender</a>. Para la referencia completa, continúa en los capítulos de lenguaje.</p></div>
+</DocsShell>

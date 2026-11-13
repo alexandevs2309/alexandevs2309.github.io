@@ -1,0 +1,25 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Biblioteca estándar" descripcion="Funciones integradas y capacidades de biblioteca en BASILISCO, con estado de madurez." seccion="Ecosistema" actual="/docs/biblioteca-estandar">
+  <p slot="lead">Conjunto de funciones integradas conocidas del prototipo. La mayoría se consideran extensiones experimentales fuera del perfil v0.4.</p>
+
+  <h2>Salida <span class="tag ok">Perfil v0.4</span></h2>
+  <p><code>mostrar</code> y <code>mostrar_sin_salto</code> para imprimir valores.</p>
+
+  <h2>Texto y conversiones <span class="tag exp">Experimental</span></h2>
+  <ul>
+    <li><code>longitud</code>, <code>mayusculas</code>, <code>minusculas</code>, <code>recortar</code>, <code>contiene</code>, <code>subcadena</code>, <code>reemplazar</code>, <code>dividir</code>, <code>unir</code>, etc.</li>
+    <li><code>texto(valor)</code>, <code>a_entero</code>, <code>a_decimal</code>, <code>a_real</code>.</li>
+  </ul>
+  <Codigo codigo={`mostrar texto(42)
+mostrar mayusculas("hola")`} titulo="stdlib" />
+
+  <h2>Colecciones <span class="tag exp">Experimental</span></h2>
+  <p><code>agregar</code>, <code>eliminar</code>, <code>contiene</code>, <code>invertir</code>, <code>ordenar</code> (según disponibilidad del prototipo).</p>
+
+  <h2>Otras áreas experimentales</h2>
+  <p>Archivos, entrada estándar, matemática, fecha/hora, entorno, orden superior y concurrencia básica se documentan como capacidades del prototipo con firmas sujetas a evolución. Consulta la referencia y ejemplos con precaución.</p>
+  <div class="callout"><span class="callout-icon">◆</span><p>No se declara una biblioteca estándar extensa y estable. Usa estas funciones como parte de un prototipo en evolución.</p></div>
+</DocsShell>

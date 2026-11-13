@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  titulo="Arquitectura"
+  descripcion="Arquitectura conocida de BASILISCO: flujo de ejecución, componentes documentados, áreas parciales y elementos no confirmados públicamente."
+>
+  <div class="page-head">
+    <div class="hero-eyebrow">Arquitectura</div>
+    <h1>Arquitectura técnica y estado de evidencia</h1>
+    <p class="docs-lead">Visión técnica del prototipo basada en información pública disponible en este sitio. Cuando un componente interno no está documentado, se marca explícitamente para evitar inferencias.</p>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon" aria-hidden="true">◆</span>
+    <p><strong>Principio:</strong> no se inventan etapas, IRs ni backends. La arquitectura se presenta por nivel de evidencia: <span class="tag ok">documentado</span>, <span class="tag exp">evidencia parcial</span>, <span class="tag pl">no documentado/no confirmado</span>.</p>
+  </div>
+
+  <section class="section-head">
+    <h2>Flujo conceptual conocido</h2>
+    <p>De código fuente a ejecución/diagnóstico, según el comportamiento observado y documentado del intérprete.</p>
+  </section>
+
+  <div class="code-window" role="img" aria-label="Flujo conceptual conocido de BASILISCO">
+    <div class="code-window-bar">
+      <div class="anot-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      <span class="code-window-title">pipeline · evidencia disponible</span>
+    </div>
+    <div class="code-window-body">
+<pre>┌─────────────────────┐
+│  Código fuente .bsk │
+└──────────┬──────────┘
+           ▼
+┌──────────────────────────────────────────────┐
+│  Frontend de análisis (detalles internos no  │
+│  documentados públicamente)                  │
+│  · tokenización / parsing / AST: no confirmado
+└──────────┬───────────────────────────────────┘
+           ▼
+┌──────────────────────────────────────────────┐
+│  Reglas del lenguaje y sistema de tipos       │  [documentado]
+│  · tipado estático, comprobaciones, errores  │
+│  · análisis semántico: evidencia parcial     │
+└──────────┬───────────────────────────────────┘
+           ▼
+┌──────────────────────────────────────────────┐
+│  Runtime / intérprete + CLI                  │  [documentado]
+│  · ejecución, E/S, límites de prototipo      │
+└───────┬───────────────────────────────┬──────┘
+        ▼                               ▼
+  Resultado / salida             Diagnóstico con ubicación</pre>
+    </div>
+  </div>
+
+  <section class="section-head">
+    <h2>Componentes y estado</h2>
+    <p>Resumen por área solicitada, con estado explícito.</p>
+  </section>
+  <div class="grid-3">
+    <div class="panel"><h3>Lexer</h3><p>Tokenización del código fuente esperada en un lenguaje de este tipo.</p><p><span class="tag pl">No documentado públicamente</span></p></div>
+    <div class="panel"><h3>Parser</h3><p>Análisis sintáctico y construcción de estructura.</p><p><span class="tag pl">No documentado públicamente</span></p></div>
+    <div class="panel"><h3>AST</h3><p>Representación estructural del programa.</p><p><span class="tag pl">No documentado públicamente</span></p></div>
+    <div class="panel"><h3>Análisis semántico</h3><p>Validaciones de reglas; cobertura mencionada como parcial en capacidades avanzadas.</p><p><span class="tag exp">Evidencia parcial</span></p></div>
+    <div class="panel"><h3>Sistema de tipos</h3><p>Tipos base, colecciones, inferencia (<code>sea</code>), anotaciones y restricciones de conversión documentadas.</p><p><span class="tag ok">Documentado</span></p></div>
+    <div class="panel"><h3>HIR / IR</h3><p>Representaciones intermedias no descritas en la documentación pública disponible.</p><p><span class="tag pl">No documentado públicamente</span></p></div>
+    <div class="panel"><h3>Runtime / ejecución</h3><p>Ejecución mediante intérprete (CLI <code>basilisco run</code>), errores con ubicación y límites del prototipo.</p><p><span class="tag ok">Documentado</span></p></div>
+    <div class="panel"><h3>Tree-walk / VM</h3><p>Estrategia interna de ejecución no confirmada públicamente en este sitio.</p><p><span class="tag pl">No confirmado</span></p></div>
+    <div class="panel"><h3>Backend nativo / WASM</h3><p>No declarados como capacidades disponibles; backend nativo/WASM mencionado como fuera de alcance actual.</p><p><span class="tag pl">No confirmado / fuera de alcance</span></p></div>
+  </div>
+
+  <section class="split" style="margin-top:2rem;">
+    <div class="panel">
+      <h3>Lo que sí está documentado</h3>
+      <ul class="list-clean">
+        <li><strong>Interfaz de ejecución:</strong> CLI <code>basilisco</code>/<code>bsk</code>, archivos <code>.bsk</code>.</li>
+        <li><strong>Comportamiento del lenguaje:</strong> tipos, variables, funciones, control, colecciones, errores.</li>
+        <li><strong>Diagnóstico:</strong> fallos con ubicación y causa; manejo experimental con <code>intentar/rescatar</code>.</li>
+        <li><strong>Extensiones prototipales:</strong> módulos, FFI C, concurrencia básica, biblioteca ampliada.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Qué falta para detallar más</h3>
+      <ul class="list-clean">
+        <li><strong>Fuente verificable del core:</strong> diseño interno de frontend/IR/runtime.</li>
+        <li><strong>Documentación oficial de arquitectura:</strong> diagramas y contratos por componente.</li>
+        <li><strong>Estado de backends:</strong> confirmación de estrategias de ejecución y targets.</li>
+      </ul>
+      <p style="margin-top:.8rem;"><a class="text-link" href="/ecosistema">Ver ecosistema y herramientas →</a></p>
+    </div>
+  </section>
+
+  <div class="callout">
+    <span class="callout-icon" aria-hidden="true">🔎</span>
+    <p>Esta página prioriza precisión sobre completitud aparente. Se actualizará con mayor detalle cuando exista evidencia técnica pública verificable.</p>
+  </div>
+</Base>

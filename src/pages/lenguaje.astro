@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import Codigo from '../components/Codigo.astro';
+
+const snippet = `funcion clasificar(n) {
+  si n >= 0 {
+    retornar "positivo o cero"
+  }
+  retornar "negativo"
+}
+
+sea valores = [3, -1, 0]
+para cada v en valores {
+  mostrar clasificar(v)
+}`;
+---
+<Base
+  titulo="Lenguaje"
+  descripcion="Filosofía, sintaxis, tipos, funciones y modelo del lenguaje BASILISCO con separación clara entre garantías del perfil v0.4 y extensiones experimentales."
+>
+  <div class="page-head">
+    <div class="hero-eyebrow">El lenguaje</div>
+    <h1>BASILISCO: diseño, sintaxis y garantías</h1>
+    <p class="docs-lead">Un lenguaje de programación con sintaxis en español orientado a reducir la barrera idiomática manteniendo rigor técnico. Aquí se resume su modelo mental y el estado real de sus capacidades.</p>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon" aria-hidden="true">◆</span>
+    <p><strong>Estado:</strong> Prototipo 0.6.0 con perfil de conformidad v0.4 aprobado y acotado. Las capacidades fuera del perfil se presentan como experimentales o en evolución.</p>
+  </div>
+
+  <section class="section-head">
+    <h2>Filosofía de diseño</h2>
+    <p>Decisiones visibles en la experiencia del lenguaje y su documentación.</p>
+  </section>
+  <div class="grid-3">
+    <div class="panel"><h3>Legibilidad en español</h3><p>Palabras clave y estructuras pensadas para lectura directa por hispanohablantes.</p></div>
+    <div class="panel"><h3>Rigor y previsibilidad</h3><p>Tipado estático, reglas explícitas y errores con ubicación/causa en lugar de fallos silenciosos.</p></div>
+    <div class="panel"><h3>Transparencia de madurez</h3><p>Distinción clara entre lo garantizado por perfil, lo experimental y lo no disponible.</p></div>
+  </div>
+
+  <section class="split" style="margin-top:2rem;">
+    <div>
+      <h2>Ejemplo representativo</h2>
+      <p style="color:var(--muted); margin-bottom:1rem;">Incluye <code>para cada</code> sobre colección, una extensión experimental fuera del perfil v0.4.</p>
+      <Codigo codigo={snippet} titulo="clasificar" />
+    </div>
+    <div class="panel">
+      <div class="mono-label">Modelo mental</div>
+      <ul class="list-clean" style="margin-top:.6rem;">
+        <li><strong>Programas:</strong> secuencias de sentencias y expresiones en archivos <code>.bsk</code>.</li>
+        <li><strong>Bloques:</strong> ámbitos con llaves <code>{'{ }'}</code> y reglas de visibilidad.</li>
+        <li><strong>Datos:</strong> tipos primitivos, texto, <code>nulo</code>, arreglos y listas.</li>
+        <li><strong>Ejecución:</strong> mediante CLI del intérprete, con diagnósticos localizados.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-head">
+    <h2>Áreas del lenguaje</h2>
+    <p>Cobertura funcional conocida y su estado.</p>
+  </section>
+  <div class="grid-2">
+    <div class="panel"><h3>Variables y tipos <span class="tag ok">Base</span></h3><p><code>sea</code> (inferencia, mutable), <code>var</code> (tipada mutable), <code>dato</code> (inmutable tipada), <code>const</code> (extensión). Tipos: <code>entero</code>, <code>decimal</code>, <code>real</code>, <code>logico</code>, <code>texto</code>, <code>nulo</code>, <code>arreglo</code>, <code>lista</code>.</p></div>
+    <div class="panel"><h3>Funciones <span class="tag exp">Mixto</span></h3><p>Declaración, parámetros, retorno, recursión y firmas tipadas/opcionales según reglas. Funciones como valores, cierres y lambdas: experimentales.</p></div>
+    <div class="panel"><h3>Control de flujo <span class="tag exp">Mixto</span></h3><p><code>si/sino</code> y <code>mientras</code> en perfil garantizado. <code>para cada</code>, rangos, <code>romper</code>/<code>continuar</code> como extensiones experimentales.</p></div>
+    <div class="panel"><h3>Errores y robustez <span class="tag exp">Mixto</span></h3><p>Diagnósticos con archivo/línea/columna y causa. Captura con <code>intentar/rescatar</code> experimental fuera de v0.4.</p></div>
+    <div class="panel"><h3>Biblioteca estándar <span class="tag exp">Experimental</span></h3><p>Salida garantizada en v0.4; extensiones para texto, conversiones, colecciones, archivos, E/S, matemática, fecha/hora, entorno y orden superior.</p></div>
+    <div class="panel"><h3>Módulos y ecosistema <span class="tag exp">Experimental</span></h3><p><code>usar</code>, <code>publico</code>, manifiesto <code>basilisco.toml</code>, paquetes locales en evolución; FFI y distribución remota prototipales.</p></div>
+  </div>
+
+  <section class="section-head">
+    <h2>Matriz de estado</h2>
+  </section>
+  <div class="fila"><h3>Garantizado en v0.4 <span class="tag ok">Perfil aprobado</span></h3><p>Expresiones, variables y ámbitos, funciones declaradas con tipos opcionales, <code>si</code>/<code>mientras</code>, texto, <code>nulo</code>, arreglos y listas básicas, errores con ubicación y CLI.</p></div>
+  <div class="fila"><h3>Extensiones del prototipo <span class="tag exp">Fuera del perfil</span></h3><p><code>para cada</code>, rangos, <code>romper</code>/<code>continuar</code>, <code>intentar</code>/<code>rescatar</code>, <code>const</code>, funciones como valores/cierres/lambdas, biblioteca extendida, concurrencia básica, módulos/paquetes en evolución, FFI C.</p></div>
+  <div class="fila"><h3>Fuera de alcance actual <span class="tag pl">No declarado</span></h3><p>Biblioteca estándar extensa completa, IDE/depurador integrado, canales de concurrencia, callbacks/structs/varargs FFI y backends nativo/WASM confirmados en esta web.</p></div>
+
+  <div class="cta-band">
+    <h2>Sigue con la referencia técnica</h2>
+    <p>Consulta documentación detallada, ejemplos anotados y arquitectura conocida del proyecto.</p>
+    <div class="hero-actions" style="justify-content:center;">
+      <a class="btn" href="/docs">Documentación</a>
+      <a class="btn s" href="/ejemplos">Ejemplos</a>
+      <a class="btn ghost" href="/arquitectura">Arquitectura</a>
+    </div>
+  </div>
+</Base>

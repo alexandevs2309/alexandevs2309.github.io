@@ -1,0 +1,29 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Funciones" descripcion="Funciones en BASILISCO: declaración, parámetros, retorno, recursión y características experimentales." seccion="Lenguaje" actual="/docs/funciones">
+  <p slot="lead">Definición y uso de funciones según el perfil garantizado y las extensiones del prototipo.</p>
+
+  <h2>Definir y llamar</h2>
+  <Codigo codigo={`funcion saludar(nombre) {
+  retornar "hola, " + nombre
+}
+mostrar saludar("Ana")`} titulo="funcion" />
+
+  <h2>Tipado y retorno</h2>
+  <p>Se pueden anotar parámetros y tipo de retorno. Una firma debe anotar todos los parámetros o ninguno.</p>
+  <Codigo codigo={`funcion dividir(a: entero, b: entero) -> entero {
+  retornar a / b
+}`} titulo="tipada" />
+
+  <h2>Recursión <span class="tag ok">Documentado</span></h2>
+  <p>Las funciones pueden llamarse a sí mismas; la recursión mutua y declaraciones adelantadas se documentan dentro del comportamiento del prototipo.</p>
+
+  <h2>Extensiones experimentales <span class="tag exp">Fuera de v0.4</span></h2>
+  <ul>
+    <li>Funciones como valores, paso de funciones como argumentos.</li>
+    <li>Cierres (closures) y lambdas.</li>
+    <li>Funciones anidadas con alcance propio.</li>
+  </ul>
+</DocsShell>

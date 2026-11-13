@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/Base.astro';
+const { titulo, descripcion, seccion = 'Documentación', actual } = Astro.props;
+const capitulos = [
+  ['Primeros pasos', [
+    ['/docs/introduccion', 'Introducción'],
+    ['/docs/instalacion', 'Instalación'],
+    ['/docs/primer-programa', 'Primer programa'],
+  ]],
+  ['Lenguaje', [
+    ['/docs/sintaxis-basica', 'Sintaxis básica'],
+    ['/docs/variables-y-tipos', 'Variables y tipos'],
+    ['/docs/operadores-y-control', 'Operadores y control'],
+    ['/docs/funciones', 'Funciones'],
+    ['/docs/colecciones-y-modulos', 'Colecciones y módulos'],
+    ['/docs/manejo-de-errores', 'Manejo de errores'],
+  ]],
+  ['Arquitectura', [
+    ['/docs/ejecucion-y-motores', 'Ejecución y motores'],
+  ]],
+  ['Ecosistema', [
+    ['/docs/cli-y-herramientas', 'CLI y herramientas'],
+    ['/docs/biblioteca-estandar', 'Biblioteca estándar'],
+  ]],
+  ['Referencia', [
+    ['/docs/faq', 'Preguntas frecuentes'],
+  ]],
+];
+const flat = capitulos.flatMap(([, items]) => items);
+const idx = flat.findIndex(([href]) => href === actual);
+const prev = idx > 0 ? flat[idx - 1] : null;
+const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
+---
+<Base titulo={titulo} descripcion={descripcion}>
+  <div class="docs-page-head">
+    <div class="hero-eyebrow">Documentación · {seccion}</div>
+    <h1>{titulo}</h1>
+    <p class="docs-lead"><slot name="lead" /></p>
+  </div>
+  <div class="docs-layout">
+    <aside class="docs-sidebar" aria-label="Capítulos de documentación">
+      <details class="docs-nav-panel" open>
+        <summary><span>Capítulos</span><span class="docs-nav-current">{flat.find(([h])=>h===actual)?.[1] || 'Índice'}</span></summary>
+        <nav class="toc" aria-label="Índice de capítulos">
+          {capitulos.map(([grupo, items]) => (
+            <div class="toc-group">
+              <span class="toc-group-title">{grupo}</span>
+              {items.map(([href, label]) => (
+                <a href={href} class={href === actual ? 'is-active' : ''} aria-current={href === actual ? 'page' : undefined}>{label}</a>
+              ))}
+            </div>
+          ))}
+        </nav>
+      </details>
+      <a class="docs-sidebar-examples" href="/docs"><span aria-hidden="true">▣</span><span><strong>Hub de docs</strong><small>Índice y accesos</small></span><span aria-hidden="true">→</span></a>
+    </aside>
+    <article class="docs-content">
+      <slot />
+      {(prev || next) && (
+        <nav class="docs-pagination" aria-label="Navegación entre capítulos">
+          {prev ? <a class="docs-page-link docs-page-previous" href={prev[0]}><span>← Anterior</span><strong>{prev[1]}</strong></a> : <a class="docs-page-link" hidden href="#"></a>}
+          {next ? <a class="docs-page-link docs-page-next" href={next[0]}><span>Siguiente</span><strong>{next[1]}</strong><span>→</span></a> : <a class="docs-page-link" hidden href="#"></a>}
+        </nav>
+      )}
+    </article>
+  </div>
+</Base>

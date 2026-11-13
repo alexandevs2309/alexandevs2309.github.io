@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Codigo from '../components/Codigo.astro';
+---
+<Base titulo="CLI y herramientas" descripcion="Referencia preparada de la CLI y herramientas de BASILISCO con información verificable disponible.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Recursos</div>
+    <h1>CLI y herramientas</h1>
+    <p class="docs-lead">Referencia de la interfaz de línea de comandos y herramientas asociadas documentadas públicamente. Los detalles no confirmados se marcan explícitamente.</p>
+  </div>
+
+  <div class="panel">
+    <div class="mono-label">Estado</div>
+    <h2 style="margin-top:.4rem;">CLI documentada · distribución del intérprete por confirmar</h2>
+    <p>Se conocen comandos y comportamientos descritos en la documentación del prototipo. La disponibilidad pública del binario/intérprete no está confirmada en este sitio.</p>
+  </div>
+
+  <section class="section-head"><h2>Comandos documentados</h2></section>
+  <Codigo codigo={`basilisco nuevo               # crea hola.bsk
+basilisco nuevo proyecto app  # crea un proyecto
+basilisco run programa.bsk    # ejecuta un archivo
+basilisco analizar app.bsk    # analiza sin ejecutar
+basilisco formatear app.bsk   # normaliza formato
+basilisco inicializar         # prepara el proyecto actual
+basilisco probar              # ejecuta pruebas del proyecto
+basilisco instalar            # resuelve dependencias locales
+basilisco paquetes            # lista paquetes locales
+basilisco demo                # demostración integrada
+bsk run programa.bsk          # alias`} titulo="cli" />
+
+  <section class="section-head"><h2>Extensiones y códigos de salida</h2></section>
+  <div class="grid-3">
+    <div class="panel"><h3>Archivos</h3><p><code>.bsk</code> canónica, <code>.nexo</code> legado aceptado, <code>.nx</code> no soportada.</p></div>
+    <div class="panel"><h3>Salida</h3><p><code>0</code> éxito · <code>1</code> error de lectura/sintaxis/ejecución · <code>2</code> error de uso/extensión.</p></div>
+    <div class="panel"><h3>Herramientas</h3><p>Extensión VS Code (.vsix) disponible para edición. Sin instalador público del intérprete anunciado.</p></div>
+  </div>
+
+  <section class="section-head"><h2>Recursos relacionados</h2></section>
+  <div class="grid-3">
+    <a class="link-card" href="/docs/cli-y-herramientas"><h3>Capítulo de docs: CLI</h3><p>Referencia dentro de la documentación multipágina.</p><div class="meta">Abrir →</div></a>
+    <a class="link-card" href="/descargar"><h3>Instalación y descargas</h3><p>Estado de distribución y canales previstos.</p><div class="meta">Ver estado →</div></a>
+    <a class="link-card" href="/ecosistema"><h3>Ecosistema</h3><p>Visión general de herramientas e integraciones.</p><div class="meta">Explorar →</div></a>
+  </div>
+</Base>

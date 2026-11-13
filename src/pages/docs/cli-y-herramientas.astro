@@ -1,0 +1,30 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="CLI y herramientas" descripcion="Interfaz de línea de comandos y herramientas disponibles para BASILISCO." seccion="Ecosistema" actual="/docs/cli-y-herramientas">
+  <p slot="lead">Comandos documentados de la CLI y herramientas de apoyo conocidas públicamente.</p>
+
+  <h2>CLI <code>basilisco</code> / <code>bsk</code></h2>
+  <Codigo codigo={`basilisco nuevo               # crea hola.bsk
+basilisco nuevo proyecto app  # crea un proyecto
+basilisco run programa.bsk    # ejecuta
+basilisco analizar app.bsk    # analiza sin ejecutar
+basilisco formatear app.bsk   # formatea
+basilisco inicializar         # prepara proyecto
+basilisco probar              # pruebas del proyecto
+basilisco instalar            # dependencias locales
+basilisco paquetes            # lista paquetes locales`} titulo="cli" />
+
+  <h2>Extensiones y códigos de salida</h2>
+  <ul>
+    <li><code>.bsk</code> canónica, <code>.nexo</code> legado, <code>.nx</code> no soportada.</li>
+    <li>Códigos: <code>0</code> éxito, <code>1</code> lectura/sintaxis/ejecución, <code>2</code> uso o extensión no soportada.</li>
+  </ul>
+
+  <h2>Herramientas</h2>
+  <div class="grid-2">
+    <div class="panel"><h3>Extensión VS Code <span class="tag ok">Disponible</span></h3><p>Resaltado de sintaxis y soporte básico para <code>.bsk</code>/<code>.nexo</code>. No incluye intérprete.</p><p><a class="text-link" href="/basilisco-0.1.1.vsix" download>Descargar .vsix</a></p></div>
+    <div class="panel"><h3>Distribución del intérprete <span class="tag pl">No pública</span></h3><p>No se anuncian binarios/instaladores oficiales en este sitio. Ver <a href="/docs/instalacion">Instalación</a>.</p></div>
+  </div>
+</DocsShell>

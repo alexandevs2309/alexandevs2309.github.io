@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Comunidad" descripcion="Comunidad y contribución en BASILISCO: formas de participación, recursos disponibles y transparencia sobre canales públicos.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Comunidad</div>
+    <h1>Participación, seguimiento y contribución</h1>
+    <p class="docs-lead">Información práctica basada en los recursos disponibles públicamente hoy. Donde no existen canales anunciados, se indica de forma explícita.</p>
+  </div>
+
+  <section class="section-head"><h2>Cómo interactuar hoy</h2></section>
+  <div class="grid-3">
+    <a class="link-card" href="/docs"><h3>Leer la documentación</h3><p>Conoce el perfil garantizado, la referencia del lenguaje, CLI y límites actuales.</p><div class="meta">Abrir docs →</div></a>
+    <a class="link-card" href="/aprender"><h3>Aprender con el tutorial</h3><p>Recorrido guiado para entender conceptos base con ejemplos progresivos.</p><div class="meta">Ir al tutorial →</div></a>
+    <a class="link-card" href="/ejemplos"><h3>Explorar ejemplos</h3><p>Programas anotados con resultados esperados y notas de experimentalidad.</p><div class="meta">Ver ejemplos →</div></a>
+  </div>
+
+  <div class="callout" style="margin-top:1.5rem;"><span class="callout-icon">🔒</span><p><strong>Disponibilidad actual:</strong> el sitio indica que el código fuente del intérprete no está disponible públicamente y que no hay canales públicos de soporte/reporte anunciados. No se inventan enlaces, foros ni procesos.</p></div>
+
+  <section class="section-head"><h2>Contribución (cuando existan canales oficiales)</h2></section>
+  <div class="grid-2">
+    <div class="panel"><h3>Reportar errores <span class="tag pl">Pendiente</span></h3><p>Debería incluir: versión, sistema, archivo <code>.bsk</code> mínimo, resultado esperado/obtenido y diagnóstico. Se publicará aquí cuando exista canal oficial.</p></div>
+    <div class="panel"><h3>Proponer mejoras <span class="tag pl">Pendiente</span></h3><p>Discusiones de diseño, documentación y tooling deben canalizarse por los medios oficiales del proyecto cuando se anuncien.</p></div>
+    <div class="panel"><h3>Contribuir código/docs <span class="tag pl">Pendiente</span></h3><p>Requiere repositorio/proceso público (issues, PRs, guías, licencia de contribución). No disponible en este sitio actualmente.</p></div>
+    <div class="panel"><h3>Seguir el estado del proyecto <span class="tag ok">Disponible</span></h3><p>Consulta las páginas de <a href="/roadmap">Roadmap</a> y <a href="/novedades">Novedades</a> para la información comunicada públicamente en esta web.</p></div>
+  </div>
+
+  <section class="section-head"><h2>Recursos disponibles en esta web</h2></section>
+  <div class="feature-grid">
+    <div class="feature-card"><h3>Extensión VS Code</h3><p>Descarga de <code>.vsix</code> para resaltado y soporte básico de edición (<code>.bsk</code>/<code>.nexo</code>).</p><p><a class="text-link" href="/basilisco-0.1.1.vsix" download>Descargar extensión →</a></p></div>
+    <div class="feature-card"><h3>Estado y alcance</h3><p>Referencia clara de garantías del perfil v0.4 y capacidades experimentales.</p><p><a class="text-link" href="/estado">Ver estado →</a></p></div>
+    <div class="feature-card"><h3>Acerca del proyecto</h3><p>Contexto, filosofía y alcance general del lenguaje.</p><p><a class="text-link" href="/acerca">Ir a Acerca de →</a></p></div>
+  </div>
+</Base>

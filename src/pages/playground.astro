@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Playground" descripcion="Playground de BASILISCO: entorno interactivo pendiente de integración real, sin ejecución simulada.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Playground</div>
+    <h1>Playground del lenguaje</h1>
+    <p class="docs-lead">Espacio destinado a ejecutar BASILISCO en el navegador. Para mantener integridad técnica, esta página no simula compilación, ejecución ni resultados.</p>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><strong>Pendiente</strong><span>Integración de runtime</span></div>
+    <div class="kpi"><strong>0</strong><span>Ejecuciones simuladas</span></div>
+    <div class="kpi"><strong>.bsk</strong><span>Formato objetivo</span></div>
+    <div class="kpi"><strong>Real</strong><span>Solo con motor verificable</span></div>
+  </div>
+
+  <div class="callout"><span class="callout-icon">🚧</span><p><strong>Estado: integración pendiente.</strong> No se ha detectado en este repositorio un runtime web (p. ej. WASM) listo para ejecutar BASILISCO de forma real. Cuando exista, esta interfaz podrá habilitar ejecución auténtica.</p></div>
+
+  <section class="split" style="margin-top:2rem;">
+    <div class="panel">
+      <h3>Capacidades previstas (integración real)</h3>
+      <ul class="list-clean">
+        <li><strong>Editor:</strong> edición de código con ejemplos y selección rápida.</li>
+        <li><strong>Ejecución:</strong> correr programas y mostrar salida real del runtime.</li>
+        <li><strong>Diagnóstico:</strong> errores y mensajes auténticos, con ubicación.</li>
+        <li><strong>Controles:</strong> reinicio, ejemplos precargados y estado claro de límites.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Qué puedes usar ahora</h3>
+      <ul class="list-clean">
+        <li><strong>Aprender:</strong> tutorial paso a paso con programas completos.</li>
+        <li><strong>Ejemplos:</strong> galería anotada con resultados esperados.</li>
+        <li><strong>Referencia:</strong> documentación de sintaxis, tipos, CLI y alcance.</li>
+        <li><strong>Entorno local:</strong> ejecución real cuando dispongas de intérprete compatible.</li>
+      </ul>
+      <div class="hero-actions" style="margin-top:1rem;">
+        <a class="btn s" href="/aprender">Tutorial</a>
+        <a class="btn s" href="/ejemplos">Ejemplos</a>
+        <a class="btn s" href="/docs/cli-y-herramientas">CLI</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="panel" style="margin-top:1rem;">
+    <div class="mono-label">Vista previa de interfaz (no funcional)</div>
+    <div class="code-window" style="margin: .8rem 0 0;" aria-label="Maqueta no funcional del playground">
+      <div class="code-window-bar">
+        <div class="anot-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span class="code-window-title">playground.bsk · ejecución deshabilitada</span>
+      </div>
+      <div class="code-window-body">
+<pre>mostrar "Hola, BASILISCO"
+
+# Estado: runtime no integrado
+# Acción: consulta ejemplos y documentación para ejecución real</pre>
+      </div>
+    </div>
+  </div>
+</Base>

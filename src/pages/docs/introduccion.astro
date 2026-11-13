@@ -1,0 +1,25 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+---
+<DocsShell titulo="Introducción" descripcion="Qué es BASILISCO, estado del prototipo y cómo interpretar esta documentación." seccion="Primeros pasos" actual="/docs/introduccion">
+  <p slot="lead">Visión general de BASILISCO y guía para leer la documentación con criterios de verificación claros.</p>
+
+  <h2>Qué es BASILISCO</h2>
+  <p>BASILISCO es un lenguaje de programación con sintaxis en español, desarrollado como prototipo. Su objetivo es facilitar el aprendizaje y la lectura del código en español manteniendo rigor técnico: tipado estático, estructuras explícitas y diagnósticos con ubicación.</p>
+
+  <h2>Estado actual</h2>
+  <div class="about-grid">
+    <div class="about-card"><h3>Prototipo</h3><p>Versión declarada: <strong>0.6.0</strong>. El proyecto está en evolución.</p><p><span class="tag exp">En evolución</span></p></div>
+    <div class="about-card"><h3>Perfil v0.4</h3><p>Subconjunto aprobado y acotado que define garantías base documentadas.</p><p><span class="tag ok">Garantizado</span></p></div>
+  </div>
+
+  <h2>Cómo leer las etiquetas</h2>
+  <ul>
+    <li><span class="tag ok">Documentado / Garantizado</span> — afirmación respaldada por la documentación disponible o incluida en el perfil v0.4.</li>
+    <li><span class="tag exp">Experimental / Mixto</span> — implementado como extensión del prototipo o con soporte parcial; puede cambiar.</li>
+    <li><span class="tag pl">Por confirmar / Pendiente</span> — sin evidencia pública suficiente en este sitio o fuera del alcance actual.</li>
+  </ul>
+
+  <h2>Alcance de esta web</h2>
+  <p>Esta documentación describe el lenguaje, herramientas y estado conocidos públicamente. No ejecuta el intérprete, no simula resultados y no anuncia disponibilidad de distribución o canales que no estén confirmados.</p>
+</DocsShell>

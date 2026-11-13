@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Características" descripcion="Capacidades técnicas de BASILISCO con estado verificable: garantizado, experimental o pendiente.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Características técnicas</div>
+    <h1>Capacidades reales del lenguaje</h1>
+    <p class="docs-lead">Resumen técnico de las capacidades documentadas en el prototipo. Cada área indica su estado para evitar ambigüedad entre perfil garantizado y extensiones experimentales.</p>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card"><h3>Sistema de tipos</h3><p>Tipos base (<code>entero</code>, <code>decimal</code>, <code>real</code>, <code>logico</code>, <code>texto</code>, <code>nulo</code>) y colecciones (<code>arreglo</code>, <code>lista</code>). Tipado estático con conversiones implícitas limitadas.</p><p><span class="tag ok">Documentado</span></p></div>
+    <div class="feature-card"><h3>Inferencia y declaraciones</h3><p><code>sea</code> infiere tipo; <code>var</code> y <code>dato</code> requieren anotación; <code>const</code> existe como extensión del prototipo.</p><p><span class="tag exp">Mixto</span></p></div>
+    <div class="feature-card"><h3>Funciones</h3><p>Declaración, parámetros, retorno, recursión y tipado opcional según reglas. Funciones como valores, cierres y lambdas fuera del perfil v0.4.</p><p><span class="tag exp">Mixto</span></p></div>
+    <div class="feature-card"><h3>Control de flujo</h3><p><code>si/sino</code> y <code>mientras</code> garantizados en v0.4. Iteración avanzada (<code>para cada</code>, rangos, <code>romper</code>, <code>continuar</code>) experimental.</p><p><span class="tag exp">Mixto</span></p></div>
+    <div class="feature-card"><h3>Gestión de errores</h3><p>Diagnósticos con archivo, línea, columna y causa. Captura con <code>intentar/rescatar</code> disponible como extensión experimental.</p><p><span class="tag exp">Mixto</span></p></div>
+    <div class="feature-card"><h3>Runtime e intérprete</h3><p>Ejecución mediante CLI <code>basilisco</code>/<code>bsk</code>, con salida y restricciones propias del prototipo (p. ej. límites de iteración).</p><p><span class="tag ok">Documentado</span></p></div>
+    <div class="feature-card"><h3>Biblioteca estándar</h3><p>Conjunto pequeño y experimental: texto, conversiones, colecciones, archivos, E/S, matemática, fecha/hora, entorno y utilidades de orden superior.</p><p><span class="tag exp">Experimental</span></p></div>
+    <div class="feature-card"><h3>Interoperabilidad</h3><p>Puente FFI/ABI C prototipal (<code>cargar_ffi</code>, <code>llamar_ffi</code>, <code>descargar_ffi</code>) con limitaciones documentadas.</p><p><span class="tag exp">Experimental</span></p></div>
+    <div class="feature-card"><h3>Concurrencia</h3><p>Capacidades básicas experimentales (<code>iniciar_tarea</code>, <code>esperar_tarea</code>) sin canales ni cancelación.</p><p><span class="tag exp">Experimental</span></p></div>
+  </div>
+
+  <div class="callout"><span class="callout-icon">◆</span><p>La información presentada se basa en la documentación y contenido actual del sitio. No se declaran características no evidenciadas.</p></div>
+</Base>

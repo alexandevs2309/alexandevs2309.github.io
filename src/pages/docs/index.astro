@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const grupos = [
+  {
+    titulo: 'Primeros pasos',
+    items: [
+      { href: '/docs/introduccion', titulo: 'Introducción', desc: 'Qué es BASILISCO y cómo leer esta documentación.', estado: 'Documentado' },
+      { href: '/docs/instalacion', titulo: 'Instalación', desc: 'Disponibilidad, requisitos y cómo proceder sin instrucciones inventadas.', estado: 'Por confirmar' },
+      { href: '/docs/primer-programa', titulo: 'Primer programa', desc: 'Crea y ejecuta tu primer archivo .bsk.', estado: 'Documentado' },
+    ]
+  },
+  {
+    titulo: 'Lenguaje',
+    items: [
+      { href: '/docs/sintaxis-basica', titulo: 'Sintaxis básica', desc: 'Estructura, sentencias, bloques y comentarios prácticos del lenguaje.', estado: 'Documentado' },
+      { href: '/docs/variables-y-tipos', titulo: 'Variables y tipos', desc: 'Declaraciones, mutabilidad, tipos base y conversiones.', estado: 'Documentado' },
+      { href: '/docs/operadores-y-control', titulo: 'Operadores y control', desc: 'Operadores, condiciones y ciclos con alcance explícito.', estado: 'Mixto' },
+      { href: '/docs/funciones', titulo: 'Funciones', desc: 'Definición, parámetros, retorno, recursión y extensiones.', estado: 'Mixto' },
+      { href: '/docs/colecciones-y-modulos', titulo: 'Colecciones y módulos', desc: 'Arreglos, listas, módulos y manifiesto en evolución.', estado: 'Mixto' },
+      { href: '/docs/manejo-de-errores', titulo: 'Manejo de errores', desc: 'Diagnósticos, errores comunes y captura experimental.', estado: 'Mixto' },
+    ]
+  },
+  {
+    titulo: 'Arquitectura',
+    items: [
+      { href: '/docs/ejecucion-y-motores', titulo: 'Ejecución y motores', desc: 'Pipeline conocido, runtime y componentes no confirmados públicamente.', estado: 'Parcial' },
+    ]
+  },
+  {
+    titulo: 'Ecosistema',
+    items: [
+      { href: '/docs/cli-y-herramientas', titulo: 'CLI y herramientas', desc: 'Comandos, extensiones y recursos disponibles.', estado: 'Documentado' },
+      { href: '/docs/biblioteca-estandar', titulo: 'Biblioteca estándar', desc: 'Funciones integradas garantizadas/experimentales conocidas.', estado: 'Experimental' },
+    ]
+  },
+  {
+    titulo: 'Referencia',
+    items: [
+      { href: '/docs/faq', titulo: 'Preguntas frecuentes', desc: 'Dudas comunes sobre alcance, estado y uso.', estado: 'Documentado' },
+    ]
+  },
+];
+const tag = (e: string) => e === 'Documentado' ? 'ok' : e === 'Experimental' ? 'exp' : 'pl';
+---
+<Base titulo="Documentación" descripcion="Hub de documentación de BASILISCO: guías, lenguaje, arquitectura, ecosistema y referencia con alcance explícito.">
+  <div class="page-head docs-page-head">
+    <div class="hero-eyebrow">Documentación</div>
+    <h1>Una guía técnica con alcance explícito</h1>
+    <p class="docs-lead">Aprende BASILISCO desde lo documentado y observable. Cada capítulo indica su nivel de verificación y distingue garantías del perfil v0.4 frente a extensiones experimentales.</p>
+    <div class="docs-actions">
+      <a class="btn" href="/docs/introduccion">Empezar por introducción</a>
+      <a class="btn s" href="/docs/primer-programa">Primer programa</a>
+      <a class="btn ghost" href="/buscar">Buscar</a>
+    </div>
+  </div>
+
+  <div class="kpi-row" aria-label="Resumen de documentación">
+    <div class="kpi"><strong>v0.4</strong><span>Perfil de referencia acotado</span></div>
+    <div class="kpi"><strong>0.6.0</strong><span>Prototipo declarado</span></div>
+    <div class="kpi"><strong>13</strong><span>Capítulos organizados</span></div>
+    <div class="kpi"><strong>Transparente</strong><span>Estados por tema</span></div>
+  </div>
+
+  {grupos.map((g) => (
+    <section>
+      <div class="section-head"><h2>{g.titulo}</h2></div>
+      <div class="grid-3">
+        {g.items.map((it) => (
+          <a class="link-card" href={it.href}>
+            <h3>{it.titulo}</h3>
+            <p>{it.desc}</p>
+            <div class="meta"><span class={`tag ${tag(it.estado)}`}>{it.estado}</span></div>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="split" style="margin-top:2rem;">
+    <div class="panel">
+      <h3>Recursos relacionados</h3>
+      <ul class="list-clean">
+        <li><a href="/aprender"><strong>Tutorial guiado</strong></a> — recorrido paso a paso para aprender practicando.</li>
+        <li><a href="/ejemplos"><strong>Ejemplos anotados</strong></a> — programas por niveles con resultados esperados.</li>
+        <li><a href="/estado"><strong>Estado del proyecto</strong></a> — resumen de madurez y disponibilidad.</li>
+        <li><a href="/arquitectura"><strong>Arquitectura</strong></a> — visión técnica basada en evidencia pública.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Nota de veracidad</h3>
+      <p>Esta documentación no ejecuta el compilador/intérprete desde la web, no anuncia distribución no confirmada y no atribuye soporte uniforme entre motores o componentes no documentados.</p>
+      <p style="margin-top:.7rem;"><span class="tag ok">Documentado</span> <span class="tag exp">Experimental</span> <span class="tag pl">Por confirmar</span></p>
+    </div>
+  </section>
+</Base>

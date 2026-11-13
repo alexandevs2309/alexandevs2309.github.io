@@ -1,0 +1,24 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+---
+<DocsShell titulo="Preguntas frecuentes" descripcion="Respuestas a preguntas comunes sobre BASILISCO, su estado y alcance." seccion="Referencia" actual="/docs/faq">
+  <p slot="lead">Dudas frecuentes sobre versión, disponibilidad, garantías y uso del lenguaje.</p>
+
+  <h2>¿Qué versión tiene BASILISCO?</h2>
+  <p>El prototipo se declara como <strong>0.6.0</strong>. El perfil de conformidad <strong>v0.4</strong> es un subconjunto aprobado y acotado; no declara estable el lenguaje completo.</p>
+
+  <h2>¿Puedo instalar el intérprete ahora?</h2>
+  <p>El sitio indica que el código fuente del intérprete no está disponible públicamente actualmente. La extensión VS Code ofrecida aquí solo aporta soporte de edición, no el intérprete. Ver <a href="/docs/instalacion">Instalación</a>.</p>
+
+  <h2>¿Qué extensión de archivo debo usar?</h2>
+  <p><code>.bsk</code> es la extensión canónica. <code>.nexo</code> se acepta como legado; <code>.nx</code> no está soportada.</p>
+
+  <h2>¿Cuál es la diferencia entre sea, var, dato y const?</h2>
+  <p><code>sea</code> infiere tipo y es mutable; <code>var</code> es mutable con tipo obligatorio; <code>dato</code> es inmutable con tipo obligatorio; <code>const</code> es una extensión del prototipo fuera del perfil v0.4.</p>
+
+  <h2>¿Hay playground con ejecución real?</h2>
+  <p>No. La página <a href="/playground">Playground</a> informa que la integración de runtime está pendiente y no simula ejecución.</p>
+
+  <h2>¿Dónde veo el estado técnico completo?</h2>
+  <p>Consulta <a href="/estado">Estado</a>, <a href="/roadmap">Hoja de ruta</a> y el capítulo <a href="/docs/ejecucion-y-motores">Ejecución y motores</a>. Los detalles no respaldados por evidencia pública se marcan como no confirmados.</p>
+</DocsShell>

@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Biblioteca estándar" descripcion="Referencia de la biblioteca estándar de BASILISCO: estado, áreas conocidas y nivel de madurez.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Recursos</div>
+    <h1>Referencia de biblioteca estándar</h1>
+    <p class="docs-lead">Índice orientativo de capacidades integradas conocidas del prototipo. Sin firmas completas inventadas: el detalle se documenta con el nivel de evidencia disponible.</p>
+  </div>
+
+  <div class="panel">
+    <div class="mono-label">Estado</div>
+    <h2 style="margin-top:.4rem;">Biblioteca pequeña y en evolución</h2>
+    <p>El perfil v0.4 garantiza salida básica; muchas funciones integradas existen como extensiones experimentales del prototipo y pueden cambiar.</p>
+    <p><span class="tag ok">Salida (v0.4)</span> <span class="tag exp">Extensiones experimentales</span></p>
+  </div>
+
+  <section class="section-head"><h2>Áreas conocidas</h2></section>
+  <div class="grid-3">
+    <div class="panel"><h3>Texto</h3><p><code>longitud</code>, <code>mayusculas</code>, <code>minusculas</code>, <code>recortar</code>, <code>contiene</code>, <code>subcadena</code>, <code>reemplazar</code>, <code>dividir</code>, <code>unir</code>.</p><p><span class="tag exp">Experimental</span></p></div>
+    <div class="panel"><h3>Conversiones</h3><p><code>texto</code>, <code>a_entero</code>, <code>a_decimal</code>, <code>a_real</code>.</p><p><span class="tag exp">Experimental</span></p></div>
+    <div class="panel"><h3>Colecciones</h3><p><code>agregar</code>, <code>eliminar</code>, <code>contiene</code>, <code>invertir</code>, <code>ordenar</code> (según prototipo).</p><p><span class="tag exp">Experimental</span></p></div>
+    <div class="panel"><h3>Archivos y E/S</h3><p>Operaciones de archivo y lectura/escritura documentadas como extensiones.</p><p><span class="tag exp">Experimental</span></p></div>
+    <div class="panel"><h3>Matemática, fecha, entorno</h3><p>Utilidades como <code>abs</code>, <code>min/max</code>, <code>raiz</code>, funciones de fecha/hora y entorno.</p><p><span class="tag exp">Experimental</span></p></div>
+    <div class="panel"><h3>Orden superior y concurrencia</h3><p><code>map</code>, <code>filtrar</code>, <code>reducir</code>, <code>iniciar_tarea</code>, <code>esperar_tarea</code> en estado prototipal.</p><p><span class="tag exp">Experimental</span></p></div>
+  </div>
+
+  <section class="section-head"><h2>Referencia detallada</h2></section>
+  <div class="grid-2">
+    <a class="link-card" href="/docs/biblioteca-estandar"><h3>Capítulo: Biblioteca estándar</h3><p>Resumen documental dentro de la guía multipágina.</p><div class="meta">Abrir capítulo →</div></a>
+    <a class="link-card" href="/ejemplos"><h3>Ejemplos</h3><p>Uso práctico de características del lenguaje y extensiones en contexto.</p><div class="meta">Ver ejemplos →</div></a>
+  </div>
+
+  <div class="callout"><span class="callout-icon">◆</span><p>La disponibilidad puede variar por versión/capacidad del prototipo. No se asume paridad con bibliotecas estándar de lenguajes maduros.</p></div>
+</Base>

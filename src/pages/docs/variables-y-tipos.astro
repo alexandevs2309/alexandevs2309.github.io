@@ -1,0 +1,28 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Variables y tipos" descripcion="Declaraciones, mutabilidad, tipos primitivos, colecciones y conversiones en BASILISCO." seccion="Lenguaje" actual="/docs/variables-y-tipos">
+  <p slot="lead">Modelo de variables y sistema de tipos documentado para el prototipo y el perfil v0.4.</p>
+
+  <h2>Declaraciones</h2>
+  <Codigo codigo={`sea edad = 25               # mutable, tipo inferido
+var precio: decimal = 9.99  # mutable, tipo obligatorio
+dato pi: real = 3.1416e0    # inmutable, tipo obligatorio
+# const es una extensión del prototipo`} titulo="variables" />
+
+  <h2>Tipos base</h2>
+  <div class="grid-3">
+    <div class="panel"><h3>Numéricos</h3><p><code>entero</code> (64 bits), <code>decimal</code> (punto fijo), <code>real</code> (IEEE 754).</p></div>
+    <div class="panel"><h3>Lógicos y nulo</h3><p><code>logico</code> (<code>verdadero</code>/<code>falso</code>) y <code>nulo</code>.</p></div>
+    <div class="panel"><h3>Texto y colecciones</h3><p><code>texto</code>, <code>arreglo&lt;T,N&gt;</code>, <code>lista&lt;T&gt;</code>.</p></div>
+  </div>
+
+  <h2>Conversiones y reglas</h2>
+  <ul>
+    <li>Conversiones implícitas limitadas: <code>entero → decimal</code> y <code>entero → real</code>.</li>
+    <li>No hay conversión implícita entre <code>decimal</code> y <code>real</code>, ni de número a <code>texto</code>.</li>
+    <li>El tipo se fija al declarar; reasignar un tipo incompatible o una variable inmutable es error.</li>
+  </ul>
+  <p><span class="tag ok">Perfil v0.4</span> <span class="tag exp">Detalles avanzados</span></p>
+</DocsShell>

@@ -1,0 +1,29 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Sintaxis básica" descripcion="Elementos básicos de la sintaxis de BASILISCO: sentencias, bloques, identificadores y estilo." seccion="Lenguaje" actual="/docs/sintaxis-basica">
+  <p slot="lead">Fundamentos de estructura del código BASILISCO observados y documentados en el prototipo.</p>
+
+  <h2>Estructura de un programa</h2>
+  <p>Un programa es una secuencia de sentencias y expresiones. Los bloques se delimitan con llaves <code>{'{ }'}</code> y crean ámbitos.</p>
+  <Codigo codigo={`sea mensaje = "Hola"
+si verdadero {
+  mostrar mensaje
+}`} titulo="estructura" />
+
+  <h2>Sentencias y expresiones</h2>
+  <ul>
+    <li><strong>Declaraciones:</strong> <code>sea</code>, <code>var</code>, <code>dato</code>, <code>const</code> (extensión).</li>
+    <li><strong>Control:</strong> <code>si</code>, <code>sino</code>, <code>mientras</code> (perfil v0.4); <code>para cada</code> y rangos como extensión experimental.</li>
+    <li><strong>Funciones:</strong> <code>funcion</code> y <code>retornar</code>.</li>
+    <li><strong>Salida:</strong> <code>mostrar</code>, <code>mostrar_sin_salto</code>.</li>
+  </ul>
+
+  <h2>Palabras clave (resumen)</h2>
+  <p>Incluyen: <code>sea</code>, <code>var</code>, <code>dato</code>, <code>const</code>, <code>si</code>, <code>sino</code>, <code>mientras</code>, <code>funcion</code>, <code>retornar</code>, <code>mostrar</code>, <code>verdadero</code>, <code>falso</code>, <code>nulo</code>, <code>y</code>, <code>o</code>, <code>no</code>, entre otras documentadas en la referencia.</p>
+
+  <h2>Rangos y extensiones</h2>
+  <p>Los rangos <code>a..b</code> y <code>a..=b</code> se documentan como uso válido en <code>para cada</code> (extensión experimental fuera del perfil v0.4).</p>
+  <p><span class="tag ok">Base documentada</span> <span class="tag exp">Extensiones</span></p>
+</DocsShell>
