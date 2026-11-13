@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import VersionNotice from '../../components/docs/VersionNotice.astro';
 
 const grupos = [
   {
@@ -60,6 +61,7 @@ const tag = (e: string) => e === 'Documentado' ? 'ok' : e === 'Experimental' ? '
     </div>
   </div>
 
+  <VersionNotice />
   <div class="kpi-row" aria-label="Resumen de documentación">
     <div class="kpi"><strong>v0.4</strong><span>Perfil de referencia acotado</span></div>
     <div class="kpi"><strong>0.6.0</strong><span>Prototipo declarado</span></div>
@@ -90,6 +92,7 @@ const tag = (e: string) => e === 'Documentado' ? 'ok' : e === 'Experimental' ? '
         <li><a href="/ejemplos"><strong>Ejemplos anotados</strong></a> — programas por niveles con resultados esperados.</li>
         <li><a href="/estado"><strong>Estado del proyecto</strong></a> — resumen de madurez y disponibilidad.</li>
         <li><a href="/arquitectura"><strong>Arquitectura</strong></a> — visión técnica basada en evidencia pública.</li>
+        <li><a href="/glosario"><strong>Glosario</strong></a> — términos clave del lenguaje y proyecto.</li>
       </ul>
     </div>
     <div class="panel">

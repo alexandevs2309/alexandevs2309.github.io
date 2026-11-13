@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+const items = (await getCollection('glosario')).sort((a,b) => a.data.termino.localeCompare(b.data.termino, 'es'));
+const rendered = await Promise.all(items.map(async (item) => ({ item, ...(await render(item)) })));
+---
+<Base titulo="Glosario" descripcion="Glosario de términos de BASILISCO: lenguaje, arquitectura, herramientas y proyecto.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Referencia</div>
+    <h1>Glosario</h1>
+    <p class="docs-lead">Definiciones breves de términos usados en la documentación y el ecosistema de BASILISCO.</p>
+  </div>
+  <div class="grid-2">
+    {rendered.map(({ item, Content }) => (
+      <article class="panel">
+        <div class="mono-label">{item.data.categoria}</div>
+        <h2 style="margin-top:.3rem; font-size:1.25rem;">{item.data.termino}</h2>
+        <p>{item.data.resumen}</p>
+        <div class="docs-content" style="margin-top:.4rem;"><Content /></div>
+      </article>
+    ))}
+  </div>
+  <div class="callout" style="margin-top:1.5rem;"><span class="callout-icon">◆</span><p>Este glosario crecerá con nuevos términos a medida que se documente el lenguaje y sus herramientas.</p></div>
+</Base>

@@ -6,10 +6,20 @@ import Base from '../layouts/Base.astro';
     <img src="/error-404.png" alt="" width="240" height="240">
     <div class="err-badge">ERROR 404</div>
     <h1>Esta página no existe</h1>
-    <p>Puede que el enlace esté mal escrito o que la página todavía no se haya creado.</p>
+    <p>Puede que el enlace esté mal escrito, que la página se haya movido o que aún no esté disponible.</p>
     <div class="actions">
       <a class="btn" href="/">Volver al inicio</a>
       <a class="btn s" href="/docs">Documentación</a>
+      <a class="btn ghost" href="/buscar">Buscar</a>
+    </div>
+    <div class="panel" style="margin-top:1.5rem; text-align:left; max-width:42rem;">
+      <h3 style="margin-top:0;">Enlaces útiles</h3>
+      <ul class="next-steps" style="margin-top:.5rem;">
+        <li><a href="/docs/primer-programa">Primer programa</a></li>
+        <li><a href="/ejemplos">Ejemplos</a></li>
+        <li><a href="/estado">Estado del proyecto</a></li>
+        <li><a href="/descargar">Instalación</a></li>
+      </ul>
     </div>
   </div>
 </Base>

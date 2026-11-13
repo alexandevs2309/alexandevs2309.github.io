@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
+import VersionNotice from './VersionNotice.astro';
 const { titulo, descripcion, seccion = 'Documentación', actual, breadcrumbs = [] } = Astro.props;
 const capitulos = [
   ['Primeros pasos', [
@@ -51,6 +52,7 @@ const crumbs = breadcrumbs.length ? breadcrumbs : [
       <span class="tag exp">Prototipo 0.6.0</span>
       <span class="tag pl">Docs en evolución</span>
     </div>
+    <VersionNotice />
     <h1>{titulo}</h1>
     <p class="docs-lead"><slot name="lead" /></p>
   </div>

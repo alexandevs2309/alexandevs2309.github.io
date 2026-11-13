@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titulo="Versiones y compatibilidad" descripcion="Versionado de documentación y compatibilidad de BASILISCO: estructura preparada para múltiples versiones.">
+  <div class="page-head">
+    <div class="hero-eyebrow">Proyecto</div>
+    <h1>Versiones y compatibilidad</h1>
+    <p class="docs-lead">Estructura de versionado de documentación y compatibilidad del lenguaje. El contenido histórico detallado se publicará cuando existan fuentes verificables por versión.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <div class="mono-label">Actual</div>
+      <h2 style="margin-top:.3rem;">Prototipo 0.6.0</h2>
+      <p>Documentación alineada al estado actual declarado, con perfil de referencia v0.4 acotado y extensiones experimentales identificadas.</p>
+      <p><span class="tag exp">Actual</span> <span class="tag ok">Perfil v0.4</span></p>
+      <p><a class="text-link" href="/docs">Ir a la documentación →</a></p>
+    </div>
+    <div class="panel">
+      <div class="mono-label">En preparación</div>
+      <h2 style="margin-top:.3rem;">Versionado histórico</h2>
+      <p>Selector de versiones, archivos por release y notas de migración cuando exista historial publicado y verificable.</p>
+      <p><span class="tag pl">Próximamente</span></p>
+    </div>
+  </div>
+
+  <section class="section-head"><h2>Matriz de compatibilidad (estructura)</h2></section>
+  <div class="panel">
+    <div style="overflow:auto;">
+      <table style="width:100%; border-collapse:collapse; font-size:.95rem;">
+        <thead><tr style="text-align:left; color:var(--muted-2);"><th style="padding:.6rem; border-bottom:1px solid var(--border);">Área</th><th style="padding:.6rem; border-bottom:1px solid var(--border);">Perfil v0.4</th><th style="padding:.6rem; border-bottom:1px solid var(--border);">Prototipo 0.6.0</th><th style="padding:.6rem; border-bottom:1px solid var(--border);">Futuro</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:.6rem; border-bottom:1px solid var(--border);">Core lenguaje</td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag ok">Garantizado</span></td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag ok">Incluido</span></td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag pl">Por publicar</span></td></tr>
+          <tr><td style="padding:.6rem; border-bottom:1px solid var(--border);">Extensiones</td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag pl">Fuera</span></td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag exp">Experimental</span></td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag pl">Por publicar</span></td></tr>
+          <tr><td style="padding:.6rem; border-bottom:1px solid var(--border);">Stdlib/FFI/paquetes</td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag pl">Fuera</span></td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag exp">Experimental</span></td><td style="padding:.6rem; border-bottom:1px solid var(--border);"><span class="tag pl">Por publicar</span></td></tr>
+          <tr><td style="padding:.6rem;">Tooling y distribución</td><td style="padding:.6rem;"><span class="tag pl">Limitado</span></td><td style="padding:.6rem;"><span class="tag exp">Parcial</span></td><td style="padding:.6rem;"><span class="tag pl">Por publicar</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Base>

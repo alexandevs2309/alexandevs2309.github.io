@@ -1,0 +1,12 @@
+---
+const { current = '0.6.0', perfil = 'v0.4' } = Astro.props;
+---
+<div class="panel" style="margin: .5rem 0 1rem; padding: .8rem 1rem; display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between;">
+  <div style="display:flex; flex-wrap:wrap; gap:.4rem; align-items:center;">
+    <span class="mono-label">Versión docs</span>
+    <span class="tag exp">Prototipo {current}</span>
+    <span class="tag ok">Perfil {perfil}</span>
+    <span class="tag pl">Versionado histórico: en preparación</span>
+  </div>
+  <div style="color:var(--muted); font-size:.85rem;">Contenido alineado al estado documentado actual.</div>
+</div>

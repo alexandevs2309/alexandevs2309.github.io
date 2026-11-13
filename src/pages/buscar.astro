@@ -1,61 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
-const paginas = [
-  { href: '/docs', titulo: 'Documentación', desc: 'Hub de guías, lenguaje, herramientas, arquitectura y referencia.', tags: 'docs guia referencia hub' },
-  { href: '/docs/introduccion', titulo: 'Introducción', desc: 'Qué es BASILISCO y cómo leer la documentación.', tags: 'introduccion alcance prototipo perfil' },
-  { href: '/docs/instalacion', titulo: 'Instalación', desc: 'Disponibilidad y requisitos.', tags: 'instalar build cargo descargar' },
-  { href: '/docs/primer-programa', titulo: 'Primer programa', desc: 'Hola mundo y ejecución básica.', tags: 'hola mostrar run .bsk primer' },
-  { href: '/docs/guia-de-inicio', titulo: 'Guía de inicio', desc: 'Ruta recomendada para empezar.', tags: 'guia inicio empezar ruta' },
-  { href: '/docs/sintaxis-basica', titulo: 'Sintaxis básica', desc: 'Estructura del lenguaje y bloques.', tags: 'sintaxis bloques sentencias' },
-  { href: '/docs/variables-y-tipos', titulo: 'Variables y tipos', desc: 'sea var dato tipos primitivos y colecciones.', tags: 'variables tipos entero texto decimal logico nulo' },
-  { href: '/docs/operadores-y-control', titulo: 'Operadores y control', desc: 'Operadores, condicionales y ciclos.', tags: 'operadores si mientras para cada rangos' },
-  { href: '/docs/funciones', titulo: 'Funciones', desc: 'Definición, retorno y recursión.', tags: 'funcion retornar parametros cierres lambda' },
-  { href: '/docs/colecciones-y-modulos', titulo: 'Colecciones y módulos', desc: 'Arreglos, listas y módulos.', tags: 'arreglo lista usar publico modulo' },
-  { href: '/docs/manejo-de-errores', titulo: 'Manejo de errores', desc: 'Diagnósticos y captura experimental.', tags: 'errores intentar rescatar diagnostico' },
-  { href: '/docs/cli-y-herramientas', titulo: 'CLI y herramientas', desc: 'Comandos de basilisco/bsk.', tags: 'cli run analizar formatear instalar' },
-  { href: '/docs/biblioteca-estandar', titulo: 'Biblioteca estándar', desc: 'Funciones integradas conocidas.', tags: 'stdlib texto colecciones archivos math' },
-  { href: '/docs/proyectos-y-paquetes', titulo: 'Proyectos y paquetes', desc: 'Manifiesto, módulos y dependencias locales.', tags: 'proyecto toml paquetes lock usar' },
-  { href: '/docs/interoperabilidad-ffi', titulo: 'Interoperabilidad y FFI', desc: 'Puente C/ABI experimental.', tags: 'ffi c abi cargar llamar' },
-  { href: '/docs/ejecucion-y-motores', titulo: 'Ejecución y motores', desc: 'Runtime, pipeline y evidencia.', tags: 'runtime motor pipeline arquitectura' },
-  { href: '/docs/referencia-lenguaje', titulo: 'Referencia del lenguaje', desc: 'Resumen consolidado de referencia.', tags: 'referencia resumen lenguaje' },
-  { href: '/docs/palabras-clave', titulo: 'Palabras clave y tipos', desc: 'Referencia rápida del lenguaje.', tags: 'keywords palabras clave tipos operadores' },
-  { href: '/docs/faq', titulo: 'Preguntas frecuentes', desc: 'Dudas comunes.', tags: 'faq preguntas version' },
-  { href: '/lenguaje', titulo: 'Lenguaje', desc: 'Filosofía y capacidades del lenguaje.', tags: 'sintaxis filosofia' },
-  { href: '/arquitectura', titulo: 'Arquitectura', desc: 'Pipeline y componentes conocidos.', tags: 'pipeline runtime tipos' },
-  { href: '/ejemplos', titulo: 'Ejemplos', desc: 'Programas anotados por niveles.', tags: 'ejemplos codigo' },
-  { href: '/estado', titulo: 'Estado', desc: 'Madurez y disponibilidad pública.', tags: 'estado prototipo perfil' },
-  { href: '/ecosistema', titulo: 'Ecosistema', desc: 'CLI, extensión, paquetes, FFI.', tags: 'ecosistema vscode ffi paquetes' },
-  { href: '/descargar', titulo: 'Instalación y descargas', desc: 'Distribución y canales previstos.', tags: 'descargar instalar binarios' },
-  { href: '/cli', titulo: 'CLI y herramientas', desc: 'Referencia de línea de comandos.', tags: 'cli comandos herramientas' },
-  { href: '/biblioteca', titulo: 'Biblioteca estándar', desc: 'Referencia de biblioteca.', tags: 'biblioteca stdlib' },
-  { href: '/roadmap', titulo: 'Roadmap', desc: 'Evolución conocida del proyecto.', tags: 'roadmap hoja de ruta' },
-  { href: '/playground', titulo: 'Playground', desc: 'Entorno de prueba (integración pendiente).', tags: 'playground probar' },
-];
 ---
-<Base titulo="Buscar" descripcion="Busca páginas y capítulos de la documentación y el sitio de BASILISCO.">
+<Base titulo="Buscar" descripcion="Busca en la documentación y páginas de BASILISCO con índice generado en build.">
   <div class="page-head">
     <div class="hero-eyebrow">Buscar</div>
     <h1>Buscar en el sitio</h1>
-    <p class="docs-lead">Búsqueda rápida del lado del cliente sobre páginas y capítulos principales. Sin indexación externa ni servicios de terceros.</p>
+    <p class="docs-lead">Búsqueda sobre un índice generado durante el build (páginas y capítulos principales). Filtra por categoría y consulta términos de lenguaje, CLI, estado y más.</p>
   </div>
 
-  <div class="panel" style="max-width:52rem;">
+  <div class="panel" style="max-width:56rem;">
     <label for="q" class="mono-label">Consulta</label>
     <div class="toc-search-wrap" style="margin-top:.5rem;">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
-      <input id="q" type="search" placeholder="Ej. funciones, CLI, tipos, instalación…" autocomplete="off" />
+      <input id="q" type="search" placeholder="Ej. funciones, tipos, CLI, FFI, instalación, roadmap…" autocomplete="off" />
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.7rem;">
+      <button class="tag ok filter is-active" data-filter="all" type="button">Todo</button>
+      <button class="tag pl filter" data-filter="docs" type="button">Docs</button>
+      <button class="tag pl filter" data-filter="site" type="button">Sitio</button>
     </div>
     <p id="status" class="toc-search-status" aria-live="polite"></p>
-    <div id="results" class="grid-2" style="margin-top:.5rem;">
-      {paginas.map((p) => (
-        <a class="link-card result" href={p.href} data-text={`${p.titulo} ${p.desc} ${p.tags}`}>
-          <h3>{p.titulo}</h3>
-          <p>{p.desc}</p>
-          <div class="meta">{p.href}</div>
-        </a>
-      ))}
-    </div>
-    <p id="empty" class="toc-no-results" hidden>No se encontraron resultados.</p>
+    <div id="results" class="grid-2" style="margin-top:.5rem;"></div>
+    <p id="empty" class="toc-no-results" hidden>No se encontraron resultados. Prueba con otro término (ej. “variables”, “mostrar”, “módulos”).</p>
+    <p id="loading" class="toc-no-results">Cargando índice…</p>
   </div>
 
   <script is:inline>
@@ -63,26 +30,62 @@ const paginas = [
       var q = document.getElementById('q');
       var status = document.getElementById('status');
       var empty = document.getElementById('empty');
-      var items = Array.prototype.slice.call(document.querySelectorAll('.result'));
-      if (!q || !items.length) return;
-      var norm = function (s) {
-        return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+      var loading = document.getElementById('loading');
+      var results = document.getElementById('results');
+      var filters = Array.prototype.slice.call(document.querySelectorAll('.filter'));
+      var data = [];
+      var active = 'all';
+      var norm = function (s) { return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); };
+      var cat = function (href) { return (href || '').indexOf('/docs') === 0 ? 'docs' : 'site'; };
+      var esc = function (s) { return (s||'').replace(/[&<>"']/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c];}); };
+      var snippet = function (text, term) {
+        var raw = (text || '');
+        if (!term) return esc(raw.slice(0, 140)) + (raw.length > 140 ? '…' : '');
+        var n = norm(raw); var i = n.indexOf(term);
+        if (i < 0) return esc(raw.slice(0, 140)) + (raw.length > 140 ? '…' : '');
+        var start = Math.max(0, i - 40); var end = Math.min(raw.length, i + term.length + 60);
+        var pre = start > 0 ? '…' : ''; var suf = end < raw.length ? '…' : '';
+        return pre + esc(raw.slice(start, end)) + suf;
       };
-      var run = function () {
-        var term = norm(q.value);
-        var n = 0;
-        for (var i = 0; i < items.length; i++) {
-          var el = items[i];
-          var text = norm(el.getAttribute('data-text'));
-          var ok = !term || text.indexOf(term) !== -1;
-          if (ok) { el.removeAttribute('hidden'); n++; }
-          else { el.setAttribute('hidden', ''); }
+      var render = function () {
+        var term = norm(q && q.value);
+        var shown = 0;
+        results.innerHTML = '';
+        for (var i = 0; i < data.length; i++) {
+          var it = data[i];
+          var c = cat(it.href);
+          if (active !== 'all' && c !== active) continue;
+          var hay = norm((it.title||'') + ' ' + (it.content||'') + ' ' + (it.href||''));
+          if (term && hay.indexOf(term) === -1) continue;
+          shown++;
+          var a = document.createElement('a');
+          a.className = 'link-card';
+          a.href = it.href;
+          a.innerHTML = '<h3>' + esc(it.title || '') + '</h3><p>' + snippet(it.content || '', term) + '</p><div class="meta"><span class="tag ' + (c==='docs'?'ok':'pl') + '">' + (c==='docs'?'Docs':'Sitio') + '</span> ' + esc(it.href || '') + '</div>';
+          results.appendChild(a);
         }
-        if (empty) empty.hidden = n > 0;
-        if (status) status.textContent = term ? (n + ' resultado' + (n === 1 ? '' : 's')) : '';
+        if (empty) empty.hidden = shown > 0 || !data.length;
+        if (status) status.textContent = data.length ? (term || active !== 'all' ? (shown + ' resultado' + (shown===1?'':'s')) : (data.length + ' páginas indexadas')) : '';
       };
-      q.addEventListener('input', run);
-      run();
+      filters.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          active = btn.getAttribute('data-filter') || 'all';
+          filters.forEach(function(b){ b.classList.toggle('is-active', b===btn); b.classList.toggle('ok', b===btn); b.classList.toggle('pl', b!==btn); });
+          render();
+        });
+      });
+      if (q) q.addEventListener('input', render);
+      fetch('/search-index.json').then(function(r){ return r.json(); }).then(function(json){
+        data = Array.isArray(json) ? json : [];
+        if (loading) loading.hidden = true;
+        render();
+      }).catch(function(){
+        if (loading) loading.textContent = 'No se pudo cargar el índice de búsqueda.';
+      });
     })();
   </script>
+  <style>
+    .filter { cursor: pointer; border: 1px solid var(--border); background: var(--surface); }
+    .filter.is-active { box-shadow: var(--glow); }
+  </style>
 </Base>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemap: configurar URL absoluta cuando se defina el dominio/site en Astro
+Sitemap: https://alexandevs2309.github.io/sitemap.xml
