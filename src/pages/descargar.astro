@@ -1,34 +1,58 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base titulo="Instalación y descargas" descripcion="Centro de instalación y descargas de BASILISCO: estado de distribución, canales previstos y recursos disponibles.">
+<Base titulo="Instalar BASILISCO" descripcion="Descarga e instalación de BASILISCO: binarios, gestores de paquetes y compilación desde código fuente.">
   <div class="page-head">
-    <div class="hero-eyebrow">Recursos</div>
-    <h1>Instalación y descargas</h1>
-    <p class="docs-lead">Centro preparado para la distribución oficial de BASILISCO. Mientras no exista una publicación confirmada, esta página documenta el estado real y evita instrucciones o enlaces inventados.</p>
+    <div class="hero-eyebrow">Instalación</div>
+    <h1>Instala BASILISCO</h1>
+    <p class="docs-lead">Opciones de instalación para empezar a usar el lenguaje en tu entorno. Algunas vías de distribución están en preparación y se marcan claramente como próximamente disponibles.</p>
   </div>
 
-  <div class="panel" style="border-left:3px solid var(--accent);">
-    <div class="mono-label">Estado de distribución</div>
-    <h2 style="margin-top:.4rem;">Sin distribución pública confirmada</h2>
-    <p>Según la información disponible en este sitio, no se anuncian binarios descargables, instaladores oficiales ni registros de paquetes públicos para el intérprete. Esta página se actualizará cuando existan artefactos y pasos verificables.</p>
-    <p><span class="tag pl">Por confirmar</span></p>
+  <div class="panel" style="border-left:3px solid var(--accent); margin-bottom:1.5rem;">
+    <div style="display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; justify-content:space-between;">
+      <div>
+        <div class="mono-label">Versión estable objetivo</div>
+        <h2 style="margin:.2rem 0 .3rem;">BASILISCO 0.6.0 <span class="tag exp">Prototipo</span></h2>
+        <p style="margin:0; color:var(--muted);">Perfil de referencia: v0.4 acotado. Selecciona tu plataforma cuando los binarios estén publicados.</p>
+      </div>
+      <a class="btn" href="/docs/instalacion">Guía de instalación</a>
+    </div>
   </div>
 
-  <section class="section-head"><h2>Canales previstos</h2><p>Se completarán únicamente con información oficial.</p></section>
-  <div class="about-grid">
-    <div class="about-card"><h3>Binarios precompilados</h3><p>Paquetes por plataforma/arquitectura con notas de versión y requisitos.</p><p><span class="tag pl">Por confirmar</span></p></div>
-    <div class="about-card"><h3>Gestores de paquetes</h3><p>Publicación en registros oficiales con comandos de instalación verificados.</p><p><span class="tag pl">Por confirmar</span></p></div>
-    <div class="about-card"><h3>Desde código fuente</h3><p>Instrucciones de compilación, toolchain y pasos reproducibles cuando la fuente esté disponible.</p><p><span class="tag pl">Por confirmar</span></p></div>
-    <div class="about-card"><h3>Verificación e integridad</h3><p>Checksums, firmas y origen oficial de descarga cuando se publiquen.</p><p><span class="tag pl">Por confirmar</span></p></div>
-  </div>
-
-  <section class="section-head"><h2>Recursos disponibles ahora</h2></section>
+  <section class="section-head"><h2>Descarga por plataforma</h2><p>Binarios oficiales por sistema operativo y arquitectura (publicación pendiente).</p></section>
   <div class="grid-3">
-    <a class="link-card" href="/docs/instalacion"><h3>Guía de instalación (estado)</h3><p>Información actual y pasos aplicables solo con copia autorizada del código.</p><div class="meta">Abrir →</div></a>
-    <a class="link-card" href="/docs/primer-programa"><h3>Primer programa</h3><p>Ejemplo mínimo para entender el flujo de ejecución esperado.</p><div class="meta">Ver guía →</div></a>
-    <a class="link-card" href="/basilisco-0.1.1.vsix" download><h3>Extensión VS Code</h3><p>Resaltado de sintaxis y soporte básico de edición (.vsix). No instala el intérprete.</p><div class="meta">Descargar →</div></a>
+    <div class="panel"><h3>Linux</h3><p>x86_64 / ARM64 · .tar.gz</p><p><span class="tag pl">Próximamente</span></p><p style="color:var(--muted-2); font-size:.9rem;">Incluye <code>basilisco</code> y <code>bsk</code>.</p></div>
+    <div class="panel"><h3>macOS</h3><p>Intel / Apple Silicon · .tar.gz / .pkg</p><p><span class="tag pl">Próximamente</span></p><p style="color:var(--muted-2); font-size:.9rem;">Homebrew planificado.</p></div>
+    <div class="panel"><h3>Windows</h3><p>x86_64 / ARM64 · .zip / .msi</p><p><span class="tag pl">Próximamente</span></p><p style="color:var(--muted-2); font-size:.9rem;">Winget/Scoop planificados.</p></div>
   </div>
 
-  <div class="callout"><span class="callout-icon">◆</span><p>Consulta también <a href="/cli">CLI y herramientas</a>, <a href="/estado">Estado público</a> y <a href="/novedades">Novedades</a> para seguimiento del proyecto.</p></div>
+  <section class="section-head"><h2>Gestores de paquetes</h2><p>Instalación mediante ecosistemas estándar cuando los paquetes sean publicados.</p></section>
+  <div class="grid-2">
+    <div class="panel"><h3>macOS / Linux</h3><pre class="plain small"><code># Próximamente
+brew install basilisco
+# o script oficial de instalación
+curl -fsSL https://basilisco.dev/install.sh | sh</code></pre><p><span class="tag pl">No disponible aún</span></p></div>
+    <div class="panel"><h3>Windows</h3><pre class="plain small"><code># Próximamente
+winget install Basilisco.Basilisco
+scoop install basilisco</code></pre><p><span class="tag pl">No disponible aún</span></p></div>
+  </div>
+
+  <section class="section-head"><h2>Desde código fuente</h2><p>Para colaboradores o entornos con acceso al código fuente del proyecto.</p></section>
+  <div class="panel">
+    <pre class="plain"><code># Requiere acceso al repositorio/código fuente y Rust toolchain
+git clone &lt;repositorio-oficial&gt;
+cd basilisco
+cargo build --release
+# binario: target/release/basilisco</code></pre>
+    <p style="margin-top:.8rem; color:var(--muted);">La disponibilidad pública del repositorio de código fuente puede variar según el estado del proyecto. <a href="/docs/instalacion">Ver detalles</a>.</p>
+  </div>
+
+  <section class="section-head"><h2>Después de instalar</h2></section>
+  <div class="grid-3">
+    <a class="link-card" href="/docs/primer-programa"><h3>Primer programa</h3><p>Crea y ejecuta tu primer archivo .bsk.</p><div class="meta">Comenzar →</div></a>
+    <a class="link-card" href="/docs"><h3>Documentación</h3><p>Guías, referencia y arquitectura.</p><div class="meta">Abrir docs →</div></a>
+    <a class="link-card" href="/ejemplos"><h3>Ejemplos</h3><p>Programas listos para explorar.</p><div class="meta">Ver ejemplos →</div></a>
+  </div>
+
+  <div class="callout" style="margin-top:1.5rem;"><span class="callout-icon">◆</span><p><strong>Nota:</strong> los comandos y enlaces de distribución marcados como “Próximamente” son parte del plan de publicación. Se activarán cuando los artefactos oficiales estén disponibles.</p></div>
 </Base>

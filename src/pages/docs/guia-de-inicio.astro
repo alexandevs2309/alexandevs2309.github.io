@@ -1,0 +1,28 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+---
+<DocsShell titulo="Guía de inicio" descripcion="Ruta recomendada para empezar con BASILISCO: instalación, primer programa, conceptos base y siguientes pasos." seccion="Primeros pasos" actual="/docs/guia-de-inicio">
+  <p slot="lead">Un camino claro para pasar de cero a escribir programas básicos en BASILISCO, con enlaces a la referencia y recursos del proyecto.</p>
+
+  <h2>Ruta recomendada</h2>
+  <div class="grid-2">
+    <a class="link-card" href="/docs/instalacion"><h3>1. Preparar el entorno</h3><p>Conoce el estado de disponibilidad e instalación del intérprete y herramientas.</p><div class="meta">Ir →</div></a>
+    <a class="link-card" href="/docs/primer-programa"><h3>2. Ejecutar tu primer programa</h3><p>Crea un archivo <code>.bsk</code> y entiende el flujo básico.</p><div class="meta">Ir →</div></a>
+    <a class="link-card" href="/aprender"><h3>3. Seguir el tutorial</h3><p>Aprende paso a paso con ejemplos guiados y ejercicios.</p><div class="meta">Ir →</div></a>
+    <a class="link-card" href="/docs/sintaxis-basica"><h3>4. Dominar los fundamentos</h3><p>Sintaxis, variables, tipos, control de flujo y funciones.</p><div class="meta">Ir →</div></a>
+  </div>
+
+  <h2>Si vienes de otro lenguaje</h2>
+  <ul class="list-clean">
+    <li><strong>Sintaxis en español:</strong> palabras clave como <code>si</code>, <code>mientras</code>, <code>funcion</code>, <code>retornar</code>, <code>mostrar</code>.</li>
+    <li><strong>Tipado estático:</strong> tipos explícitos o inferidos según declaración (<code>sea</code>, <code>var</code>, <code>dato</code>).</li>
+    <li><strong>Transparencia de estado:</strong> distingue perfil garantizado v0.4 de extensiones experimentales.</li>
+  </ul>
+
+  <h2>Recursos clave</h2>
+  <div class="grid-3">
+    <a class="link-card" href="/ejemplos"><h3>Ejemplos</h3><p>Programas anotados por nivel.</p></a>
+    <a class="link-card" href="/docs/referencia-lenguaje"><h3>Referencia</h3><p>Resumen estructurado del lenguaje.</p></a>
+    <a class="link-card" href="/estado"><h3>Estado del proyecto</h3><p>Alcance y madurez actuales.</p></a>
+  </div>
+</DocsShell>

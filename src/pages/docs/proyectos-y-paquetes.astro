@@ -1,0 +1,34 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Proyectos y paquetes" descripcion="Estructura de proyectos, manifiesto, módulos y gestión local de paquetes en BASILISCO." seccion="Herramientas y ecosistema" actual="/docs/proyectos-y-paquetes">
+  <p slot="lead">Organización de código en múltiples archivos y resolución local de dependencias, con estado experimental en evolución.</p>
+
+  <div class="callout"><span class="callout-icon">🧪</span><p><strong>Estado:</strong> módulos, manifiesto y gestor de paquetes locales son capacidades del prototipo en evolución, fuera de las garantías completas del perfil v0.4.</p></div>
+
+  <h2>Proyectos y manifiesto</h2>
+  <p>Los proyectos pueden crearse con la CLI y usar un manifiesto <code>basilisco.toml</code> con campos básicos como <code>nombre</code>, <code>version</code> y <code>entrada</code>. La ejecución sin archivo puede usar la entrada del proyecto.</p>
+  <Codigo codigo={`basilisco nuevo proyecto mi_app
+basilisco run`} titulo="proyecto" />
+
+  <h2>Módulos</h2>
+  <p>El código puede dividirse en archivos e importarse con <code>usar</code>. Los símbolos exportados se marcan con <code>publico</code>.</p>
+  <Codigo codigo={`# lib.bsk
+publico funcion doble(n) { retornar n * 2 }
+
+# main.bsk
+usar "lib.bsk" como lib
+mostrar lib.doble(5)`} titulo="modulos" />
+
+  <h2>Paquetes locales</h2>
+  <ul>
+    <li>Resolución desde rutas configuradas y carpetas locales como <code>paquetes/</code> o <code>vendor/</code>.</li>
+    <li>Generación de <code>basilisco.lock</code> para dependencias locales.</li>
+    <li>Comandos relacionados: <code>basilisco instalar</code>, <code>basilisco paquetes</code>.</li>
+  </ul>
+
+  <h2>Distribución remota</h2>
+  <p>Las capacidades de registro/distribución remota se describen como prototipales. No se anuncia un servicio público de registro en este sitio; no debe asumirse disponibilidad.</p>
+  <p><span class="tag exp">Experimental</span> <span class="tag pl">Distribución pública por confirmar</span></p>
+</DocsShell>

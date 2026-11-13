@@ -1,0 +1,13 @@
+---
+const { items = [] } = Astro.props;
+---
+<nav aria-label="Ruta" style="margin-bottom:1rem; color:var(--muted); font-size:.86rem;">
+  <ol style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:.35rem; align-items:center;">
+    {items.map((it, i) => (
+      <li style="display:inline-flex; gap:.35rem; align-items:center;">
+        {i > 0 && <span aria-hidden="true">/</span>}
+        {it.href ? <a href={it.href} style="color:var(--muted); text-decoration:none;">{it.label}</a> : <span style="color:var(--text-2);">{it.label}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>

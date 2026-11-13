@@ -1,0 +1,43 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+---
+<DocsShell titulo="Referencia del lenguaje" descripcion="Referencia estructurada de BASILISCO: sintaxis, tipos, operadores, funciones, módulos y comportamiento documentado." seccion="Referencia" actual="/docs/referencia-lenguaje">
+  <p slot="lead">Vista consolidada de la referencia del lenguaje. Para detalles completos y contexto, consulta los capítulos específicos.</p>
+
+  <div class="grid-2">
+    <div class="panel"><h3>Sintaxis y estructura</h3><ul class="list-clean">
+      <li>Programas en archivos <code>.bsk</code> (legado <code>.nexo</code>).</li>
+      <li>Bloques <code>{'{ }'}</code>, ámbitos léxicos, sentencias y expresiones.</li>
+      <li>Salida: <code>mostrar</code>, <code>mostrar_sin_salto</code>.</li>
+    </ul><p><a class="text-link" href="/docs/sintaxis-basica">Ver sintaxis →</a></p></div>
+    <div class="panel"><h3>Variables y tipos</h3><ul class="list-clean">
+      <li><code>sea</code> (inferido, mutable), <code>var</code> (tipado), <code>dato</code> (inmutable), <code>const</code> (experimental).</li>
+      <li>Tipos: <code>entero</code>, <code>decimal</code>, <code>real</code>, <code>logico</code>, <code>texto</code>, <code>nulo</code>, <code>arreglo</code>, <code>lista</code>.</li>
+    </ul><p><a class="text-link" href="/docs/variables-y-tipos">Ver variables y tipos →</a></p></div>
+    <div class="panel"><h3>Operadores y control</h3><ul class="list-clean">
+      <li>Aritméticos, comparación y lógicos (<code>y/o/no</code>) con precedencia definida.</li>
+      <li><code>si/sino</code>, <code>mientras</code> (v0.4); <code>para cada</code>, rangos, <code>romper/continuar</code> (experimental).</li>
+    </ul><p><a class="text-link" href="/docs/operadores-y-control">Ver control →</a></p></div>
+    <div class="panel"><h3>Funciones</h3><ul class="list-clean">
+      <li><code>funcion</code>, parámetros, <code>retornar</code>, recursión.</li>
+      <li>Firmas tipadas opcionales; funciones como valores/cierres/lambdas experimentales.</li>
+    </ul><p><a class="text-link" href="/docs/funciones">Ver funciones →</a></p></div>
+    <div class="panel"><h3>Colecciones y módulos</h3><ul class="list-clean">
+      <li><code>arreglo&lt;T,N&gt;</code>, <code>lista&lt;T&gt;</code>, acceso por índice.</li>
+      <li><code>usar</code>, <code>publico</code>, <code>basilisco.toml</code> (evolución experimental).</li>
+    </ul><p><a class="text-link" href="/docs/colecciones-y-modulos">Ver colecciones y módulos →</a></p></div>
+    <div class="panel"><h3>Errores y diagnóstico</h3><ul class="list-clean">
+      <li>Errores con archivo/línea/columna y causa.</li>
+      <li><code>intentar/rescatar</code> como extensión experimental.</li>
+    </ul><p><a class="text-link" href="/docs/manejo-de-errores">Ver errores →</a></p></div>
+  </div>
+
+  <h2>Referencia rápida</h2>
+  <div class="grid-3">
+    <a class="link-card" href="/docs/palabras-clave"><h3>Palabras clave y tipos</h3><p>Listado de referencia.</p><div class="meta">Abrir →</div></a>
+    <a class="link-card" href="/docs/cli-y-herramientas"><h3>CLI</h3><p>Comandos y códigos de salida.</p><div class="meta">Abrir →</div></a>
+    <a class="link-card" href="/docs/biblioteca-estandar"><h3>Biblioteca estándar</h3><p>Funciones integradas conocidas.</p><div class="meta">Abrir →</div></a>
+  </div>
+
+  <div class="callout"><span class="callout-icon">◆</span><p>Esta referencia resume el estado documentado del prototipo 0.6.0 y perfil v0.4. Las capacidades no verificadas o experimentales se indican en sus capítulos correspondientes.</p></div>
+</DocsShell>

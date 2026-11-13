@@ -1,0 +1,31 @@
+---
+import DocsShell from '../../components/docs/DocsShell.astro';
+import Codigo from '../../components/docs/../../components/Codigo.astro';
+---
+<DocsShell titulo="Interoperabilidad y FFI" descripcion="Puente FFI/ABI C de BASILISCO: capacidades prototipales, ejemplo y limitaciones." seccion="Herramientas y ecosistema" actual="/docs/interoperabilidad-ffi">
+  <p slot="lead">Interoperabilidad con bibliotecas compartidas C mediante FFI, disponible como extensión experimental del prototipo.</p>
+
+  <div class="callout"><span class="callout-icon">🧪</span><p><strong>Experimental / fuera del perfil v0.4.</strong> API y capacidades sujetas a cambio. Requiere bibliotecas compatibles y comprensión del contrato ABI/memoria.</p></div>
+
+  <h2>Funciones disponibles</h2>
+  <ul>
+    <li><code>cargar_ffi(ruta)</code> — carga una biblioteca compartida.</li>
+    <li><code>llamar_ffi(lib, "simbolo", [args], "tipo_retorno")</code> — invoca una función C.</li>
+    <li><code>descargar_ffi(lib)</code> — libera la biblioteca cargada.</li>
+  </ul>
+
+  <h2>Ejemplo ilustrativo</h2>
+  <Codigo codigo={`sea lib = cargar_ffi("./libejemplo.so")
+sea total = llamar_ffi(lib, "sumar", [20, 22], "entero")
+mostrar total   # 42 (si la biblioteca es compatible)
+descargar_ffi(lib)`} titulo="ffi" />
+
+  <h2>Limitaciones conocidas</h2>
+  <ul>
+    <li>Sin callbacks desde C hacia BASILISCO.</li>
+    <li>Sin soporte de estructuras C ni argumentos variádicos.</li>
+    <li>Tipos y propiedad de memoria deben respetar el contrato esperado por la función C.</li>
+    <li>Disponibilidad y comportamiento dependen de la plataforma/biblioteca utilizada.</li>
+  </ul>
+  <p><span class="tag exp">Prototipal</span></p>
+</DocsShell>

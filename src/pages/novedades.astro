@@ -1,39 +1,53 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base titulo="Novedades" descripcion="Novedades y cambios de BASILISCO basados en información verificable, con estado claro cuando no existe fuente pública integrada.">
+<Base titulo="Novedades" descripcion="Blog y changelog de BASILISCO: versiones, mejoras y anuncios del proyecto.">
   <div class="page-head">
     <div class="hero-eyebrow">Novedades</div>
-    <h1>Cambios, versiones y comunicación del proyecto</h1>
-    <p class="docs-lead">Espacio preparado para publicar releases y cambios con trazabilidad. Actualmente no hay un feed de changelog integrado en este sitio, por lo que se muestra solo estado conocido.</p>
+    <h1>Changelog y actualizaciones</h1>
+    <p class="docs-lead">Historial de versiones, mejoras del lenguaje, herramientas y documentación. Las entradas se publican conforme hay hitos verificables.</p>
+    <div class="docs-actions">
+      <a class="btn s" href="/rss.xml">RSS</a>
+      <a class="btn ghost" href="/roadmap">Ver roadmap</a>
+    </div>
   </div>
 
-  <div class="callout"><span class="callout-icon">ℹ️</span><p><strong>Fuente de datos:</strong> no integrada. No se generan entradas ficticias ni fechas no verificables.</p></div>
-
-  <section class="section-head"><h2>Estado conocido</h2></section>
   <div class="grid-2">
-    <div class="panel">
-      <div class="mono-label">Prototipo</div>
-      <h3>Versión declarada 0.6.0 <span class="tag exp">Manifiesto</span></h3>
-      <p>La documentación del sitio identifica el prototipo actual como 0.6.0. El detalle de cambios por release debe provenir de una fuente oficial (tags/releases/changelog) cuando esté disponible.</p>
-    </div>
-    <div class="panel">
-      <div class="mono-label">Conformidad</div>
-      <h3>Perfil v0.4 aprobado <span class="tag ok">Acotado</span></h3>
-      <p>Subconjunto garantizado documentado que define el alcance estable de referencia frente a extensiones experimentales del prototipo.</p>
-    </div>
+    <article class="panel">
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center; flex-wrap:wrap;">
+        <div class="mono-label">Prototipo actual</div>
+        <span class="tag exp">v0.6.0</span>
+      </div>
+      <h2 style="margin-top:.4rem;">BASILISCO 0.6.0</h2>
+      <p style="color:var(--muted);">Versión declarada del prototipo con perfil de referencia v0.4 acotado y extensiones experimentales en lenguaje, CLI, biblioteca y tooling.</p>
+      <ul class="list-clean">
+        <li><strong>Lenguaje:</strong> base garantizada v0.4 + extensiones (iteración, manejo de errores, funciones avanzadas, etc.).</li>
+        <li><strong>Ecosistema:</strong> CLI documentada, módulos/proyectos en evolución, FFI prototipal.</li>
+        <li><strong>Web:</strong> documentación multipágina, estado, ejemplos y recursos del proyecto.</li>
+      </ul>
+      <p><span class="tag pl">Notas de release detalladas: próximamente</span></p>
+    </article>
+
+    <article class="panel">
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center; flex-wrap:wrap;">
+        <div class="mono-label">Perfil de referencia</div>
+        <span class="tag ok">v0.4</span>
+      </div>
+      <h2 style="margin-top:.4rem;">Perfil de conformidad v0.4</h2>
+      <p style="color:var(--muted);">Subconjunto aprobado y acotado que define garantías base del lenguaje para documentación y compatibilidad de referencia.</p>
+      <ul class="list-clean">
+        <li>Expresiones, variables y ámbitos.</li>
+        <li>Funciones declaradas, <code>si/sino</code>, <code>mientras</code>.</li>
+        <li>Tipos base, colecciones básicas, errores con ubicación y CLI.</li>
+      </ul>
+      <p><a class="text-link" href="/estado">Ver estado completo →</a></p>
+    </article>
   </div>
 
-  <section class="section-head"><h2>Cuando haya fuente verificable</h2><p>Estructura recomendada para entradas futuras.</p></section>
+  <section class="section-head"><h2>Próximas publicaciones</h2></section>
   <div class="grid-3">
-    <div class="panel"><h3>Versión y fecha</h3><p>Identificador semántico, fecha de publicación y enlace a la fuente oficial.</p></div>
-    <div class="panel"><h3>Tipo de cambio</h3><p>Mejoras, correcciones, cambios experimentales y notas de compatibilidad.</p></div>
-    <div class="panel"><h3>Impacto técnico</h3><p>Áreas afectadas: lenguaje, CLI, stdlib, tooling, documentación.</p></div>
-  </div>
-
-  <div class="panel" style="margin-top:1rem;">
-    <h3>Integración sugerida en Astro</h3>
-    <p>Usar Content Collections para entradas de novedades/changelog cuando exista una fuente estructurada y verificable, manteniendo generación estática y bajo costo de JS.</p>
-    <p style="margin-top:.6rem;"><a class="text-link" href="/roadmap">Ver roadmap conocido →</a></p>
+    <div class="panel"><h3>Notas de versión</h3><p>Changelog detallado por release con cambios, correcciones y migraciones.</p><p><span class="tag pl">En preparación</span></p></div>
+    <div class="panel"><h3>Anuncios técnicos</h3><p>Publicaciones sobre lenguaje, runtime, herramientas y documentación.</p><p><span class="tag pl">En preparación</span></p></div>
+    <div class="panel"><h3>Hitos del roadmap</h3><p>Actualizaciones vinculadas a objetivos verificados del proyecto.</p><p><span class="tag pl">En preparación</span></p></div>
   </div>
 </Base>

@@ -8,45 +8,50 @@ const grupos = [
       { href: '/docs/introduccion', titulo: 'Introducción', desc: 'Qué es BASILISCO y cómo leer esta documentación.', estado: 'Documentado' },
       { href: '/docs/instalacion', titulo: 'Instalación', desc: 'Disponibilidad, requisitos y cómo proceder sin instrucciones inventadas.', estado: 'Por confirmar' },
       { href: '/docs/primer-programa', titulo: 'Primer programa', desc: 'Crea y ejecuta tu primer archivo .bsk.', estado: 'Documentado' },
+      { href: '/docs/guia-de-inicio', titulo: 'Guía de inicio', desc: 'Ruta recomendada para aprender y configurar tu flujo.', estado: 'Documentado' },
     ]
   },
   {
     titulo: 'Lenguaje',
     items: [
-      { href: '/docs/sintaxis-basica', titulo: 'Sintaxis básica', desc: 'Estructura, sentencias, bloques y comentarios prácticos del lenguaje.', estado: 'Documentado' },
+      { href: '/docs/sintaxis-basica', titulo: 'Sintaxis básica', desc: 'Estructura, sentencias, bloques y elementos del lenguaje.', estado: 'Documentado' },
       { href: '/docs/variables-y-tipos', titulo: 'Variables y tipos', desc: 'Declaraciones, mutabilidad, tipos base y conversiones.', estado: 'Documentado' },
       { href: '/docs/operadores-y-control', titulo: 'Operadores y control', desc: 'Operadores, condiciones y ciclos con alcance explícito.', estado: 'Mixto' },
       { href: '/docs/funciones', titulo: 'Funciones', desc: 'Definición, parámetros, retorno, recursión y extensiones.', estado: 'Mixto' },
-      { href: '/docs/colecciones-y-modulos', titulo: 'Colecciones y módulos', desc: 'Arreglos, listas, módulos y manifiesto en evolución.', estado: 'Mixto' },
+      { href: '/docs/colecciones-y-modulos', titulo: 'Colecciones y módulos', desc: 'Arreglos, listas, importación y exportación.', estado: 'Mixto' },
       { href: '/docs/manejo-de-errores', titulo: 'Manejo de errores', desc: 'Diagnósticos, errores comunes y captura experimental.', estado: 'Mixto' },
+    ]
+  },
+  {
+    titulo: 'Herramientas y ecosistema',
+    items: [
+      { href: '/docs/cli-y-herramientas', titulo: 'CLI y herramientas', desc: 'Comandos, extensiones y recursos disponibles.', estado: 'Documentado' },
+      { href: '/docs/biblioteca-estandar', titulo: 'Biblioteca estándar', desc: 'Funciones integradas garantizadas/experimentales conocidas.', estado: 'Experimental' },
+      { href: '/docs/proyectos-y-paquetes', titulo: 'Proyectos y paquetes', desc: 'Manifiesto, módulos, dependencias locales y estado.', estado: 'Experimental' },
+      { href: '/docs/interoperabilidad-ffi', titulo: 'Interoperabilidad y FFI', desc: 'Puente C/ABI prototipal, uso y limitaciones.', estado: 'Experimental' },
     ]
   },
   {
     titulo: 'Arquitectura',
     items: [
-      { href: '/docs/ejecucion-y-motores', titulo: 'Ejecución y motores', desc: 'Pipeline conocido, runtime y componentes no confirmados públicamente.', estado: 'Parcial' },
-    ]
-  },
-  {
-    titulo: 'Ecosistema',
-    items: [
-      { href: '/docs/cli-y-herramientas', titulo: 'CLI y herramientas', desc: 'Comandos, extensiones y recursos disponibles.', estado: 'Documentado' },
-      { href: '/docs/biblioteca-estandar', titulo: 'Biblioteca estándar', desc: 'Funciones integradas garantizadas/experimentales conocidas.', estado: 'Experimental' },
+      { href: '/docs/ejecucion-y-motores', titulo: 'Ejecución y motores', desc: 'Pipeline conocido, runtime y componentes no confirmados.', estado: 'Parcial' },
     ]
   },
   {
     titulo: 'Referencia',
     items: [
+      { href: '/docs/referencia-lenguaje', titulo: 'Referencia del lenguaje', desc: 'Vista consolidada de sintaxis, tipos, funciones y módulos.', estado: 'Documentado' },
+      { href: '/docs/palabras-clave', titulo: 'Palabras clave y tipos', desc: 'Referencia rápida de palabras reservadas, tipos y operadores.', estado: 'Documentado' },
       { href: '/docs/faq', titulo: 'Preguntas frecuentes', desc: 'Dudas comunes sobre alcance, estado y uso.', estado: 'Documentado' },
     ]
   },
 ];
 const tag = (e: string) => e === 'Documentado' ? 'ok' : e === 'Experimental' ? 'exp' : 'pl';
 ---
-<Base titulo="Documentación" descripcion="Hub de documentación de BASILISCO: guías, lenguaje, arquitectura, ecosistema y referencia con alcance explícito.">
+<Base titulo="Documentación" descripcion="Hub de documentación de BASILISCO: guías, lenguaje, herramientas, arquitectura y referencia con alcance explícito.">
   <div class="page-head docs-page-head">
     <div class="hero-eyebrow">Documentación</div>
-    <h1>Una guía técnica con alcance explícito</h1>
+    <h1>Guía técnica con alcance explícito</h1>
     <p class="docs-lead">Aprende BASILISCO desde lo documentado y observable. Cada capítulo indica su nivel de verificación y distingue garantías del perfil v0.4 frente a extensiones experimentales.</p>
     <div class="docs-actions">
       <a class="btn" href="/docs/introduccion">Empezar por introducción</a>
@@ -58,7 +63,7 @@ const tag = (e: string) => e === 'Documentado' ? 'ok' : e === 'Experimental' ? '
   <div class="kpi-row" aria-label="Resumen de documentación">
     <div class="kpi"><strong>v0.4</strong><span>Perfil de referencia acotado</span></div>
     <div class="kpi"><strong>0.6.0</strong><span>Prototipo declarado</span></div>
-    <div class="kpi"><strong>13</strong><span>Capítulos organizados</span></div>
+    <div class="kpi"><strong>18</strong><span>Capítulos organizados</span></div>
     <div class="kpi"><strong>Transparente</strong><span>Estados por tema</span></div>
   </div>
 
@@ -89,7 +94,7 @@ const tag = (e: string) => e === 'Documentado' ? 'ok' : e === 'Experimental' ? '
     </div>
     <div class="panel">
       <h3>Nota de veracidad</h3>
-      <p>Esta documentación no ejecuta el compilador/intérprete desde la web, no anuncia distribución no confirmada y no atribuye soporte uniforme entre motores o componentes no documentados.</p>
+      <p>Esta documentación no ejecuta el intérprete desde la web, no anuncia distribución no confirmada y no atribuye soporte uniforme entre motores o componentes no documentados.</p>
       <p style="margin-top:.7rem;"><span class="tag ok">Documentado</span> <span class="tag exp">Experimental</span> <span class="tag pl">Por confirmar</span></p>
     </div>
   </section>

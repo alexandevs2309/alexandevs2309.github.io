@@ -1,61 +1,61 @@
 ---
 import Base from '../layouts/Base.astro';
+const ejemplo = `funcion saludar(nombre) {
+  retornar "Hola, " + nombre
+}
+
+mostrar saludar("BASILISCO")`;
 ---
-<Base titulo="Playground" descripcion="Playground de BASILISCO: entorno interactivo pendiente de integración real, sin ejecución simulada.">
+<Base titulo="Playground" descripcion="Prueba BASILISCO en el navegador: editor, ejemplos y ejecución integrada (integración de runtime en progreso).">
   <div class="page-head">
     <div class="hero-eyebrow">Playground</div>
-    <h1>Playground del lenguaje</h1>
-    <p class="docs-lead">Espacio destinado a ejecutar BASILISCO en el navegador. Para mantener integridad técnica, esta página no simula compilación, ejecución ni resultados.</p>
+    <h1>Prueba BASILISCO en el navegador</h1>
+    <p class="docs-lead">Entorno interactivo para escribir, ejecutar y compartir código BASILISCO. La ejecución real se habilitará al integrar el runtime web; mientras tanto, la interfaz no simula resultados.</p>
   </div>
 
-  <div class="kpi-row">
-    <div class="kpi"><strong>Pendiente</strong><span>Integración de runtime</span></div>
-    <div class="kpi"><strong>0</strong><span>Ejecuciones simuladas</span></div>
-    <div class="kpi"><strong>.bsk</strong><span>Formato objetivo</span></div>
-    <div class="kpi"><strong>Real</strong><span>Solo con motor verificable</span></div>
+  <div class="panel" style="padding:0; overflow:hidden;">
+    <div style="display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); background:var(--surface-2);">
+      <div style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;">
+        <span class="mono-label">main.bsk</span>
+        <select aria-label="Ejemplos" style="background:var(--surface); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:.35rem .6rem; font:500 .85rem Inter,sans-serif;">
+          <option>Hola mundo</option>
+          <option>Funciones</option>
+          <option>Colecciones</option>
+          <option>Control de flujo</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:.5rem; align-items:center;">
+        <button class="btn s" type="button" disabled title="Ejecución pendiente de integración">Ejecutar</button>
+        <button class="btn ghost" type="button">Compartir</button>
+        <button class="btn ghost" type="button">Restablecer</button>
+      </div>
+    </div>
+    <div class="grid-2" style="gap:0;">
+      <div style="border-right:1px solid var(--border); min-height:320px;">
+        <div style="padding:.6rem 1rem; border-bottom:1px solid var(--border); color:var(--muted-2); font:600 .75rem JetBrains Mono, monospace;">EDITOR</div>
+        <pre class="plain" style="margin:0; border:0; border-radius:0; box-shadow:none; min-height:280px;"><code>{ejemplo}</code></pre>
+      </div>
+      <div style="min-height:320px; background:var(--code-bg-2);">
+        <div style="padding:.6rem 1rem; border-bottom:1px solid var(--border); color:var(--muted-2); font:600 .75rem JetBrains Mono, monospace;">SALIDA / DIAGNÓSTICOS</div>
+        <div style="padding:1rem;">
+          <div class="callout" style="margin:0;">
+            <span class="callout-icon">🚧</span>
+            <p><strong>Runtime no integrado.</strong> La ejecución en el navegador se habilitará cuando el motor web esté disponible. Esta interfaz no simula compilación ni resultados.</p>
+          </div>
+          <ul class="list-clean" style="margin-top:1rem;">
+            <li><strong>Estado:</strong> integración en progreso</li>
+            <li><strong>Capacidades previstas:</strong> ejecutar, stdin, diagnósticos, compartir, múltiples archivos</li>
+            <li><strong>Alternativa:</strong> usa la CLI local cuando esté disponible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="callout"><span class="callout-icon">🚧</span><p><strong>Estado: integración pendiente.</strong> No se ha detectado en este repositorio un runtime web (p. ej. WASM) listo para ejecutar BASILISCO de forma real. Cuando exista, esta interfaz podrá habilitar ejecución auténtica.</p></div>
-
-  <section class="split" style="margin-top:2rem;">
-    <div class="panel">
-      <h3>Capacidades previstas (integración real)</h3>
-      <ul class="list-clean">
-        <li><strong>Editor:</strong> edición de código con ejemplos y selección rápida.</li>
-        <li><strong>Ejecución:</strong> correr programas y mostrar salida real del runtime.</li>
-        <li><strong>Diagnóstico:</strong> errores y mensajes auténticos, con ubicación.</li>
-        <li><strong>Controles:</strong> reinicio, ejemplos precargados y estado claro de límites.</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>Qué puedes usar ahora</h3>
-      <ul class="list-clean">
-        <li><strong>Aprender:</strong> tutorial paso a paso con programas completos.</li>
-        <li><strong>Ejemplos:</strong> galería anotada con resultados esperados.</li>
-        <li><strong>Referencia:</strong> documentación de sintaxis, tipos, CLI y alcance.</li>
-        <li><strong>Entorno local:</strong> ejecución real cuando dispongas de intérprete compatible.</li>
-      </ul>
-      <div class="hero-actions" style="margin-top:1rem;">
-        <a class="btn s" href="/aprender">Tutorial</a>
-        <a class="btn s" href="/ejemplos">Ejemplos</a>
-        <a class="btn s" href="/docs/cli-y-herramientas">CLI</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="panel" style="margin-top:1rem;">
-    <div class="mono-label">Vista previa de interfaz (no funcional)</div>
-    <div class="code-window" style="margin: .8rem 0 0;" aria-label="Maqueta no funcional del playground">
-      <div class="code-window-bar">
-        <div class="anot-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-        <span class="code-window-title">playground.bsk · ejecución deshabilitada</span>
-      </div>
-      <div class="code-window-body">
-<pre>mostrar "Hola, BASILISCO"
-
-# Estado: runtime no integrado
-# Acción: consulta ejemplos y documentación para ejecución real</pre>
-      </div>
-    </div>
+  <section class="section-head"><h2>Mientras tanto</h2></section>
+  <div class="grid-3">
+    <a class="link-card" href="/docs/primer-programa"><h3>Primer programa</h3><p>Guía rápida para ejecutar localmente.</p><div class="meta">Abrir →</div></a>
+    <a class="link-card" href="/ejemplos"><h3>Ejemplos</h3><p>Colección de programas anotados por nivel.</p><div class="meta">Explorar →</div></a>
+    <a class="link-card" href="/aprender"><h3>Tutorial</h3><p>Aprende BASILISCO paso a paso.</p><div class="meta">Empezar →</div></a>
   </div>
 </Base>
